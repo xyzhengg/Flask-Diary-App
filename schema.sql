@@ -1,3 +1,7 @@
+DROP TABLE if EXISTS users;
+DROP TABLE if EXISTS diary;
+DROP TABLE if EXISTS entries;
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(25) NOT NULL,
@@ -20,6 +24,7 @@ CREATE TABLE entries (
     user_id INT NOT NULL,
     diary_heading VARCHAR(25),
     diary_text TEXT,
+    img_url TEXT,
     fav BOOLEAN,
     post_time TIMESTAMP
     );
