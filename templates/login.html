@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Login
+{% endblock title %}
+
+{% block heading %} 
+- Login
+{% endblock heading %}
+
+
+{% block main %}
+<form action="/login" method="POST">
+    <label for="email">Enter Email</label>
+    <input name="email" type="text"></input>
+    </br>
+
+    <label for="password">Enter Password</label>
+    <input name="password" type="password"></input>
+    </br>
+
+    {% if login_error %}
+    <p class="passworderror"> {{ login_error }}</p>
+    {% endif %}
+    
+    <button type="submit">Login</button>
+</form>
+{% endblock main %}

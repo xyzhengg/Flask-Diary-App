@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Sign Up
+{% endblock title %}
+
+{% block heading %} 
+- Sign Up
+{% endblock heading %}
+
+
+{% block main %}
+<form action="/signup" method="POST">
+    <label for="firstname">Enter First Name</label>
+    <input name="name" type="text"></input>
+    </br>
+
+    <label for="lastname">Enter Last Name</label>
+    <input name="name" type="text"></input>
+    </br>
+
+    <label for="email">Enter Email</label>
+    <input name="email" type="text"></input>
+    </br>
+
+    <label for="password">Enter Password</label>
+    <input name="password" type="password"></input>
+    </br>
+
+    <label for="passwordcheck">Enter Password Again</label>
+    <input name="passwordcheck" type="password"></input>
+    </br>
+
+    {% if error %}
+    <p class="passworderror"> {{ error }}</p>
+    {% endif %}
+
+    <label for="diarycode"> If you have a diary code, enter it here </label>
+    <input name="diarycode" type="text"></input>
+    
+    <button type="submit">Sign Up</button>
+</form>
+{% endblock main %}
