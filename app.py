@@ -3,6 +3,7 @@ import psycopg2
 from werkzeug.security import generate_password_hash, check_password_hash 
 
 from models.users import add_user, get_user_by_email
+from models.diary import check_diary_code_exist, add_email_2_to_diary
 
 
 app = Flask(__name__)
@@ -68,7 +69,18 @@ def signup():
         firstname = request.form.get('firstname').lower()
         lastname = request.form.get('lastname').lower()
         email = request.form.get('email').lower()
-        diarycode = request.form.get('diarycode')
+
+        diarycode = ''.join(request.form.get('diarycode')).lower()
+        if ''.join(diarycode).len == 7:
+            if check_diary_code_exist(diarycode) == True:
+                add_email_2_to_diary(email, diarycode)
+            else:
+                diarycode_error = "Your diary code does not exist. Please try again"
+                return diarycode_error
+        if ''.join
+
+
+        
 
         add_user(firstname, lastname, email, password_hash, diarycode)
         return redirect('/login')
