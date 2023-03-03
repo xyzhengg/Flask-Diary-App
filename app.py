@@ -4,8 +4,8 @@ import random
 import string
 from werkzeug.security import generate_password_hash, check_password_hash 
 
-from models.users import add_user, get_user_by_email
-from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, check_email_1_exists
+from models.users import add_user, get_user_by_email, check_user_exists
+from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
 
 
 app = Flask(__name__)
@@ -72,7 +72,7 @@ def login():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if session['user_email']:
+    if session.get('user_email'):
         return redirect('/')
     if request.method == 'POST':
         firstname = request.form.get('firstname').lower()
@@ -80,40 +80,43 @@ def signup():
         email = request.form.get('email').lower()
         password = request.form.get('password')
         passwordcheck = request.form.get('passwordcheck')
-
-        if password != passwordcheck:
-            error = "Passwords do not match. Please try again."
-            return error
-
+        password_hash = generate_password_hash(password)
         diarycode = ''.join(request.form.get('diarycode')).upper()
 
-        if len(diarycode) == 8:
-            if check_diary_code_exist(diarycode) and check_email_2_exists(email):
-                add_email_2_to_diary(email, diarycode)
-                return render_template('signupsuccess.html', 
-                                   firstname = firstname)
-            else:
-                email_2_error = "Cannot add you to the diary. Please contact owner"
-                return email_2_error
-
-        elif len(diarycode) == 0:
-            new_diary_code = generate_diary_code()
-            while check_new_diary_code_exist(new_diary_code):
-                new_diary_code = generate_diary_code()
-            diarycode = new_diary_code
-        else:
-            diarycode_error = "Your diary code does not exist. Please try again"
-            return diarycode_error
-
-        password_hash = generate_password_hash(password)
-
-        if not check_email_1_exists(email):
-            add_user(firstname, lastname, email, password_hash, diarycode)
-            return render_template('signupsuccess.html', 
-                                   firstname = firstname,
-                                   diarycode = diarycode)
-        else:
+        if check_user_exists(email):
             account_exists_error = "You already have an account. Please sign in"
-            return account_exists_error
+            return render_template('signup.html', account_exists_error = account_exists_error)
+        
+        else: 
+            if password != passwordcheck:
+                error = "Passwords do not match. Please try again."
+                return render_template('signup.html', error = error)
+            
+            if len(diarycode) == 0:
+                new_diary_code = generate_diary_code()
+                while check_new_diary_code_exist(new_diary_code):
+                    new_diary_code = generate_diary_code()
+                diarycode = new_diary_code
+                add_user(firstname, lastname, email, password_hash, diarycode)
+                add_email_1_to_diary(diarycode, email)
+
+                return render_template('signupsuccess.html', 
+                                    firstname = firstname,
+                                    diarycode = diarycode)
+
+            if len(diarycode) == 8:
+                if check_diary_code_exist(diarycode) and check_email_2_exists(email) == False:
+                    add_user(firstname, lastname, email, password_hash, diarycode)
+                    add_email_2_to_diary(email, diarycode)
+                    return render_template('signupsuccess.html', 
+                                    firstname = firstname,
+                                    diarycode = diarycode)
+                else:
+                    email_2_error = "Cannot add you to the diary. Please contact owner"
+                    return render_template('signup.html', email_2_error = email_2_error)
+                
+            elif len(diarycode) != 8 and len(diarycode) != 0:
+                diarycode_error = "Your diary code does not exist. Please try again"
+                return render_template('signup.html', diarycode_error = diarycode_error)
 
     return render_template('signup.html')
