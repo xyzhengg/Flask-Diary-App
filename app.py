@@ -1,15 +1,21 @@
 from flask import Flask, render_template, request, redirect, session
 import psycopg2
+import random
+import string
 from werkzeug.security import generate_password_hash, check_password_hash 
 
 from models.users import add_user, get_user_by_email
-from models.diary import check_diary_code_exist, add_email_2_to_diary
+from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist
 
 
 app = Flask(__name__)
 if __name__ == "__main__":
     app.run(debug = True)
 app.config['SECRET_KEY'] = 'ultra mega secret key for diary'
+
+def generate_diary_code():
+    new_diary_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+    return new_diary_code
 
 #Don't allow 
 # @app.before_request
@@ -50,6 +56,7 @@ def login():
             session['user_id'] = user['id']
             session['user_name'] = user['firstname']
             session['user_email'] = user['email']
+            session['diary_id'] = user['diary_code']
             print(session)
             return redirect('/')
         else:
@@ -60,27 +67,34 @@ def login():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
-        password = request.form.get('password')
-        passwordcheck = request.form.get('passwordcheck')
-        password_hash = generate_password_hash(password)
-        if password != passwordcheck:
-            error = "Passwords do not match. Please try again."
-            return error
         firstname = request.form.get('firstname').lower()
         lastname = request.form.get('lastname').lower()
         email = request.form.get('email').lower()
+        password = request.form.get('password')
+        passwordcheck = request.form.get('passwordcheck')
 
-        diarycode = ''.join(request.form.get('diarycode')).lower()
-        if ''.join(diarycode).len == 7:
-            if check_diary_code_exist(diarycode) == True:
-                add_email_2_to_diary(email, diarycode)
-            else:
-                diarycode_error = "Your diary code does not exist. Please try again"
-                return diarycode_error
-        if ''.join
-
-
+        if password != passwordcheck:
+            error = "Passwords do not match. Please try again."
+            return error
         
+        diarycode = ''.join(request.form.get('diarycode')).upper()
+
+        if len(diarycode) == 8:
+            if check_diary_code_exist(diarycode):
+                ## CHECK IF THERE'S AN EMAIL 2!!!
+                add_email_2_to_diary(email, diarycode)
+
+        elif len(diarycode) == 0:
+            new_diary_code = generate_diary_code()
+            while check_new_diary_code_exist(new_diary_code):
+                new_diary_code = generate_diary_code()
+            diarycode = new_diary_code        
+        
+        else: 
+            diarycode_error = "Your diary code does not exist. Please try again"
+            return diarycode_error
+
+        password_hash = generate_password_hash(password)
 
         add_user(firstname, lastname, email, password_hash, diarycode)
         return redirect('/login')
