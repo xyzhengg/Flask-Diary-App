@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title> Diary {% block title %} {% endblock title %}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    <body>
+        <h1> Diarryy {% block heading %} {% endblock heading %} </h1>
+
+        {% block login %} {% endblock login %}
+
+        {% block login_signup %}
+        {% if user_name %}
+        <p> 
+          <span>Welcome! You are logged in as {{user_name}}.</span> 
+          <form action="/logout" method="POST">
+            <button type="submit"> Logout </button>
+          </form>
+        </p>
+        {% endif %}
+
+        {% if not user_name %}
+        
+        <a href="/login"> Login</a>
+        <a href="/signup"> Sign Up </a>
+        
+        {% endif %}
+        {% endblock login_signup %}
+
+        <main>
+            {% block main %} {% endblock main %}
+        </main>
+        
+        <script src="/static/script.js" async defer></script>
+    </body>
+</html>
