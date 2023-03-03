@@ -2,7 +2,7 @@ import db
 
 def add_user(firstname, lastname, email, password_hash, diarycode):
     db.sql_write(
-        'INSERT INTO users (firstname, lastname, email, password_hash, diarycode) VALUES (%s, %s, %s, %s, %s)',
+        'INSERT INTO users (first_name, last_name, email, password_hash, diary_code) VALUES (%s, %s, %s, %s, %s)',
         [firstname, lastname, email, password_hash, diarycode]
     )
 

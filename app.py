@@ -5,7 +5,7 @@ import string
 from werkzeug.security import generate_password_hash, check_password_hash 
 
 from models.users import add_user, get_user_by_email
-from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists
+from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, check_email_1_exists
 
 
 app = Flask(__name__)
@@ -26,11 +26,15 @@ def generate_diary_code():
 
 
 ## Main diary page
-@app.route('/')
-def index():
+@app.route('/diary/<diary_id>')
+def index(diary_id):
     if session.get('user_id') is None:
-        return redirect ('/landing') 
-    return render_template('landing.html')
+        return redirect ('/landing')
+    diary_id = session.get('diary_id')
+    user_name = session.get('user_name').capitalize()
+    
+    return render_template('main.html', diary_id = diary_id,
+                           user_name = user_name)
 
 @app.route('/landing')
 def landing():
@@ -41,6 +45,7 @@ def logout():
     session.pop('user_id')
     session.pop('user_name')
     session.pop('user_email')
+    session.pop('diary_id')
     print(session)
     return redirect('/login')
 
@@ -54,18 +59,21 @@ def login():
 
         if password_matches:
             session['user_id'] = user['id']
-            session['user_name'] = user['firstname']
+            session['user_name'] = user['first_name']
             session['user_email'] = user['email']
             session['diary_id'] = user['diary_code']
+            diary_id = session.get('diary_id')
             print(session)
-            return redirect('/')
+            return redirect(f'/diary/{diary_id}')
         else:
             login_error = "Your email or password is incorrect. Please try again"
             return login_error
-    return redirect('/login')
+    return render_template('login.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    if session['user_email']:
+        return redirect('/')
     if request.method == 'POST':
         firstname = request.form.get('firstname').lower()
         lastname = request.form.get('lastname').lower()
@@ -76,12 +84,14 @@ def signup():
         if password != passwordcheck:
             error = "Passwords do not match. Please try again."
             return error
-        
+
         diarycode = ''.join(request.form.get('diarycode')).upper()
 
         if len(diarycode) == 8:
             if check_diary_code_exist(diarycode) and check_email_2_exists(email):
                 add_email_2_to_diary(email, diarycode)
+                return render_template('signupsuccess.html', 
+                                   firstname = firstname)
             else:
                 email_2_error = "Cannot add you to the diary. Please contact owner"
                 return email_2_error
@@ -90,13 +100,20 @@ def signup():
             new_diary_code = generate_diary_code()
             while check_new_diary_code_exist(new_diary_code):
                 new_diary_code = generate_diary_code()
-            diarycode = new_diary_code        
-        else: 
+            diarycode = new_diary_code
+        else:
             diarycode_error = "Your diary code does not exist. Please try again"
             return diarycode_error
 
         password_hash = generate_password_hash(password)
 
-        add_user(firstname, lastname, email, password_hash, diarycode)
-        return redirect('/login')
+        if not check_email_1_exists(email):
+            add_user(firstname, lastname, email, password_hash, diarycode)
+            return render_template('signupsuccess.html', 
+                                   firstname = firstname,
+                                   diarycode = diarycode)
+        else:
+            account_exists_error = "You already have an account. Please sign in"
+            return account_exists_error
+
     return render_template('signup.html')

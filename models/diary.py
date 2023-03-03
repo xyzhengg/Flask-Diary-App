@@ -14,6 +14,13 @@ def check_new_diary_code_exist(new_diary_code):
     )
     return bool(result)
 
+def check_email_1_exists(email):
+    result = db.sql_select_one(
+        'SELECT * FROM diary WHERE email_1 =%s',
+        [email]
+    )
+    return bool(result)
+
 def check_email_2_exists(email):
     result = db.sql_select_one(
         'SELECT * FROM diary WHERE email_2 =%s',

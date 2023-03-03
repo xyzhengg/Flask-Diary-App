@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Sign Up
+{% endblock title %}
+
+{% block heading %} 
+- Sign Up Success
+{% endblock heading %}
+
+
+{% block main %}
+<div>
+    <p> Sign up successful!</p>
+    <p> Welcome {{ firstname.capitalize()</p>
+    <p> Youre unique code is {{ diarycode }} </p>
+</div>
+
+<a href="/login"> Login </a>
+
+{% endblock main %}

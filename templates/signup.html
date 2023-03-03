@@ -12,11 +12,11 @@ Sign Up
 {% block main %}
 <form action="/signup" method="POST">
     <label for="firstname">Enter First Name</label>
-    <input name="name" type="text"></input>
+    <input name="firstname" type="text"></input>
     </br>
 
     <label for="lastname">Enter Last Name</label>
-    <input name="name" type="text"></input>
+    <input name="lastname" type="text"></input>
     </br>
 
     <label for="email">Enter Email</label>
@@ -25,7 +25,11 @@ Sign Up
 
     {% if email_2_error %}
     <p class="error"> {{ email_2_error }}</p>
-    {% endif email_2_error %}
+    {% endif %}
+
+    {% if account_exists_error %}
+    <p class="error"> {{ account_exists_error }}</p>
+    {% endif %}
 
     <label for="password">Enter Password</label>
     <input name="password" type="password"></input>
@@ -37,14 +41,15 @@ Sign Up
 
     {% if error %}
     <p class="error"> {{ error }}</p>
-    {% endif error %}
+    {% endif %}
 
     <label for="diarycode"> If you have a diary code enter it here, otherwise we will generate one for you </label>
     <input name="diarycode" type="text"></input>
     
     {% if diarycode_error %}
     <p class="error"> {{ diarycode_error }} </p>
-    {% endif diarycode_error %}
+    {% endif %}
+
     <button type="submit">Sign Up</button>
 </form>
 {% endblock main %}

@@ -23,7 +23,7 @@ def sql_select_one(query, params):
 
 
 def sql_write(query, params):
-    db_connection = psycopg2.connect("flaskdiary")
+    db_connection = psycopg2.connect("dbname=flaskdiary")
     db_cursor = db_connection.cursor(cursor_factory=RealDictCursor)
     db_cursor.execute(
         query,
