@@ -23,6 +23,10 @@ Sign Up
     <input name="email" type="text"></input>
     </br>
 
+    {% if email_2_error %}
+    <p class="error"> {{ email_2_error }}</p>
+    {% endif email_2_error %}
+
     <label for="password">Enter Password</label>
     <input name="password" type="password"></input>
     </br>
@@ -32,12 +36,15 @@ Sign Up
     </br>
 
     {% if error %}
-    <p class="passworderror"> {{ error }}</p>
-    {% endif %}
+    <p class="error"> {{ error }}</p>
+    {% endif error %}
 
-    <label for="diarycode"> If you already have a diary code, enter it here, otherwise we will generate one for you </label>
+    <label for="diarycode"> If you have a diary code enter it here, otherwise we will generate one for you </label>
     <input name="diarycode" type="text"></input>
     
+    {% if diarycode_error %}
+    <p class="error"> {{ diarycode_error }} </p>
+    {% endif diarycode_error %}
     <button type="submit">Sign Up</button>
 </form>
 {% endblock main %}

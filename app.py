@@ -5,7 +5,7 @@ import string
 from werkzeug.security import generate_password_hash, check_password_hash 
 
 from models.users import add_user, get_user_by_email
-from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist
+from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists
 
 
 app = Flask(__name__)
@@ -80,16 +80,17 @@ def signup():
         diarycode = ''.join(request.form.get('diarycode')).upper()
 
         if len(diarycode) == 8:
-            if check_diary_code_exist(diarycode):
-                ## CHECK IF THERE'S AN EMAIL 2!!!
+            if check_diary_code_exist(diarycode) and check_email_2_exists(email):
                 add_email_2_to_diary(email, diarycode)
+            else:
+                email_2_error = "Cannot add you to the diary. Please contact owner"
+                return email_2_error
 
         elif len(diarycode) == 0:
             new_diary_code = generate_diary_code()
             while check_new_diary_code_exist(new_diary_code):
                 new_diary_code = generate_diary_code()
             diarycode = new_diary_code        
-        
         else: 
             diarycode_error = "Your diary code does not exist. Please try again"
             return diarycode_error
