@@ -11,13 +11,16 @@ Home
 
 
 {% block main %}
-{% for posts in all_posts %}
-<div class="carousel" id="{{ post_time }}">
-    <div class="carousel-item" id="{{ post_time }}">
-      <img src="{{ img_url }}" alt="photo">
-      <h3> {{ diary_heading }}</h3>
-      <p> {{ diary_text }} </p>
+{% for date in sorted_posts %}
+<div class="carousel" class="{{ date }}">
+    <h1> {{ date }} </h1>
+    {% for post in sorted_posts[date] %}
+    <div class="carousel-item" id="{{ post['post_time'] }}">
+      <img src="{{ post['img_url'] }}" alt="photo">
+      <h3> {{ post['diary_heading'] }}</h3>
+      <p> {{ post['diary_text'] }} </p>
     </div>
+    {% endfor %}
 </div>
 {% endfor %}
 {% endblock main %}

@@ -52,16 +52,14 @@ def index(diary_id):
             sorted_posts[post_time].append(post)
         else:
             sorted_posts[post_time] = [post]
-    print(sorted_posts)
-
-    # diary_code = all_posts['diary_code']
-    # user_id = all_posts
-    # diary_heading
-    # diary_text
-    # img_url
-    
-    return render_template('main.html', diary_id = diary_id,
-                           user_name = user_name)
+    for date in sorted_posts:
+        print(date)
+        for post in sorted_posts[date]:
+            print(post)
+    return render_template('main.html', 
+                           diary_id = diary_id,
+                           user_name = user_name,
+                           sorted_posts = sorted_posts)
 
 @app.route('/addentry', methods=['GET', 'POST'])
 def addentry():
