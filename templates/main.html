@@ -9,6 +9,15 @@ Home
 {% endblock heading %}
 
 
+
 {% block main %}
-<p> HEY THEREEEE </p>
+{% for posts in all_posts %}
+<div class="carousel" id="{{ post_time }}">
+    <div class="carousel-item" id="{{ post_time }}">
+      <img src="{{ img_url }}" alt="photo">
+      <h3> {{ diary_heading }}</h3>
+      <p> {{ diary_text }} </p>
+    </div>
+</div>
+{% endfor %}
 {% endblock main %}

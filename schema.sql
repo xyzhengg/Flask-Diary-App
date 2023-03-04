@@ -26,5 +26,5 @@ CREATE TABLE entries (
     diary_text TEXT,
     img_url TEXT,
     fav BOOLEAN,
-    post_time TIMESTAMP
+    post_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );

@@ -13,7 +13,7 @@ import mistletoe
 
 from models.users import add_user, get_user_by_email, check_user_exists
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
-from models.posts import add_entry
+from models.posts import add_entry, get_all_posts
 
 app = Flask(__name__)
 if __name__ == "__main__":
@@ -32,6 +32,12 @@ def generate_diary_code():
 #         return redirect ('/login')
 
 
+@app.route('/')
+def redirecttomain():
+    diary_id = session.get('diary_id')
+    if session.get('user_id') is None:
+        return redirect ('/landing')
+    return redirect(f'/diary/{diary_id}')
 ## Main diary page
 @app.route('/diary/<diary_id>')
 def index(diary_id):
@@ -39,6 +45,14 @@ def index(diary_id):
         return redirect ('/landing')
     diary_id = session.get('diary_id')
     user_name = session.get('user_name').capitalize()
+
+    all_posts = get_all_posts()
+    print(all_posts)
+    # diary_code = all_posts['diary_code']
+    # user_id = all_posts
+    # diary_heading
+    # diary_text
+    # img_url
     
     return render_template('main.html', diary_id = diary_id,
                            user_name = user_name)
@@ -47,21 +61,16 @@ def index(diary_id):
 def addentry():
     if session.get('user_id') is None:
         return redirect ('/login')
+    if request.method == 'GET':
+        return render_template('new_entry.html')
     if request.method == 'POST':
         diary_code = session.get('diary_id')
         user_id = session.get('user_id')
         diary_heading = request.form.get('heading')
         diary_text = request.form.get('entry')
-        image_url = request.form.get('photo')
-        post_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
-        add_entry(diary_code, user_id, diary_heading, diary_text, image_url, post_time)
-    return render_template('main.html',
-                           diary_code = diary_code,
-                           user_id = user_id,
-                           diary_heading = diary_heading,
-                           diary_text = diary_text,
-                           image_url = image_url,
-                           post_time = post_time)    
+        img_url = request.form.get('photo')
+        add_entry(diary_code, user_id, diary_heading, diary_text, img_url)
+    return redirect('/diary/<diary_id>')
 
 @app.route('/landing')
 def landing():
