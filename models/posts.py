@@ -7,7 +7,7 @@ def add_entry(diary_code, user_id, diary_heading, diary_text, img_url):
     )
 
 def get_all_posts():
-    all_posts = db.sql_select(
+    data = db.sql_select(
         'SELECT * FROM entries ORDER BY post_time DESC'
     ) 
-    return all_posts
+    return data

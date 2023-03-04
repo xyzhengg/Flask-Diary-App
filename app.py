@@ -9,8 +9,6 @@ import mistletoe
 # with open('foo.md', 'r') as fin:
 #     rendered = mistletoe.markdown(fin)
 
-
-
 from models.users import add_user, get_user_by_email, check_user_exists
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
 from models.posts import add_entry, get_all_posts
@@ -46,8 +44,16 @@ def index(diary_id):
     diary_id = session.get('diary_id')
     user_name = session.get('user_name').capitalize()
 
-    all_posts = get_all_posts()
-    print(all_posts)
+    data = get_all_posts()
+    sorted_posts = {}
+    for post in data:
+        post_time = str(post['post_time'])[:10]
+        if post_time in sorted_posts:
+            sorted_posts[post_time].append(post)
+        else:
+            sorted_posts[post_time] = [post]
+    print(sorted_posts)
+
     # diary_code = all_posts['diary_code']
     # user_id = all_posts
     # diary_heading
@@ -70,7 +76,7 @@ def addentry():
         diary_text = request.form.get('entry')
         img_url = request.form.get('photo')
         add_entry(diary_code, user_id, diary_heading, diary_text, img_url)
-    return redirect('/diary/<diary_id>')
+    return redirect(f'/diary/{diary_code}')
 
 @app.route('/landing')
 def landing():
