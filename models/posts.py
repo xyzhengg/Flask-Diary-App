@@ -6,8 +6,8 @@ def add_entry(diary_code, user_id, diary_heading, diary_text, img_url):
         [diary_code, user_id, diary_heading, diary_text, img_url]
     )
 
-def get_all_posts():
+def get_all_posts(diary_id):
     data = db.sql_select(
-        'SELECT * FROM entries ORDER BY post_time DESC'
+        'SELECT * FROM entries WHERE diary_code = %s ORDER BY post_time DESC', [diary_id]
     ) 
     return data

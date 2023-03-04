@@ -1,11 +1,14 @@
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
-def sql_select(query):
+def sql_select(query, params=None):
     db_connection = psycopg2.connect("dbname=flaskdiary")
     db_cursor = db_connection.cursor(cursor_factory=RealDictCursor)
-    db_cursor.execute(query)
 
+    if params is None:
+        db_cursor.execute(query)
+    else:
+        db_cursor.execute(query, params)
     results = db_cursor.fetchall()
     db_cursor.close()
     db_connection.close()

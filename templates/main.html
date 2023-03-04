@@ -8,15 +8,13 @@ Home
 - {{ user}}
 {% endblock heading %}
 
-
-
 {% block main %}
 {% for date in sorted_posts %}
 <div class="carousel" class="{{ date }}">
     <h1> {{ date }} </h1>
     {% for post in sorted_posts[date] %}
     <div class="carousel-item" id="{{ post['post_time'] }}">
-      <h3> {{ first_name }} <span class=time> {{ post['post_time'] }} </span></h3>
+      <h3> {{ post['metadata']['first_name'] }} <span class=time> {{ post['metadata']['time'] }} </span></h3>
       <img src="{{ post['img_url'] }}" alt="photo">
       <h3> {{ post['diary_heading'] }}</h3>
       <p> {{ post['diary_text'] }} </p>

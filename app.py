@@ -45,7 +45,7 @@ def index(diary_id):
     diary_id = session.get('diary_id')
     user_name = session.get('user_name').capitalize()
 
-    data = get_all_posts()
+    data = get_all_posts(diary_id)
     sorted_posts = {}
     for post_list in data:
         post_date = str(post_list['post_time'])[:10]
@@ -53,22 +53,20 @@ def index(diary_id):
             sorted_posts[post_date].append(post_list)
         else:
             sorted_posts[post_date] = [post_list]
-    
+    print(sorted_posts)
+
     for posts in sorted_posts:
         for post in sorted_posts[posts]:
             user_id = post['user_id']
             time = str(post['post_time'])[11:16]
-        print(post)
-        print(time)
-        print(user_id)
-
-    first_name = str(get_username_join_diary_users(user_id)['first_name']).capitalize()
-    print(first_name)
+            first_name = str(get_username_join_diary_users(user_id)['first_name']).capitalize()
+            post['metadata'] = {'first_name': first_name, 'time': time}
     return render_template('main.html', 
                            diary_id = diary_id,
                            user_name = user_name,
                            sorted_posts = sorted_posts,
-                           first_name = first_name)
+                           first_name = first_name,
+                           time=time)
 
 @app.route('/addentry', methods=['GET', 'POST'])
 def addentry():
