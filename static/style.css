@@ -4,15 +4,10 @@
     overflow-x: scroll;
     white-space: nowrap;
   }
-  
-  .carousel-container {
-    display: inline-flex;
-    width: 100%;
-  }
-  
+
   .carousel-item {
     display: inline-block;
-    width: 300px;
+    height: 300px;
     margin-right: 20px;
     text-align: center;
   }
@@ -21,23 +16,12 @@
     max-width: 100%;
   }
   
-  .carousel-caption {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    padding: 10px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-  }
-  
-  .carousel-caption h3 {
+  .carousel h3 {
     margin-top: 0;
     margin-bottom: 5px;
   }
   
-  .carousel-caption p {
+  .carousel p {
     margin-top: 0;
   }
   

@@ -10,10 +10,10 @@ Home
 
 {% block main %}
 {% for date in sorted_posts %}
-<div class="carousel {{ sorted_posts[date]|length }}" id="{{ date }}">
+<div class="carousel" id="{{ date }}">
     <h1> {{ date }} </h1>
     {% for post in sorted_posts[date] %}
-    <div class="carousel-item" id="{{ post['id'] }}">
+    <div class="carousel-item {{ sorted_posts[date]|length }}" id="{{ post['id'] }}">
       <h3> {{ post['metadata']['first_name'] }} <span class=time> {{ post['metadata']['time'] }} </span></h3>
       <img src="{{ post['img_url'] }}" alt="photo">
       <h3> {{ post['diary_heading'] }}</h3>
