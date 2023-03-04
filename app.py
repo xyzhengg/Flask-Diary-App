@@ -9,7 +9,7 @@ import mistletoe
 # with open('foo.md', 'r') as fin:
 #     rendered = mistletoe.markdown(fin)
 
-from models.users import add_user, get_user_by_email, check_user_exists
+from models.users import add_user, get_user_by_email, check_user_exists, get_username_join_diary_users
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
 from models.posts import add_entry, get_all_posts
 
@@ -46,20 +46,26 @@ def index(diary_id):
 
     data = get_all_posts()
     sorted_posts = {}
-    for post in data:
-        post_time = str(post['post_time'])[:10]
+    for post_list in data:
+        post_time = str(post_list['post_time'])[:10]
         if post_time in sorted_posts:
-            sorted_posts[post_time].append(post)
+            sorted_posts[post_time].append(post_list)
         else:
-            sorted_posts[post_time] = [post]
-    for date in sorted_posts:
-        print(date)
-        for post in sorted_posts[date]:
-            print(post)
+            sorted_posts[post_time] = [post_list]
+    
+    for posts in sorted_posts:
+        for post in sorted_posts[posts]:
+            user_id = post['user_id']
+            time = str(post['post_time'])[11:16]
+
+    first_name = str(get_username_join_diary_users(user_id)['first_name']).capitalize()
+    print(first_name)
     return render_template('main.html', 
                            diary_id = diary_id,
                            user_name = user_name,
-                           sorted_posts = sorted_posts)
+                           sorted_posts = sorted_posts,
+                           first_name = first_name,
+                           time=time)
 
 @app.route('/addentry', methods=['GET', 'POST'])
 def addentry():
