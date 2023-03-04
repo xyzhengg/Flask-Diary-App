@@ -3,10 +3,17 @@ import psycopg2
 import random
 import string
 from werkzeug.security import generate_password_hash, check_password_hash 
+from datetime import datetime
+import mistletoe
+
+# with open('foo.md', 'r') as fin:
+#     rendered = mistletoe.markdown(fin)
+
+
 
 from models.users import add_user, get_user_by_email, check_user_exists
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
-
+from models.posts import add_entry
 
 app = Flask(__name__)
 if __name__ == "__main__":
@@ -35,6 +42,26 @@ def index(diary_id):
     
     return render_template('main.html', diary_id = diary_id,
                            user_name = user_name)
+
+@app.route('/addentry', methods=['GET', 'POST'])
+def addentry():
+    if session.get('user_id') is None:
+        return redirect ('/login')
+    if request.method == 'POST':
+        diary_code = session.get('diary_id')
+        user_id = session.get('user_id')
+        diary_heading = request.form.get('heading')
+        diary_text = request.form.get('entry')
+        image_url = request.form.get('photo')
+        post_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
+        add_entry(diary_code, user_id, diary_heading, diary_text, image_url, post_time)
+    return render_template('main.html',
+                           diary_code = diary_code,
+                           user_id = user_id,
+                           diary_heading = diary_heading,
+                           diary_text = diary_text,
+                           image_url = image_url,
+                           post_time = post_time)    
 
 @app.route('/landing')
 def landing():
