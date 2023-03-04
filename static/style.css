@@ -3,29 +3,39 @@
 .carousel {
     overflow-x: scroll;
     white-space: nowrap;
+    margin-left: 30px;
   }
 
   .carousel-item {
     display: inline-block;
-    width: 300px;
-    margin-right: 20px;
+    width: 350px;
+    margin-right: 30px;
     text-align: center;
   }
   
   .carousel-item img {
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
     object-fit: cover;
   }
   
-  .carousel h3 {
+  .heading {
+    display: flex;
+    justify-content: space-between;
+  }
+  .heading h3 {
     margin-top: 0;
     margin-bottom: 5px;
+    text-align: left;
   }
-  
+
+  .heading .span {
+    text-align: right;
+  }
+
   .carousel p {
     margin-top: 0;
-    width: 300px;
+    width: 350px;
     height: 100px;
     word-wrap: break-word;
     white-space: normal;

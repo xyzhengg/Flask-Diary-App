@@ -14,7 +14,9 @@ Home
     <h1> {{ date }} </h1>
     {% for post in sorted_posts[date] %}
     <div class="carousel-item {{ sorted_posts[date]|length }}" id="{{ post['id'] }}">
-      <h3> {{ post['metadata']['first_name'] }} <span class=time> {{ post['metadata']['time'] }} </span></h3>
+      <div class="heading">
+      <h3> {{ post['metadata']['first_name'] }} </h3> <span class=time> {{ post['metadata']['time'] }} </span>
+      </div>
       <img src="{{ post['img_url'] }}" alt="photo">
       <h3> {{ post['diary_heading'] }}</h3>
       <p> {{ post['diary_text'] }} </p>
