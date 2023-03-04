@@ -18,6 +18,7 @@ if __name__ == "__main__":
     app.run(debug = True)
 app.config['SECRET_KEY'] = 'ultra mega secret key for diary'
 
+
 def generate_diary_code():
     new_diary_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
     return new_diary_code
@@ -47,16 +48,19 @@ def index(diary_id):
     data = get_all_posts()
     sorted_posts = {}
     for post_list in data:
-        post_time = str(post_list['post_time'])[:10]
-        if post_time in sorted_posts:
-            sorted_posts[post_time].append(post_list)
+        post_date = str(post_list['post_time'])[:10]
+        if post_date in sorted_posts:
+            sorted_posts[post_date].append(post_list)
         else:
-            sorted_posts[post_time] = [post_list]
+            sorted_posts[post_date] = [post_list]
     
     for posts in sorted_posts:
         for post in sorted_posts[posts]:
             user_id = post['user_id']
             time = str(post['post_time'])[11:16]
+        print(post)
+        print(time)
+        print(user_id)
 
     first_name = str(get_username_join_diary_users(user_id)['first_name']).capitalize()
     print(first_name)
@@ -64,8 +68,7 @@ def index(diary_id):
                            diary_id = diary_id,
                            user_name = user_name,
                            sorted_posts = sorted_posts,
-                           first_name = first_name,
-                           time=time)
+                           first_name = first_name)
 
 @app.route('/addentry', methods=['GET', 'POST'])
 def addentry():
@@ -80,6 +83,7 @@ def addentry():
         diary_text = request.form.get('entry')
         img_url = request.form.get('photo')
         add_entry(diary_code, user_id, diary_heading, diary_text, img_url)
+        print(user_id)
     return redirect(f'/diary/{diary_code}')
 
 @app.route('/landing')
@@ -97,13 +101,21 @@ def logout():
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
+    password = 'heyhey'
+    password_hash = generate_password_hash(password)
+    print(password_hash)
     if request.method == 'POST':
         email = request.form.get('email').lower()
         password = request.form.get('password')
+        check_exists = check_user_exists(email)
         user = get_user_by_email(email)
-        password_matches = check_password_hash(user['password_hash'], password)
 
-        if password_matches:
+        if user is not None:
+            password_matches = check_password_hash(user['password_hash'], password)
+        if not check_exists or not password_matches:
+            login_error = "Your email or password is incorrect. Please try again"
+            return render_template('login.html', login_error = login_error)
+        if check_exists and password_matches:
             session['user_id'] = user['id']
             session['user_name'] = user['first_name']
             session['user_email'] = user['email']
@@ -111,9 +123,6 @@ def login():
             diary_id = session.get('diary_id')
             print(session)
             return redirect(f'/diary/{diary_id}')
-        else:
-            login_error = "Your email or password is incorrect. Please try again"
-            return login_error
     return render_template('login.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
