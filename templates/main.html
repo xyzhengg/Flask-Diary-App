@@ -5,14 +5,31 @@ Home
 {% endblock title %}
 
 {% block heading %} 
-- {{ user}}
+- {{ user_name }}
 {% endblock heading %}
 
+{% block memories %}
+<h3> Memories </h3>
+<div class="memories">
+  {% for post in random_posts %}
+  <a href="/view/{{ post['id'] }}">
+  <div class="memory-item" id="{{ post['id'] }}">
+  <img src="{{ post['img_url'] }}" alt="photo" class="memoryphoto">
+  <p> {{ post['diary_heading'] }}  <p>
+  </div>
+  </a>
+  {% endfor %}
+</div>
+{% endblock memories %}
+
+
 {% block main %}
+{{ no_post_error }}
 {% for date in sorted_posts %}
 <div class="carousel" id="{{ date }}">
     <h1> {{ date }} </h1>
     {% for post in sorted_posts[date] %}
+    <a href="/view/{{ post['id'] }}">
     <div class="carousel-item {{ sorted_posts[date]|length }}" id="{{ post['id'] }}">
       <div class="heading">
       <h3> {{ post['metadata']['first_name'] }} </h3> <span class=time> {{ post['metadata']['time'] }} </span>
@@ -21,6 +38,7 @@ Home
       <h3> {{ post['diary_heading'] }}</h3>
       <p> {{ post['diary_text'] }} </p>
     </div>
+    </a>
     {% endfor %}
 </div>
 {% endfor %}

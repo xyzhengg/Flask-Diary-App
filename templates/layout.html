@@ -11,27 +11,32 @@
     <body>
         <h1> Diarryy {% block heading %} {% endblock heading %} </h1>
 
-        {% block login %} {% endblock login %}
+        
 
         {% block login_signup %}
-        {% if user_name %}
-        <p> 
-          <span>Welcome! You are logged in as {{user_name}}.</span> 
-          <form action="/logout" method="POST">
-            <button type="submit"> Logout </button>
-          </form>
-        </p>
+          {% if user_name %}
+          <p> 
+            <span>Welcome! You are logged in as {{user_name}}.</span> 
+            <form action="/logout" method="POST">
+              <button type="submit"> Logout </button>
+            </form>
+          </p>
 
-        <a href="/addentry"> Add Entry</a>
-        {% endif %}
+          <a href="/addentry"> Add Entry</a>
+          </br>
+          {% endif %}
 
-        {% if not user_name %}
-        
-        <a href="/login"> Login</a>
-        <a href="/signup"> Sign Up </a>
-        
-        {% endif %}
+          {% if not user_name %}
+          
+          <a href="/login"> Login</a>
+          <a href="/signup"> Sign Up </a>
+          
+          {% endif %}
         {% endblock login_signup %}
+
+        {% block nav %} {% endblock nav %}
+        
+        {% block memories %} {% endblock memories %}
 
         <main>
             {% block main %} {% endblock main %}

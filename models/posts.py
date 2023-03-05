@@ -11,3 +11,9 @@ def get_all_posts(diary_id):
         'SELECT * FROM entries WHERE diary_code = %s ORDER BY post_time DESC', [diary_id]
     ) 
     return data
+
+def get_single_post(post_id):
+    data = db.sql_select_one(
+        'SELECT * FROM entries WHERE id = %s', [post_id]
+    )
+    return data

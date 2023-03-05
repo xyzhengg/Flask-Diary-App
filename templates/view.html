@@ -1,0 +1,19 @@
+{% extends "main.html" %}
+
+{% block title %}
+View
+{% endblock title %}
+
+{% block heading %} 
+- {{ user_name }}
+{% endblock heading %}
+
+{% block main %}
+    <h1> {{ post_date }} </h1>
+      <div class="heading">
+      <h3> {{ first_name }} </h3> <span class=time> {{ post_time }} </span>
+      </div>
+      <img src="{{ img_url }}" alt="photo" class="viewphoto">
+      <h3> {{ diary_heading }} </h3>
+      <p> {{ diary_text }} </p>
+{% endblock main %}

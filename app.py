@@ -11,7 +11,7 @@ import mistletoe
 
 from models.users import add_user, get_user_by_email, check_user_exists, get_username_join_diary_users
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
-from models.posts import add_entry, get_all_posts
+from models.posts import add_entry, get_all_posts, get_single_post
 
 app = Flask(__name__)
 if __name__ == "__main__":
@@ -31,6 +31,35 @@ def generate_diary_code():
 #         return redirect ('/login')
 
 
+@app.route('/view/<post_id>')
+def view_post(post_id):
+    diary_id = session.get('diary_id')
+    user_id = session.get('user_id')
+    user_name = session.get('user_name').capitalize()
+    if session.get('user_id') is None:
+        return redirect ('/landing')
+    post = get_single_post(post_id)
+    poster_id = post['user_id']
+    diary_heading = post['diary_heading']
+    diary_text = post['diary_text']
+    img_url = post['img_url']
+    post_date = str(post['post_time'])[:10]
+    post_time = str(post['post_time'])[11:16]
+    first_name = str(get_username_join_diary_users(poster_id)['first_name']).capitalize()
+
+    return render_template('view.html',
+                    diary_id = diary_id,
+                    user_id = user_id,
+                    user_name = user_name,
+                    poster_id = poster_id,
+                    diary_heading = diary_heading,
+                    diary_text = diary_text,
+                    img_url = img_url,
+                    post_time = post_time,
+                    post_date = post_date,
+                    first_name = first_name
+                    )
+
 @app.route('/')
 def redirecttomain():
     diary_id = session.get('diary_id')
@@ -46,27 +75,39 @@ def index(diary_id):
     user_name = session.get('user_name').capitalize()
 
     data = get_all_posts(diary_id)
-    sorted_posts = {}
-    for post_list in data:
-        post_date = str(post_list['post_time'])[:10]
-        if post_date in sorted_posts:
-            sorted_posts[post_date].append(post_list)
-        else:
-            sorted_posts[post_date] = [post_list]
-    print(sorted_posts)
+    if len(data) < 4:
+        random_posts = data
+    else:
+        random_posts = random.sample(data, 4)
 
-    for posts in sorted_posts:
-        for post in sorted_posts[posts]:
-            user_id = post['user_id']
-            time = str(post['post_time'])[11:16]
-            first_name = str(get_username_join_diary_users(user_id)['first_name']).capitalize()
-            post['metadata'] = {'first_name': first_name, 'time': time}
-    return render_template('main.html', 
+    if len(data) > 0:
+        sorted_posts = {}
+        for post_list in data:
+            post_date = str(post_list['post_time'])[:10]
+            if post_date in sorted_posts:
+                sorted_posts[post_date].append(post_list)
+            else:
+                sorted_posts[post_date] = [post_list]
+        for posts in sorted_posts:
+            for post in sorted_posts[posts]:
+                user_id = post['user_id']
+                time = str(post['post_time'])[11:16]
+                first_name = str(get_username_join_diary_users(user_id)['first_name']).capitalize()
+                post['metadata'] = {'first_name': first_name, 'time': time}
+        return render_template('main.html', 
                            diary_id = diary_id,
                            user_name = user_name,
                            sorted_posts = sorted_posts,
                            first_name = first_name,
-                           time=time)
+                           time=time,
+                           random_posts=random_posts)
+    no_post_error = "You have no posts! Get started by creating an entry"
+    return render_template('main.html', 
+                           diary_id = diary_id,
+                           user_name = user_name,
+                           no_post_error = no_post_error)
+
+    
 
 @app.route('/addentry', methods=['GET', 'POST'])
 def addentry():

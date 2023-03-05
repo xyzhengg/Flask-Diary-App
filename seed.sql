@@ -7,7 +7,7 @@ INSERT INTO users (first_name, last_name, email, password_hash, diary_code) VALU
 ('johnny', 'chan', 'johnny@heyhey.com', 'sha256:260000$D3p1AcCj9ZLCiu17$9f5bd8b00ad1bbd0b7d2df41986752262ba2412fcecc7c3b0bceac6735644c5c', 'PHP31Q3V');
 UPDATE users SET password_hash = 'pbkdf2:sha256:260000$C07yy5K4gkqGBA3H$a6cdbd474b01538da9d5d6e84ab627ae2158ee27149759b056557bf1313e948f' WHERE id=2;
 
-
+UPDATE entries SET diary_heading = 'Bath time!', img_url = 'https://images.unsplash.com/photo-1605197161470-d0261cac6767?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTE5fHxkb2d8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60' WHERE id=4;
 
 INSERT INTO diary (diary_code, email_1, email_2) VALUES
 ('PHP31Q3V', 'xin@heyhey.com', 'johnny@heyhey.com');
