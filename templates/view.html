@@ -1,4 +1,4 @@
-{% extends "main.html" %}
+{% extends "layout.html" %}
 
 {% block title %}
 View
@@ -8,12 +8,20 @@ View
 - {{ user_name }}
 {% endblock heading %}
 
+{% block nav %}
+{% if user_id == poster_id %}
+<a href="/edit/{{ post_id }}"> Edit </a>
+{% endif %}
+{% endblock nav %}
+
 {% block main %}
-    <h1> {{ reversed_date }} </h1>
-      <div class="heading">
-      <h3> {{ first_name }} </h3> <span class=time> {{ post_time }} </span>
-      </div>
-      <img src="{{ img_url }}" alt="photo" class="viewphoto">
-      <h3> {{ diary_heading }} </h3>
-      <p> {{ diary_text }} </p>
+<div>
+<h1> {{ reversed_date }} </h1>
+    <div class="heading">
+    <h3> {{ first_name }} </h3> <span class=time> {{ post_time }} </span>
+    </div>
+    <img src="{{ img_url }}" alt="photo" class="viewphoto">
+    <h3> {{ diary_heading }} </h3>
+    <p> {{ diary_text }} </p>
+</div>
 {% endblock main %}

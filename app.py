@@ -30,12 +30,11 @@ def generate_diary_code():
 #     if path != '/login' and path != '/static/style.css' and session.get('user_id') is None:
 #         return redirect ('/login')
 
-
-@app.route('/view/<post_id>')
-def view_post(post_id):
-    diary_id = session.get('diary_id')
-    user_id = session.get('user_id')
-    user_name = session.get('user_name').capitalize()
+@app.route('/edit/<post_id>')
+def edit_delete(post_id):
+    # diary_id = session.get('diary_id')
+    # user_id = session.get('user_id')
+    # user_name = session.get('user_name').capitalize()
     if session.get('user_id') is None:
         return redirect ('/landing')
     post = get_single_post(post_id)
@@ -44,11 +43,38 @@ def view_post(post_id):
     diary_text = post['diary_text']
     img_url = post['img_url']
     post_date = str(post['post_time'])[:10]
+    reversed_date = post_date[-2:] + '-' + post_date[5:7] + '-' + post_date[:4]
+    post_time = str(post['post_time'])[11:16]
+    first_name = str(get_username_join_diary_users(poster_id)['first_name']).capitalize()
+
+    return render_template('edit.html',
+                    poster_id = poster_id,
+                    diary_heading = diary_heading,
+                    diary_text = diary_text,
+                    img_url = img_url,
+                    post_time = post_time,
+                    reversed_date = reversed_date,
+                    first_name = first_name,
+                    post_id = post_id)
+
+@app.route('/view/<post_id>')
+def view_post(post_id):
+    user_id = session.get('user_id')
+    user_name = session.get('user_name').capitalize()
+    if session.get('user_id') is None:
+        return redirect ('/landing')
+    
+    post = get_single_post(post_id)
+    poster_id = post['user_id']
+    diary_heading = post['diary_heading']
+    diary_text = post['diary_text']
+    img_url = post['img_url']
+    post_date = str(post['post_time'])[:10]
+    reversed_date = post_date[-2:] + '-' + post_date[5:7] + '-' + post_date[:4]
     post_time = str(post['post_time'])[11:16]
     first_name = str(get_username_join_diary_users(poster_id)['first_name']).capitalize()
 
     return render_template('view.html',
-                    diary_id = diary_id,
                     user_id = user_id,
                     user_name = user_name,
                     poster_id = poster_id,
@@ -56,8 +82,9 @@ def view_post(post_id):
                     diary_text = diary_text,
                     img_url = img_url,
                     post_time = post_time,
-                    post_date = post_date,
-                    first_name = first_name
+                    reversed_date = reversed_date,
+                    first_name = first_name,
+                    post_id = post_id
                     )
 
 @app.route('/')
@@ -66,6 +93,7 @@ def redirecttomain():
     if session.get('user_id') is None:
         return redirect ('/landing')
     return redirect(f'/diary/{diary_id}')
+
 ## Main diary page
 @app.route('/diary/<diary_id>')
 def index(diary_id):

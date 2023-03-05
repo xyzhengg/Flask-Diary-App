@@ -1,0 +1,23 @@
+{% extends "view.html" %}
+
+{% block main %}
+
+<form action="/addentry" method="POST">
+
+    <label for="photo">Upload photo</label>
+    <input name="photo" type="text"></input>
+    </br>
+
+    <label for="heading">Enter Heading</label>
+    <input name="heading" type="text"></input>
+    </br>
+
+    <label for="entry">Enter text</label>
+    <input name="entry" type="text"></input>
+    </br>
+
+    <input type="image" name="submit" src="/static/images/checkmark.png" width="30px">
+</form>
+
+{{ super() }}
+{% endblock main %}
