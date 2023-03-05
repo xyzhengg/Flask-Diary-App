@@ -84,23 +84,35 @@ def index(diary_id):
         sorted_posts = {}
         for post_list in data:
             post_date = str(post_list['post_time'])[:10]
-            if post_date in sorted_posts:
-                sorted_posts[post_date].append(post_list)
+            reversed_date = post_date[-2:] + '-' + post_date[5:7] + '-' + post_date[:4]
+            if reversed_date in sorted_posts:
+                sorted_posts[reversed_date].append(post_list)
             else:
-                sorted_posts[post_date] = [post_list]
-        for posts in sorted_posts:
-            for post in sorted_posts[posts]:
+                sorted_posts[reversed_date] = [post_list]
+        for date in sorted_posts:
+            print(date)
+            # Reverse the date to D M Y layout
+            # date_object = datetime.strptime(date, '%Y-%m-%d')
+            # reverse_date = date_object.strftime('%d-%m-%Y')
+            # date = reverse_date
+            # Reverse the date back to Y M D layout
+            # new_date_object = datetime.strptime(date, '%d-%m-%Y')
+            # new_date = new_date_object.strftime('%Y-%m-%d')
+            # print(new_date)
+            # date['reverse'] = {'reverse_date': reverse_date}
+            for post in sorted_posts[date]:
                 user_id = post['user_id']
                 time = str(post['post_time'])[11:16]
                 first_name = str(get_username_join_diary_users(user_id)['first_name']).capitalize()
-                post['metadata'] = {'first_name': first_name, 'time': time}
+                post['metadata'] = {'first_name': first_name, 'time': time,}
         return render_template('main.html', 
                            diary_id = diary_id,
                            user_name = user_name,
                            sorted_posts = sorted_posts,
                            first_name = first_name,
                            time=time,
-                           random_posts=random_posts)
+                           random_posts=random_posts,
+                           post_date=post_date)
     no_post_error = "You have no posts! Get started by creating an entry"
     return render_template('main.html', 
                            diary_id = diary_id,

@@ -17,6 +17,12 @@
     margin: 10px;
   }
 
+.memories-diary-heading {
+    word-wrap: break-word;
+    white-space: normal;
+    width: 180px;
+    text-align: center;
+}
 /* Carousel styling */
 .carousel {
     overflow-x: scroll;
