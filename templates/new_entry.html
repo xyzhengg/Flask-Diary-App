@@ -10,7 +10,9 @@ Add Entry
 
 
 {% block main %}
-<form action="/addentry" method="POST">
+<form action="/addentry" method="POST" enctype="multipart/form-data">
+
+    <input type="file" name="images" multiple/>
 
     <label for="photo">Upload photo</label>
     <input name="photo" type="text"></input>

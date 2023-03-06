@@ -5,6 +5,7 @@ import string
 from werkzeug.security import generate_password_hash, check_password_hash 
 from datetime import datetime
 import calendar
+from cloudinary import CloudinaryImage
 import cloudinary.uploader
 import mistletoe
 
@@ -13,7 +14,7 @@ import mistletoe
 
 from models.users import add_user, get_user_by_email, check_user_exists, get_username_join_diary_users
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
-from models.posts import add_entry, get_all_posts, get_single_post
+from models.posts import add_entry, get_all_posts, get_single_post, edit_entry
 
 app = Flask(__name__)
 if __name__ == "__main__":
@@ -32,7 +33,7 @@ def generate_diary_code():
 #     if path != '/login' and path != '/static/style.css' and session.get('user_id') is None:
 #         return redirect ('/login')
 
-@app.route('/edit/<post_id>')
+@app.route('/edit/<post_id>', methods=['GET', 'POST'])
 def edit_delete(post_id):
     # diary_id = session.get('diary_id')
     # user_id = session.get('user_id')
@@ -55,7 +56,7 @@ def edit_delete(post_id):
         if img_url == None:
             img_url = '/static/images/imageplaceholder.webp'
         post_date = str(post['post_time'])[:10]
-        reversed_date = post_date[-2:] + '-' + post_date[5:7] + '-' + post_date[:4]
+        # reversed_date = post_date[-2:] + '-' + post_date[5:7] + '-' + post_date[:4]
         post_time = str(post['post_time'])[11:16]
         first_name = str(get_username_join_diary_users(poster_id)['first_name']).capitalize()
 
@@ -69,9 +70,6 @@ def edit_delete(post_id):
         print(day_name)
         selected_month = calendar.month_name[month]
         print(selected_month)
-        current_year = datetime.now().year
-        # month_name = calendar.month_name[int(selected_month)]
-        # print(month_name)
 
         return render_template('edit.html',
             poster_id = poster_id,
@@ -79,14 +77,9 @@ def edit_delete(post_id):
             diary_text = diary_text,
             img_url = img_url,
             post_time = post_time,
-            reversed_date = reversed_date,
             first_name = first_name,
             post_id = post_id,
-            month=month,
-            selected_month=selected_month,
             date = date,
-            current_year=current_year,
-            year=year,
             day_name = day_name,
             fav=fav,
             post_date = post_date)
@@ -94,28 +87,33 @@ def edit_delete(post_id):
 
     if request.method == 'POST':
     # Displaying the month name in html dropdown
-        new_date = request.form.get('select-date')
-        new_month = request.form.get('select-month')
-        new_year = request.form.get('select-year')
+        post_id = request.args.get("post_id")
+        new_date = request.form.get('date')
+        # new_date_str = f'{new_date}'
+
+        # day = calendar.weekday(year, month, date)
+        # day_name = calendar.day_name[day]
         new_time = request.form.get('time')
+        new_timedate_str = f"{new_date} {new_time}"
+        new_timedate = datetime.strptime(new_timedate_str, '%Y-%m-%d %H:%M')
 
         new_img = request.form.get('photo')
         new_heading = request.form.get('heading')
         new_text = request.form.get('entry')
-    
-        
 
-    return render_template('view.html',
-                    poster_id = poster_id,
-                    diary_heading = diary_heading,
-                    diary_text = diary_text,
-                    img_url = img_url,
-                    post_time = post_time,
-                    reversed_date = reversed_date,
-                    first_name = first_name,
-                    post_id = post_id,
-                    month=month,
-                    fav=fav)
+        edit_entry(new_heading, new_text, new_img, fav, new_timedate, post_id)
+
+        return redirect(f'/view/{post_id}')
+                           
+                    # poster_id = poster_id,
+                    # new_heading = new_heading,
+                    # new_text = new_text,
+                    # new_img = new_img,
+                    # new_timedate = new_timedate,
+                    # first_name = first_name,
+                    # post_id = post_id,
+                    # fav=fav,
+                    # day_name = day_name
 
 @app.route('/view/<post_id>')
 def view_post(post_id):
