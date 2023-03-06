@@ -34,10 +34,7 @@ def generate_diary_code():
 #         return redirect ('/login')
 
 @app.route('/edit/<post_id>', methods=['GET', 'POST'])
-def edit_delete(post_id):
-    # diary_id = session.get('diary_id')
-    # user_id = session.get('user_id')
-    # user_name = session.get('user_name').capitalize()
+def edit_post(post_id):
     if session.get('user_id') is None:
         return redirect ('/landing')
     post = get_single_post(post_id)
@@ -50,26 +47,12 @@ def edit_delete(post_id):
     diary_text = post['diary_text']
     img_url = post['img_url']
 
-
     if request.method == 'GET':
     # Image placeholder
         if img_url == None:
             img_url = '/static/images/imageplaceholder.webp'
         post_date = str(post['post_time'])[:10]
-        # reversed_date = post_date[-2:] + '-' + post_date[5:7] + '-' + post_date[:4]
         post_time = str(post['post_time'])[11:16]
-        first_name = str(get_username_join_diary_users(poster_id)['first_name']).capitalize()
-
-        # Date stuff
-        date = int(post_date[-2:])
-        month = int(post_date[5:7])
-        year = int(post_date[:4])
-
-        day = calendar.weekday(year, month, date)
-        day_name = calendar.day_name[day]
-        print(day_name)
-        selected_month = calendar.month_name[month]
-        print(selected_month)
 
         return render_template('edit.html',
             poster_id = poster_id,
@@ -77,22 +60,13 @@ def edit_delete(post_id):
             diary_text = diary_text,
             img_url = img_url,
             post_time = post_time,
-            first_name = first_name,
             post_id = post_id,
-            date = date,
-            day_name = day_name,
-            fav=fav,
             post_date = post_date)
 
 
     if request.method == 'POST':
     # Displaying the month name in html dropdown
-        post_id = request.args.get("post_id")
         new_date = request.form.get('date')
-        # new_date_str = f'{new_date}'
-
-        # day = calendar.weekday(year, month, date)
-        # day_name = calendar.day_name[day]
         new_time = request.form.get('time')
         new_timedate_str = f"{new_date} {new_time}"
         new_timedate = datetime.strptime(new_timedate_str, '%Y-%m-%d %H:%M')
@@ -101,20 +75,10 @@ def edit_delete(post_id):
         new_heading = request.form.get('heading')
         new_text = request.form.get('entry')
 
-        edit_entry(new_heading, new_text, new_img, fav, new_timedate, post_id)
-
+        post_id = edit_entry(new_heading, new_text, new_img, fav, new_timedate, post_id)
+        print(post_id)
         return redirect(f'/view/{post_id}')
                            
-                    # poster_id = poster_id,
-                    # new_heading = new_heading,
-                    # new_text = new_text,
-                    # new_img = new_img,
-                    # new_timedate = new_timedate,
-                    # first_name = first_name,
-                    # post_id = post_id,
-                    # fav=fav,
-                    # day_name = day_name
-
 @app.route('/view/<post_id>')
 def view_post(post_id):
     user_id = session.get('user_id')

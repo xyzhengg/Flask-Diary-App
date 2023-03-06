@@ -23,3 +23,4 @@ def edit_entry(new_heading, new_text, new_img, fav, new_timedate, post_id):
         'UPDATE entries SET diary_heading=%s, diary_text=%s, img_url=%s, fav=%s, post_time=%s WHERE id=%s',
         [new_heading, new_text, new_img, fav, new_timedate, post_id]
     )
+    return post_id
