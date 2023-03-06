@@ -11,8 +11,19 @@ View
 {% block nav %}
 {% if user_id == poster_id %}
 <a href="/edit/{{ post_id }}"><img src="/static/images/editpencil.png" alt="edit" name="edit" width="30px"></a>
-<a href="/delete/{{post_id}}"><img src="/static/images/delete.png" alt="delete" name="delete" id="view-delete-button" width="30px"></a>
+<button type="submit" class="view-delete-button">
+    <img src="/static/images/delete.png" alt="delete" width="30px">
+</button>
 {% endif %}
+
+<div class="the-delete"></div>
+    <div class="delete">
+        <span class="close-delete">&times;</span>
+        <p> Are you sure you want to delete this? It cannot be undone. </p>    
+        <form action="/delete" method="POST">
+            <button type="submit" id="delete-btn"> Delete </button>
+        </form>
+    </div>
 
 <input class="fav-checkbox" type="checkbox" name="fav">
 

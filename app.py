@@ -33,21 +33,13 @@ def generate_diary_code():
 #     if path != '/login' and path != '/static/style.css' and session.get('user_id') is None:
 #         return redirect ('/login')
 
-@app.route('/delete/<post_id>', methods=['GET', 'POST'])
-def delete(post_id):
+@app.post('/delete')
+def delete():
+    delete_entry(post_id)
     if session.get('user_id') is None:
         return redirect ('/landing')
-    post = get_single_post(post_id)
-    poster_id = post['user_id']
-    if session.get('user_id') != poster_id:
-        return redirect ('/')
-    
-    if request.method == 'GET':
-        return render_template('delete.html')
-    
-    if request.method == 'POST':
-        delete_entry(post_id)
-        return redirect ('/')
+    # post = get_single_post(post_id)
+    return redirect ('/')
 
 @app.route('/edit/<post_id>', methods=['GET', 'POST'])
 def edit_post(post_id):
@@ -162,9 +154,7 @@ def index(diary_id):
             day = calendar.weekday(year, month_num, date)
             day_name = calendar.day_name[day]
             month_name = calendar.month_name[month_num]
-            # reversed_date = post_date[-2:] + '-' + post_date[5:7] + '-' + post_date[:4]
             full_date = str(date) + ' ' + month_name + ' ' + str(year) +  ', ' + day_name 
-            # print(full_date)
             if full_date in sorted_posts:
                 sorted_posts[full_date].append(post_list)
             else:
