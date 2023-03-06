@@ -11,7 +11,7 @@
 
     <label for="date"> Date</label>
     <div class="date-input">
-
+        <p class="day_name"> {{ day_name }} <-- Work out how to get this to update too </p>
         <div class="date">
             <select class="select-date" name="select-date">
                 {% for date_num in range(1, 32) %}     
@@ -45,14 +45,14 @@
             </select> 
         </div>
 
-        <div class="day-name">
 
-        </div>
     </div>
 
     <label for="time"> Time </label> </br>
+    <input type="time" name="time" value="{{ post_time }}">
+    </br>
 
-    <label for="heading">Edit Heading</label> </br>
+    <label for="heading">Edit heading</label> </br>
     <input class="heading-text" name="heading" type="text" value="{{ diary_heading }}" maxlength="25"></input>
     </br>
 

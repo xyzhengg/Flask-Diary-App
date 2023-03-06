@@ -84,16 +84,24 @@ def edit_delete(post_id):
             selected_month=selected_month,
             date = date,
             current_year=current_year,
-            year=year)
+            year=year,
+            day_name = day_name)
 
 
     if request.method == 'POST':
     # Displaying the month name in html dropdown
-        selected_month = request.form.get('select-month')
+        new_date = request.form.get('select-date')
+        new_month = request.form.get('select-month')
+        new_year = request.form.get('select-year')
+
+        new_time = request.form.get('time')
+        new_img = request.form.get('photo')
+        new_heading = request.form.get('heading')
+        new_text = request.form.get('entry')
     
         
 
-    return render_template('edit.html',
+    return render_template('view.html',
                     poster_id = poster_id,
                     diary_heading = diary_heading,
                     diary_text = diary_text,

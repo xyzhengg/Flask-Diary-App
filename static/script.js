@@ -1,3 +1,5 @@
+
+// ON CHANGE FUNCTION TO GET CORRECT NUMBER OF DAYS TO SHOW BASED ON MONTH AND YEAR
 let monthSelection = document.querySelector('.select-month')
 let yearSelection = document.querySelector('.select-year')
 let dateSelection = document.querySelector('.select-date')
