@@ -24,3 +24,9 @@ def edit_entry(new_heading, new_text, new_img, fav, new_timedate, post_id):
         [new_heading, new_text, new_img, fav, new_timedate, post_id]
     )
     return post_id
+
+def delete_entry(post_id):
+    db.sql_write (
+        'DELETE FROM entries WHERE post_id=%s,'
+        [post_id]
+    )

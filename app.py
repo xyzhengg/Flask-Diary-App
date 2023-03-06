@@ -14,7 +14,7 @@ import mistletoe
 
 from models.users import add_user, get_user_by_email, check_user_exists, get_username_join_diary_users
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
-from models.posts import add_entry, get_all_posts, get_single_post, edit_entry
+from models.posts import add_entry, get_all_posts, get_single_post, edit_entry, delete_entry
 
 app = Flask(__name__)
 if __name__ == "__main__":
@@ -32,6 +32,22 @@ def generate_diary_code():
 #     path = request.path
 #     if path != '/login' and path != '/static/style.css' and session.get('user_id') is None:
 #         return redirect ('/login')
+
+@app.route('/delete/<post_id>', methods=['GET', 'POST'])
+def delete(post_id):
+    if session.get('user_id') is None:
+        return redirect ('/landing')
+    post = get_single_post(post_id)
+    poster_id = post['user_id']
+    if session.get('user_id') != poster_id:
+        return redirect ('/')
+    
+    if request.method == 'GET':
+        return render_template('delete.html')
+    
+    if request.method == 'POST':
+        delete_entry(post_id)
+        return redirect ('/')
 
 @app.route('/edit/<post_id>', methods=['GET', 'POST'])
 def edit_post(post_id):
