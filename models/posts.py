@@ -18,4 +18,8 @@ def get_single_post(post_id):
     )
     return data
 
-# def edit_entry(diary_heading, diary_text, img_url, )
+def edit_entry(new_heading, new_text, new_img, fav, new_time, post_id):
+    db.sql_write (
+        'UPDATE entries SET diary_heading=%s, diary_text=%s, img_url=%s, fav=%s, post_time=%s WHERE id=%s',
+        [new_heading, new_text, new_img, fav, new_time, post_id]
+    )

@@ -12,6 +12,9 @@ View
 {% if user_id == poster_id %}
 <a href="/edit/{{ post_id }}"><img src="/static/images/editpencil.png" alt="edit" name="edit" width="30px"></a>
 {% endif %}
+
+<input class="fav-checkbox" type="checkbox" name="fav">
+
 {% endblock nav %}
 
 {% block main %}

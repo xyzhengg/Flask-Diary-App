@@ -87,3 +87,26 @@
     height: 200px;
     overflow-y:scroll;
 }
+
+/* Fav Star Icon Styling */
+/* http://jsfiddle.net/binaryben/aLx3m4k5/ */
+.fav-checkbox {
+    visibility:hidden;
+    font-size:30px;
+    cursor:pointer;
+}
+
+.fav-checkbox:before {
+    content: "\2605";
+    position: absolute;
+    visibility:visible;
+    color:rgb(215, 213, 213);
+ }
+
+ .fav-checkbox:checked:before {
+    content: "\2606";
+    position: absolute;
+    color: rgb(255, 230, 0);
+    fill: rgb(255, 230, 0);
+ }
+

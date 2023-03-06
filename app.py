@@ -5,6 +5,7 @@ import string
 from werkzeug.security import generate_password_hash, check_password_hash 
 from datetime import datetime
 import calendar
+import cloudinary.uploader
 import mistletoe
 
 # with open('foo.md', 'r') as fin:
@@ -40,6 +41,7 @@ def edit_delete(post_id):
         return redirect ('/landing')
     post = get_single_post(post_id)
     poster_id = post['user_id']
+    fav = post['fav']
     if session.get('user_id') != poster_id:
         return redirect ('/')
 
@@ -85,7 +87,9 @@ def edit_delete(post_id):
             date = date,
             current_year=current_year,
             year=year,
-            day_name = day_name)
+            day_name = day_name,
+            fav=fav,
+            post_date = post_date)
 
 
     if request.method == 'POST':
@@ -93,8 +97,8 @@ def edit_delete(post_id):
         new_date = request.form.get('select-date')
         new_month = request.form.get('select-month')
         new_year = request.form.get('select-year')
-
         new_time = request.form.get('time')
+
         new_img = request.form.get('photo')
         new_heading = request.form.get('heading')
         new_text = request.form.get('entry')
@@ -110,8 +114,8 @@ def edit_delete(post_id):
                     reversed_date = reversed_date,
                     first_name = first_name,
                     post_id = post_id,
-                    month_name = month_name,
-                    month=month)
+                    month=month,
+                    fav=fav)
 
 @app.route('/view/<post_id>')
 def view_post(post_id):

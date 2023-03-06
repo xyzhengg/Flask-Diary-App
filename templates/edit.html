@@ -5,11 +5,14 @@
 <form action="/edit/{{ post_id }}" method="POST">
 
     <img class="edit-photo-display" src="{{ img_url }}" alt="photo"> </br>
+
+    <input class="fav-checkbox" type="checkbox" name="fav">
+
     <label for="photo">Change photo</label> </br>
-    <input class="photo-text" name="photo" type="text" value="{{ img_url }}"></input>
+    <input class="photo-text" name="photo" type="text" value="{{ img_url }}">
     </br>
 
-    <label for="date"> Date</label>
+    <!-- <label for="date"> Date</label>
     <div class="date-input">
         <p class="day_name"> {{ day_name }} <-- Work out how to get this to update too </p>
         <div class="date">
@@ -35,18 +38,19 @@
                 <option value="11" {% if month == 11 %} selected {% endif %}> November </option>
                 <option value="12" {% if month == 12 %} selected {% endif %}> December </option>
             </select> 
-        </div>
-
+        </div> -->
+<!-- 
         <div class="year">
             <select class="select-year" name="select-year">
                 {% for year_num in range(1949, current_year+5) %}     
                     <option value={{ year_num }} {% if year == year_num %} selected {% endif %}> {{ year_num }} </option>
                 {% endfor %}
             </select> 
-        </div>
-
-
-    </div>
+        </div> -->
+    <!-- </div> -->
+    <label for="date"> Date </label> </br>
+    <input type="date" name="date" value="{{ post_date }}">
+    </br>
 
     <label for="time"> Time </label> </br>
     <input type="time" name="time" value="{{ post_time }}">

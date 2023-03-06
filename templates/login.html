@@ -18,11 +18,12 @@ Login
     <label for="password">Enter Password</label>
     <input name="password" type="password"></input>
     </br>
+    
+    <button type="submit">Login</button>
 
     {% if login_error %}
     <p class="passworderror"> {{ login_error }}</p>
     {% endif %}
     
-    <button type="submit">Login</button>
 </form>
 {% endblock main %}
