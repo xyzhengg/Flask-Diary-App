@@ -14,19 +14,34 @@ function updateDateOptions() {
     console.log(selectedDate)
     const leapYear = selectedYear % 4 === 0 && (selectedYear % 100 !== 0 || selectedYear % 400 === 0)
     console.log(leapYear)
-    if (selectedMonth == 2 && leapYear) {
-        if (dateList.value > 29) {
-            dateList.style.display="none";
-        }
-    } else if (selectedMonth == 2 && !leapYear) {
-        if (dateList.value > 28) {
-            dateList.style.display="none";
-        }
+
+    if (selectedMonth === 2 && leapYear) {
+        dateList.forEach((dateOption, index) => {
+            if (index >= 29) {
+                dateOption.style.display = "none"
+            } else {
+                dateOption.style.display = "block"
+            }
+        })
+    } else if (selectedMonth === 2 && !leapYear) {
+        dateList.forEach((dateOption, index) => {
+            if (index >= 28) {
+                dateOption.style.display = "none"
+            } else {
+                dateOption.style.display = "block"
+            }
+        })
     } else if (selectedMonth == 4 || selectedMonth == 6 || selectedMonth == 9 || selectedMonth == 11){
-        if (dateList.value > 30) {
-            dateList.style.display="none";
-        }
+        dateList.forEach((dateOption, index) => {
+            if (index >= 30) {
+                dateOption.style.display = "none"
+            } else {
+                dateOption.style.display = "block"
+            }
+        })
     } else {
-        dateList.style.display="block";
+        dateList.forEach((dateOption) => {
+            dateOption.style.display = "block"
+        })
     }
 }
