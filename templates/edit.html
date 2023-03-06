@@ -13,15 +13,8 @@
     <div class="date-input">
 
         <div class="date">
-            {% if month == 2 %} 
-                {% set y = 29 %}
-            {% elif month == 4 or month == 6 or month == 9 or month == 11 %}
-                {% set y = 31 %}
-            {% else %}
-                {% set y = 32 %}
-            {% endif %}
             <select class="select-date" name="select-date">
-                {% for date_num in range(1, y) %}     
+                {% for date_num in range(1, 32) %}     
                     <option value={{ date_num }} {% if date == date_num %} selected {% endif %}> {{ date_num }} </option>
                 {% endfor %}
             </select> 
@@ -46,7 +39,7 @@
 
         <div class="year">
             <select class="select-year" name="select-year">
-                {% for year_num in range(1949, current_year+5  ) %}     
+                {% for year_num in range(1949, current_year+5) %}     
                     <option value={{ year_num }} {% if year == year_num %} selected {% endif %}> {{ year_num }} </option>
                 {% endfor %}
             </select> 
@@ -57,7 +50,7 @@
         </div>
     </div>
 
-    <label for="time"> Time </label>
+    <label for="time"> Time </label> </br>
 
     <label for="heading">Edit Heading</label> </br>
     <input class="heading-text" name="heading" type="text" value="{{ diary_heading }}" maxlength="25"></input>
