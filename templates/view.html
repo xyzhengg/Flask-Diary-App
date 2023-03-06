@@ -10,13 +10,13 @@ View
 
 {% block nav %}
 {% if user_id == poster_id %}
-<a href="/edit/{{ post_id }}"> Edit </a>
+<a href="/edit/{{ post_id }}"><img src="/static/images/editpencil.png" alt="edit" name="edit" width="30px"></a>
 {% endif %}
 {% endblock nav %}
 
 {% block main %}
 <div>
-<h1> {{ reversed_date }} </h1>
+<h1> {{ reversed_date }} {{ day_name }}</h1>
     <div class="heading">
     <h3> {{ first_name }} </h3> <span class=time> {{ post_time }} </span>
     </div>

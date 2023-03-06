@@ -28,6 +28,7 @@ Home
 {% for date in sorted_posts %}
 <div class="carousel" id="{{ date }}">
     <h1>  {{ date }}  </h1>
+    <h2></h2>
     {% for post in sorted_posts[date] %}
     <a href="/view/{{ post['id'] }}">
     <div class="carousel-item {{ sorted_posts[date]|length }}" id="{{ post['id'] }}">

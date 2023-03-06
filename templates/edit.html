@@ -1,22 +1,73 @@
-{% extends "view.html" %}
+{% extends "layout.html" %}
 
 {% block main %}
 
-<form action="/addentry" method="POST">
+<form action="/edit/{{ post_id }}" method="POST">
 
-    <label for="photo">Upload photo</label>
-    <input name="photo" type="text"></input>
+    <img class="edit-photo-display" src="{{ img_url }}" alt="photo"> </br>
+    <label for="photo">Change photo</label> </br>
+    <input class="photo-text" name="photo" type="text" value="{{ img_url }}"></input>
     </br>
 
-    <label for="heading">Enter Heading</label>
-    <input name="heading" type="text"></input>
+    <label for="date"> Date</label>
+    <div class="date-input">
+
+        <div class="date">
+            {% if month == 2 %} 
+                {% set y = 29 %}
+            {% elif month == 4 or month == 6 or month == 9 or month == 11 %}
+                {% set y = 31 %}
+            {% else %}
+                {% set y = 32 %}
+            {% endif %}
+            <select class="select-date" name="select-date">
+                {% for date_num in range(1, y) %}     
+                    <option value={{ date_num }} {% if date == date_num %} selected {% endif %}> {{ date_num }} </option>
+                {% endfor %}
+            </select> 
+        </div>
+
+        <div class="month">
+            <select class="select-month" name="select-month">
+                <option value="1" {% if month == 1 %} selected {% endif %}> January </option>
+                <option value="2" {% if month == 2 %} selected {% endif %}> February </option>
+                <option value="3" {% if month == 3 %} selected {% endif %}> March </option>
+                <option value="4" {% if month == 4 %} selected {% endif %}> April </option>
+                <option value="5" {% if month == 5 %} selected {% endif %}> May </option>
+                <option value="6" {% if month == 6 %} selected {% endif %}> June </option>
+                <option value="7" {% if month == 7 %} selected {% endif %}> July </option>
+                <option value="8" {% if month == 8 %} selected {% endif %}> August </option>
+                <option value="9" {% if month == 9 %} selected {% endif %}> September </option>
+                <option value="10" {% if month == 10 %} selected {% endif %}> October </option>
+                <option value="11" {% if month == 11 %} selected {% endif %}> November </option>
+                <option value="12" {% if month == 12 %} selected {% endif %}> December </option>
+            </select> 
+        </div>
+
+        <div class="year">
+            <select class="select-year" name="select-year">
+                {% for year_num in range(1949, current_year+5  ) %}     
+                    <option value={{ year_num }} {% if year == year_num %} selected {% endif %}> {{ year_num }} </option>
+                {% endfor %}
+            </select> 
+        </div>
+
+        <div class="day-name">
+
+        </div>
+    </div>
+
+    <label for="time"> Time </label>
+
+    <label for="heading">Edit Heading</label> </br>
+    <input class="heading-text" name="heading" type="text" value="{{ diary_heading }}" maxlength="25"></input>
     </br>
 
-    <label for="entry">Enter text</label>
-    <input name="entry" type="text"></input>
+    <label for="entry">Edit text</label> </br>
+    <textarea class="entry-text" name="entry" type="text"> {{ diary_text }} </textarea>
     </br>
 
-    <input type="image" name="submit" src="/static/images/checkmark.png" width="30px">
+    <input class="submit-edit" type="image" name="submit" src="/static/images/checkmark.png" width="30px">
 </form>
 
 {{ super() }}

@@ -17,3 +17,5 @@ def get_single_post(post_id):
         'SELECT * FROM entries WHERE id = %s', [post_id]
     )
     return data
+
+# def edit_entry(diary_heading, diary_text, img_url, )
