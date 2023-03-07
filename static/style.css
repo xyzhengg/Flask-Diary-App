@@ -111,30 +111,45 @@
  }
 
  /* Style delete modal */
+ /* Modal background */
  .the-delete {
     display: none;
     position: fixed;
-    z-index: -1;
+    z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     background-color:rgba(3, 5, 6, 0.5)
 }
-
+/* Modal content */
 .delete {
     display: none;
     background-color: white;
     margin: auto;
-    padding-top: 20px;
+    margin-top: 30%;
     padding: 30px;
     border: none;
-    width: 50%;
-    height: 50%;
+    width: 30%;
+    height: 12%;
     border-radius: 2rem;
     margin-bottom: 40px;
 }
-
+.delete p {
+    text-align: center;
+}
+.delete-btn {
+    color: rgb(9, 20, 30);
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    margin: auto;
+    margin-left: 38%;
+    cursor: pointer;
+    border-radius: 4px;
+}
+/* Modal close X button */
 .close-delete {
     color:rgb(9, 61, 108);
     float: right;
