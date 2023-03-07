@@ -35,10 +35,11 @@ def generate_diary_code():
 
 @app.post('/delete')
 def delete():
-    delete_entry(post_id)
+    
     if session.get('user_id') is None:
         return redirect ('/landing')
-    # post = get_single_post(post_id)
+    post_id = int(request.form.get('post_id'))
+    delete_entry(post_id)
     return redirect ('/')
 
 @app.route('/edit/<post_id>', methods=['GET', 'POST'])

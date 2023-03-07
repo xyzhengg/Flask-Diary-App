@@ -21,6 +21,7 @@ View
         <span class="close-delete">&times;</span>
         <p> Are you sure you want to delete this? It cannot be undone. </p>    
         <form action="/delete" method="POST">
+            <input type="hidden" name="post_id" value="{{ post_id }}">
             <button type="submit" id="delete-btn"> Delete </button>
         </form>
     </div>
