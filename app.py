@@ -35,12 +35,19 @@ def generate_diary_code():
 
 @app.post('/delete')
 def delete():
-    
     if session.get('user_id') is None:
         return redirect ('/landing')
     post_id = int(request.form.get('post_id'))
     delete_entry(post_id)
     return redirect ('/')
+
+@app.post('/confirm-edit')
+def confirm_edit():
+    if session.get('user_id') is None:
+        return redirect ('/landing')
+    post_id = int(request.form.get('post_id'))
+    
+    return redirect (f'/edit/{post_id}')
 
 @app.route('/edit/<post_id>', methods=['GET', 'POST'])
 def edit_post(post_id):
@@ -62,6 +69,12 @@ def edit_post(post_id):
             img_url = '/static/images/imageplaceholder.webp'
         post_date = str(post['post_time'])[:10]
         post_time = str(post['post_time'])[11:16]
+        date = int(post_date[-2:])
+        month = int(post_date[5:7])
+        year = int(post_date[:4])
+
+        day = calendar.weekday(year, month, date)
+        day_name = calendar.day_name[day]
 
         return render_template('edit.html',
             poster_id = poster_id,
@@ -70,7 +83,8 @@ def edit_post(post_id):
             img_url = img_url,
             post_time = post_time,
             post_id = post_id,
-            post_date = post_date)
+            post_date = post_date,
+            day_name = day_name)
 
 
     if request.method == 'POST':
@@ -85,7 +99,6 @@ def edit_post(post_id):
         new_text = request.form.get('entry')
 
         post_id = edit_entry(new_heading, new_text, new_img, fav, new_timedate, post_id)
-        print(post_id)
         return redirect(f'/view/{post_id}')
                            
 @app.route('/view/<post_id>')

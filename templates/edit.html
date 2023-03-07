@@ -1,9 +1,19 @@
 {% extends "layout.html" %}
 
 {% block main %}
+<!-- <div class="the-edit">
+    <div class="edit">
+        <span class="close-edit">&times;</span>
+        <p> Save changes? </p>    
+        <form action="/edit/{{ post_id }}" method="POST">
+            <input type="hidden" name="post_id" value="{{ post_id }}">
+            <button type="submit" class="confirm-edit-btn"> Save </button>
+        </form>
+    </div>
+</div> -->
 
-<form action="/edit/{{ post_id }}" method="POST">
-
+<form>
+    <input type="hidden" name="post_id" value="{{ post_id }}">
     <img class="edit-photo-display" src="{{ img_url }}" alt="photo"> </br>
 
     <input class="fav-checkbox" type="checkbox" name="fav">
@@ -30,7 +40,19 @@
     <textarea class="entry-text" name="entry" type="text"> {{ diary_text }} </textarea>
     </br>
 
-    <input class="submit-edit" type="image" name="submit" src="/static/images/checkmark.png" width="30px">
+    <div class="the-edit">
+        <div class="edit">
+            <span class="close-edit">&times;</span>
+            <p> Save changes? </p>    
+            <form action="/edit/{{ post_id }}" method="POST">
+                <input type="hidden" name="post_id" value="{{ post_id }}">
+                <button type="submit" class="confirm-edit-btn"> Save </button>
+            </form>
+        </div>
+    </div>
+
 </form>
+
+<img class="submit-edit" type="image" name="submit" src="/static/images/checkmark.png" width="30px">
 
 {% endblock main %}
