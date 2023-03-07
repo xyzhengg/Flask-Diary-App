@@ -41,13 +41,13 @@ def delete():
     delete_entry(post_id)
     return redirect ('/')
 
-@app.post('/confirm-edit')
-def confirm_edit():
-    if session.get('user_id') is None:
-        return redirect ('/landing')
-    post_id = int(request.form.get('post_id'))
+# @app.post('/confirm-edit')
+# def confirm_edit():
+#     if session.get('user_id') is None:
+#         return redirect ('/landing')
+#     post_id = int(request.form.get('post_id'))
     
-    return redirect (f'/edit/{post_id}')
+#     return redirect (f'/edit/{post_id}')
 
 @app.route('/edit/<post_id>', methods=['GET', 'POST'])
 def edit_post(post_id):

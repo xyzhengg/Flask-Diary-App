@@ -12,7 +12,7 @@
     </div>
 </div> -->
 
-<form>
+<form class="edit-form" action="/edit/{{ post_id }}" method="POST">
     <input type="hidden" name="post_id" value="{{ post_id }}">
     <img class="edit-photo-display" src="{{ img_url }}" alt="photo"> </br>
 
@@ -22,7 +22,7 @@
     <input class="photo-text" name="photo" type="text" value="{{ img_url }}">
     </br>
 
-    <p class="day_name"> {{ day_name }} <-- Work out how to get this to update too </p>
+    <p class="day-name"> {{ day_name }} <-- Work out how to get this to update too </p>
     
     <label for="date"> Date </label> </br>
     <input type="date" name="date" value="{{ post_date }}">
@@ -40,19 +40,21 @@
     <textarea class="entry-text" name="entry" type="text"> {{ diary_text }} </textarea>
     </br>
 
+    <input class="submit-edit" type="image" name="submit" src="/static/images/checkmark.png" width="30px">
+    <!-- <img class="submit-edit" src="/static/images/checkmark.png" width="30px"> -->
+
     <div class="the-edit">
         <div class="edit">
             <span class="close-edit">&times;</span>
             <p> Save changes? </p>    
-            <form action="/edit/{{ post_id }}" method="POST">
-                <input type="hidden" name="post_id" value="{{ post_id }}">
-                <button type="submit" class="confirm-edit-btn"> Save </button>
-            </form>
+            <button type="submit" class="confirm-edit-btn"> Save </button>
         </div>
     </div>
 
 </form>
 
-<img class="submit-edit" type="image" name="submit" src="/static/images/checkmark.png" width="30px">
+
+
+
 
 {% endblock main %}

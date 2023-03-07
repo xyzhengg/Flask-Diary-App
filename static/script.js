@@ -22,11 +22,14 @@ theDelete.addEventListener('click', function() {
 
 // CONFIRM EDIT MODAL FUNCTION
 const submitEditButton = document.querySelector(".submit-edit")
-const editBtn = document.querySelector(".edit")
 const theEdit = document.querySelector(".the-edit")
+const editBtn = document.querySelector(".edit")
 const closeEdit = document.querySelector(".close-edit")
+const saveEditButton = document.querySelector(".confirm-edit-btn")
+const submitEditForm = document.querySelector(".edit-form")
 
-submitEditButton.addEventListener('click', function() {
+submitEditButton.addEventListener('click', function(event) {
+    event.preventDefault();
     editBtn.style.display = "block";
     theEdit.style.display = "block";
 })
@@ -40,3 +43,8 @@ theEdit.addEventListener('click', function() {
     editBtn.style.display = "none";
     theEdit.style.display = "none";
 })
+
+saveEditButton.addEventListener("click", function(){
+    submitEditForm.submit()
+})
+
