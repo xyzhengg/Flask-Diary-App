@@ -12,11 +12,11 @@ Add Entry
 {% block main %}
 <form action="/addentry" method="POST" enctype="multipart/form-data">
 
-    <input type="file" name="images" multiple/>
+    
 
-    <label for="photo">Upload photo</label>
+    <!-- <label for="photo">Upload photo</label>
     <input name="photo" type="text"></input>
-    </br>
+    </br> -->
 
     <label for="heading">Enter Heading</label>
     <input name="heading" type="text"></input>
@@ -25,6 +25,8 @@ Add Entry
     <label for="entry">Enter text</label>
     <input name="entry" type="text"></input>
     </br>
+
+    <input type="file" name="images" multiple/> </br>
 
     <input type="image" name="submit" src="/static/images/checkmark.png" width="30px">
 </form>

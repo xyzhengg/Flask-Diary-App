@@ -28,3 +28,8 @@ CREATE TABLE entries (
     fav BOOLEAN,
     post_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP(2)
     );
+
+CREATE TABLE images ()
+    id SERIAL PRIMARY KEY,
+    diary_code VARCHAR(8) NOT NULL,
+    
