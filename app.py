@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, session
 import psycopg2
+from psycopg2.extras import RealDictCursor
 import random
 import string
 from werkzeug.security import generate_password_hash, check_password_hash 
@@ -15,7 +16,7 @@ import mistletoe
 from models.users import add_user, get_user_by_email, check_user_exists, get_username_join_diary_users
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
 from models.posts import add_entry, get_all_posts, get_single_post, edit_entry, delete_entry
-from models.images import insert_images
+from models.images import insert_images, get_all_images
 
 app = Flask(__name__)
 if __name__ == "__main__":
@@ -178,11 +179,17 @@ def index(diary_id):
                 sorted_posts[full_date] = [post_list]
         for date in sorted_posts:
             for post in sorted_posts[date]:
+                post_id=post['id']
+                # print(post_id)
+                image_list = get_all_images(post_id)
+                print(image_list)
+
                 user_id = post['user_id']
                 time = str(post['post_time'])[11:16]
                 first_name = str(get_username_join_diary_users(user_id)['first_name']).capitalize()
+                post['metadata'] = {'first_name': first_name, 'time': time, 'images': image_list}
 
-                post['metadata'] = {'first_name': first_name, 'time': time}
+        
         return render_template('main.html', 
                            diary_id = diary_id,
                            user_name = user_name,
@@ -219,14 +226,21 @@ def addentry():
         params =[]
         for image in images: 
             uploaded_image = cloudinary.uploader.upload(image)
-            print(uploaded_image)
             placeholders.append('(%s, %s, %s)')
             # print(placeholders)
             params.extend([uploaded_image['public_id'], uploaded_image['url'], entry_id['id']])
-            # print(params)
-        insert_images(params, placeholders)
+            print(params)
 
-        # print(user_id)
+        db_connection = psycopg2.connect("dbname=flaskdiary")
+        db_cursor = db_connection.cursor(cursor_factory=RealDictCursor)
+        db_cursor.execute(
+            f'INSERT INTO images (public_id, img_url, entry_id) VALUES {", " .join(placeholders)}',
+            params
+        )
+        db_connection.commit()
+        db_cursor.close()
+        db_connection.close()
+
     return redirect(f'/diary/{diary_code}')
 
 @app.route('/landing')

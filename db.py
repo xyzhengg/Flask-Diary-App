@@ -36,7 +36,6 @@ def sql_write(query, params):
     db_cursor.close()
     db_connection.close()
 
-
 def sql_write_return(query, params):
     db_connection = psycopg2.connect("dbname=flaskdiary")
     db_cursor = db_connection.cursor(cursor_factory=RealDictCursor)

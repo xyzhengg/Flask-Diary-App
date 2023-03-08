@@ -1,7 +1,13 @@
 import db
 
-def insert_images(params, placeholders): 
+def insert_images(query, params): 
     db.sql_write(
         f'INSERT INTO images (public_id, img_url, entry_id) VALUES {", " .join(placeholders)}',
         [params]
     )
+
+def get_all_images(post_id):
+    data = db.sql_select_one(
+        'SELECT * FROM images WHERE entry_id = %s', [post_id]
+    )
+    return data
