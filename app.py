@@ -16,7 +16,7 @@ import mistletoe
 from models.users import add_user, get_user_by_email, check_user_exists, get_username_join_diary_users
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
 from models.posts import add_entry, get_all_posts, get_single_post, edit_entry, delete_entry
-from models.images import insert_images, get_all_images, delete_all_images
+from models.images import insert_many_images, get_all_images, delete_all_images
 
 app = Flask(__name__)
 if __name__ == "__main__":
@@ -106,40 +106,12 @@ def edit_post(post_id):
         post_id = edit_entry(new_heading, new_text, fav, new_timedate, post_id)
         delete_all_images(post_id)
         
-
-        db_connection = psycopg2.connect("dbname=flaskdiary")
-        db_cursor = db_connection.cursor(cursor_factory=RealDictCursor)
-        
         image_rows = []
         for image in images: 
-            image_rows.append([image['public_id'], image['url'], post_id])
-        
-        execute_values (
-            cur,
-            'INSERT INTO images (public_id, img_url, entry_id) VALUES %s',
-            image_rows
-        )
-        db_connection.commit()
-        db_cursor.close()
-        db_connection.close()
+            uploaded_image = cloudinary.uploader.upload(image)
+            image_rows.append([uploaded_image['public_id'], uploaded_image['url'], post_id])
+        insert_many_images(image_rows)
 
-        # placeholders = []
-        # params =[]
-        # for image in images: 
-        #     uploaded_image = cloudinary.uploader.upload(image)
-        #     placeholders.append('(%s, %s, %s)')
-        #     # print(placeholders)
-        #     params.extend([uploaded_image['public_id'], uploaded_image['url'], post_id])
-
-        # db_connection = psycopg2.connect("dbname=flaskdiary")
-        # db_cursor = db_connection.cursor(cursor_factory=RealDictCursor)
-        # db_cursor.execute(
-        #     f'INSERT INTO images (public_id, img_url, entry_id) VALUES {", " .join(placeholders)}',
-        #     params
-        # )
-        # db_connection.commit()
-        # db_cursor.close()
-        # db_connection.close()
 
         return redirect(f'/view/{post_id}')
                            
@@ -151,7 +123,6 @@ def view_post(post_id):
         return redirect ('/landing')
     
     post = get_single_post(post_id)
-    print(post_id)
     poster_id = post['user_id']
     diary_heading = post['diary_heading']
     diary_text = post['diary_text']
@@ -225,9 +196,7 @@ def index(diary_id):
         for date in sorted_posts:
             for post in sorted_posts[date]:
                 post_id=post['id']
-                # print(post_id)
                 image_list = get_all_images(post_id)
-                print(image_list)
 
                 user_id = post['user_id']
                 time = str(post['post_time'])[11:16]
@@ -247,8 +216,6 @@ def index(diary_id):
                            user_name = user_name,
                            no_post_error = no_post_error)
 
-    
-
 @app.route('/addentry', methods=['GET', 'POST'])
 def addentry():
     if session.get('user_id') is None:
@@ -261,30 +228,13 @@ def addentry():
         diary_heading = request.form.get('heading')
         diary_text = request.form.get('entry')
         images = request.files.getlist('images')
-        # print(images)
-        # uploaded_image = cloudinary.uploader.upload(images)
-        # img_url = uploaded_image['url']
         entry_id = add_entry(diary_code, user_id, diary_heading, diary_text)
-        print(entry_id)
-        
-        placeholders = []
-        params =[]
+
+        image_rows = []
         for image in images: 
             uploaded_image = cloudinary.uploader.upload(image)
-            placeholders.append('(%s, %s, %s)')
-            # print(placeholders)
-            params.extend([uploaded_image['public_id'], uploaded_image['url'], entry_id['id']])
-            print(params)
-
-        db_connection = psycopg2.connect("dbname=flaskdiary")
-        db_cursor = db_connection.cursor(cursor_factory=RealDictCursor)
-        db_cursor.execute(
-            f'INSERT INTO images (public_id, img_url, entry_id) VALUES {", " .join(placeholders)}',
-            params
-        )
-        db_connection.commit()
-        db_cursor.close()
-        db_connection.close()
+            image_rows.append([uploaded_image['public_id'], uploaded_image['url'], entry_id['id']])
+        insert_many_images(image_rows)
 
     return redirect(f'/diary/{diary_code}')
 
@@ -298,7 +248,6 @@ def logout():
     session.pop('user_name')
     session.pop('user_email')
     session.pop('diary_id')
-    print(session)
     return redirect('/login')
 
 @app.route('/login', methods = ['GET', 'POST'])

@@ -1,9 +1,9 @@
 import db
 
-def insert_images(query, params): 
-    db.sql_write(
-        'INSERT INTO images (public_id, img_url, entry_id) VALUES {", " .join(placeholders)}',
-        [params]
+def insert_many_images(image_rows): 
+    db.sql_write_many(
+        'INSERT INTO images (public_id, img_url, entry_id) VALUES %s',
+        image_rows
     )
 
 def get_all_images(post_id):
@@ -17,3 +17,4 @@ def delete_all_images(post_id):
         'DELETE FROM images WHERE entry_id=%s',
         [post_id]
     )
+
