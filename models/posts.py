@@ -1,10 +1,11 @@
 import db
 
 def add_entry(diary_code, user_id, diary_heading, diary_text):
-    db.sql_write(
-        'INSERT INTO entries (diary_code, user_id, diary_heading, diary_text) VALUES (%s, %s, %s, %s)',
+    result = db.sql_write_return(
+        'INSERT INTO entries (diary_code, user_id, diary_heading, diary_text) VALUES (%s, %s, %s, %s) RETURNING id',
         [diary_code, user_id, diary_heading, diary_text]
     )
+    return result
 
 def get_all_posts(diary_id):
     data = db.sql_select(

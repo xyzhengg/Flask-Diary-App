@@ -209,13 +209,24 @@ def addentry():
         diary_heading = request.form.get('heading')
         diary_text = request.form.get('entry')
         images = request.files.getlist('images')
-        uploaded_image = cloudinary.uploader.upload(images)
-        img_url = uploaded_image['url']
-        add_entry(diary_code, user_id, diary_heading, diary_text)
-        print(user_id)
+        # print(images)
+        # uploaded_image = cloudinary.uploader.upload(images)
+        # img_url = uploaded_image['url']
+        entry_id = add_entry(diary_code, user_id, diary_heading, diary_text)
+        print(entry_id)
+        
+        placeholders = []
+        params =[]
+        for image in images: 
+            uploaded_image = cloudinary.uploader.upload(image)
+            print(uploaded_image)
+            placeholders.append('(%s, %s, %s)')
+            # print(placeholders)
+            params.extend([uploaded_image['public_id'], uploaded_image['url'], entry_id['id']])
+            # print(params)
+        insert_images(params, placeholders)
 
-
-
+        # print(user_id)
     return redirect(f'/diary/{diary_code}')
 
 @app.route('/landing')
