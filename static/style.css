@@ -1,27 +1,6 @@
-
-/* Memories styling */
-
-.memories {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .memoryphoto {
-    object-fit: cover;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 2px solid black;
-    margin: 10px;
-  }
-
-.memories-diary-heading {
-    word-wrap: break-word;
-    white-space: normal;
-    width: 180px;
-    text-align: center;
+.body {
+    max-width: 950px;
+    margin: auto;
 }
 /* Carousel styling */
 .carousel {

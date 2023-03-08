@@ -1,12 +1,17 @@
 {% extends "layout.html" %}
+{% block css %} <link rel="stylesheet" href="/static/main.css"> {% endblock css %}
+
 
 {% block title %}
 Home
 {% endblock title %}
 
 {% block heading %} 
-- {{ user_name }}
+{{ user_one }} & {{ user_two}}
 {% endblock heading %}
+
+{% block login_signup %}
+{% endblock login_signup %}
 
 {% block memories %}
 <h3 class="memories-heading"> Memories </h3>
@@ -26,17 +31,21 @@ Home
 <p class="no-post-error">{{ no_post_error }}</p>
 {% for date in sorted_posts %}
 <div class="carousel" id="{{ date }}">
-    <h1>  {{ date }}  </h1>
+    <h2>  {{ date }}  </h2>
     {% for post in sorted_posts[date] %}
     <a href="/view/{{ post['id'] }}">
     <div class="carousel-item {{ sorted_posts[date]|length }}" id="{{ post['id'] }}">
       <div class="heading">
       <h3> {{ post['metadata']['first_name'] }} </h3> <span class=time> {{ post['metadata']['time'] }} </span>
       </div>
+      {% if post['metadata']['images'] %}
         {% for image in post['metadata']['images']%}
           <img src="{{ image['img_url'] }}" alt="photo">
         {% endfor %}
-      <h3> {{ post['diary_heading'] }}</h3>
+      {% else %}
+      <img src="https://res.cloudinary.com/ddg0iss6e/image/upload/v1678273766/Screen_Shot_2023-03-08_at_10.08.54_pm_yz0hez.png" alt="photo">
+      {% endif %}
+      <h3> {{ post['diary_heading'].capitalize() }}</h3>
       <p> {{ post['diary_text'] }} </p>
     </div>
     </a>

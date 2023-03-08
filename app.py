@@ -13,7 +13,7 @@ import mistletoe
 # with open('foo.md', 'r') as fin:
 #     rendered = mistletoe.markdown(fin)
 
-from models.users import add_user, get_user_by_email, check_user_exists, get_username_join_diary_users
+from models.users import add_user, get_user_by_email, check_user_exists, get_username_join_diary_users, get_all_username
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
 from models.posts import add_entry, get_all_posts, get_single_post, edit_entry, delete_entry
 from models.images import insert_many_images, get_all_images, delete_all_images, get_one_image
@@ -96,6 +96,7 @@ def edit_post(post_id):
         new_date = request.form.get('date')
         new_time = request.form.get('time')
         new_timedate_str = f"{new_date} {new_time}"
+        print(new_timedate_str)
         new_timedate = datetime.strptime(new_timedate_str, '%Y-%m-%d %H:%M')
 
         images = request.files.getlist('images')
@@ -103,7 +104,7 @@ def edit_post(post_id):
         new_text = request.form.get('entry')
 
         post_id = edit_entry(new_heading, new_text, fav, new_timedate, post_id)
-        delete_all_images(post_id)
+        # delete_all_images(post_id)
         
         image_rows = []
         for image in images: 
@@ -123,7 +124,7 @@ def view_post(post_id):
     
     post = get_single_post(post_id)
     poster_id = post['user_id']
-    diary_heading = post['diary_heading']
+    diary_heading = post['diary_heading'].capitalize()
     diary_text = post['diary_text']
 
     entry_id = post['id']
@@ -166,7 +167,9 @@ def index(diary_id):
     if session.get('user_id') is None:
         return redirect ('/landing')
     diary_id = session.get('diary_id')
-    user_name = session.get('user_name').capitalize()
+    users = get_all_username(diary_id)
+    user_one = users[0]['first_name'].capitalize()
+    user_two = users[1]['first_name'].capitalize()
 
     data = get_all_posts(diary_id)
     if len(data) < 4:
@@ -179,7 +182,7 @@ def index(diary_id):
             if random_photo is not None:
                 random_url = random_photo['img_url']
             else: 
-                random_photo = {'img_url': 'https://www.grouphealth.ca/wp-content/uploads/2018/05/placeholder-image.png'}
+                random_photo = {'img_url': 'https://res.cloudinary.com/ddg0iss6e/image/upload/v1678273766/Screen_Shot_2023-03-08_at_10.08.54_pm_yz0hez.png'}
                 random_url = random_photo['img_url']            
             random_post['image_data'] = {'img_url': random_url}
 
@@ -203,23 +206,24 @@ def index(diary_id):
         for date in sorted_posts:
             for post in sorted_posts[date]:
                 post_id=post['id']
-                image_list = get_all_images(post_id)
                 user_id = post['user_id']
                 time = str(post['post_time'])[11:16]
                 first_name = str(get_username_join_diary_users(user_id)['first_name']).capitalize()
+                image_list = get_all_images(post_id)
+
                 post['metadata'] = {'first_name': first_name, 'time': time, 'images': image_list}
 
-        
+
         return render_template('main.html', 
                            diary_id = diary_id,
-                           user_name = user_name,
+                           user_one = user_one,
+                           user_two = user_two,
                            sorted_posts = sorted_posts,
                            random_posts=random_posts,
                            post_date=post_date,)
     no_post_error = "You have no posts! Get started by creating an entry"
     return render_template('main.html', 
                            diary_id = diary_id,
-                           user_name = user_name,
                            no_post_error = no_post_error)
 
 @app.route('/addentry', methods=['GET', 'POST'])
@@ -240,9 +244,11 @@ def addentry():
         if len(images) > 0:
             image_rows = []
             for image in images:
-                uploaded_image = cloudinary.uploader.upload(image)
-                image_rows.append([uploaded_image['public_id'], uploaded_image['url'], entry_id['id']])
-            insert_many_images(image_rows)
+                if image.filename != '': 
+                    uploaded_image = cloudinary.uploader.upload(image)
+                    image_rows.append([uploaded_image['public_id'], uploaded_image['url'], entry_id['id']])
+                insert_many_images(image_rows)
+
         return redirect(f'/diary/{diary_code}')
 
 @app.route('/landing')

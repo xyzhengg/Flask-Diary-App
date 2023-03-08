@@ -17,3 +17,7 @@ def check_user_exists(email):
 def get_username_join_diary_users(user_id):
     user = db.sql_select_one('SELECT first_name FROM users INNER JOIN entries ON users.id = entries.user_id WHERE entries.user_id = %s', [user_id])
     return user
+
+def get_all_username(diary_id):
+    users = db.sql_select('SELECT first_name FROM users WHERE diary_code=%s', [diary_id])
+    return users

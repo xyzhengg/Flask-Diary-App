@@ -1,30 +1,30 @@
 // CONFIRM EDIT MODAL FUNCTION
-const submitEditButton = document.querySelector(".submit-edit")
-const theEdit = document.querySelector(".the-edit")
-const editBtn = document.querySelector(".edit")
-const closeEdit = document.querySelector(".close-edit")
-const saveEditButton = document.querySelector(".confirm-edit-btn")
-const submitEditForm = document.querySelector(".edit-form")
+// const submitEditButton = document.querySelector(".submit-edit")
+// const theEdit = document.querySelector(".the-edit")
+// const editBtn = document.querySelector(".edit")
+// const closeEdit = document.querySelector(".close-edit")
+// const saveEditButton = document.querySelector(".confirm-edit-btn")
+// const submitEditForm = document.querySelector(".edit-form")
 
-submitEditButton.addEventListener('click', function(event) {
-    event.preventDefault();
-    editBtn.style.display = "block";
-    theEdit.style.display = "block";
-})
+// submitEditButton.addEventListener('click', function(event) {
+//     event.preventDefault();
+//     editBtn.style.display = "block";
+//     theEdit.style.display = "block";
+// })
 
-closeEdit.addEventListener('click', function() {
-    editBtn.style.display = "none";
-    theEdit.style.display = "none";
-})
+// closeEdit.addEventListener('click', function() {
+//     editBtn.style.display = "none";
+//     theEdit.style.display = "none";
+// })
 
-theEdit.addEventListener('click', function() {
-    editBtn.style.display = "none";
-    theEdit.style.display = "none";
-})
+// theEdit.addEventListener('click', function() {
+//     editBtn.style.display = "none";
+//     theEdit.style.display = "none";
+// })
 
-saveEditButton.addEventListener("click", function(){
-    submitEditForm.submit()
-})
+// saveEditButton.addEventListener("click", function(){
+//     submitEditForm.submit()
+// })
 
 // DELETE ALL IMAGES MODAL
 const deleteAllImagesBtn = document.querySelector(".delete-all-images")

@@ -1,0 +1,87 @@
+
+ /* Style delete modal */
+ /* Modal background */
+ .the-edit,
+ .the-delete {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(3, 5, 6, 0.5)
+}
+/* Modal content */
+.edit,
+.delete,
+.delete-images {
+    display: none;
+    background-color: white;
+    margin: auto;
+    margin-top: 30%;
+    padding: 30px;
+    border: none;
+    width: 30%;
+    height: 12%;
+    border-radius: 2rem;
+    margin-bottom: 40px;
+}
+.edit p,
+.delete p,
+.delete-images p {
+    text-align: center;
+}
+.delete-btn,
+.delete-images-btn {
+    color: rgb(9, 20, 30);
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    margin: auto;
+    margin-left: 38%;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* Modal close X button */
+.close-edit,
+.close-delete {
+    color:rgb(9, 61, 108);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close-edit:hover,
+.close-edit:focus
+.close-delete:hover,
+.close-delete:focus,
+.close-delete-images:hover,
+.close-delete-images:focus  {
+  color: black;
+  text-decoration: none;
+  cursor: default;
+}
+
+/* Fav Star Icon Styling */
+/* http://jsfiddle.net/binaryben/aLx3m4k5/ */
+.fav-checkbox {
+    visibility:hidden;
+    font-size:30px;
+    cursor:pointer;
+}
+
+.fav-checkbox:before {
+    content: "\2605";
+    position: absolute;
+    visibility:visible;
+    color:rgb(215, 213, 213);
+ }
+
+ .fav-checkbox:checked:before {
+    content: "\2606";
+    position: absolute;
+    color: rgb(255, 230, 0);
+    fill: rgb(255, 230, 0);
+ }

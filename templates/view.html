@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
+{% block css %} <link rel="stylesheet" href="/static/view.css"> {% endblock css %}
+
 
 {% block title %}
 View
 {% endblock title %}
 
-{% block heading %} 
-- {{ user_name }}
-{% endblock heading %}
+{% block login_signup %} {% endblock login_signup %}
 
 {% block nav %}
 {% if user_id == poster_id %}
@@ -38,10 +38,13 @@ View
     <div class="heading">
     <h3> {{ first_name }} </h3> <span class=time> {{ post_time }} </span>
     </div>
-    {% for image in image_list %}
+    {% if image_list %}
+        {% for image in image_list %}
     <img src="{{ image['img_url'] }}" alt="photo" class="viewphoto">
-    {% endfor %}
-
+        {% endfor %}
+    {% else %}
+    <img src="https://res.cloudinary.com/ddg0iss6e/image/upload/v1678273766/Screen_Shot_2023-03-08_at_10.08.54_pm_yz0hez.png" alt="photo">
+    {% endif %}
     <h3> {{ diary_heading }} </h3>
     <p> {{ diary_text }} </p>
 </div>
