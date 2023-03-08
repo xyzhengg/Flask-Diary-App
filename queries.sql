@@ -8,4 +8,6 @@ SELECT first_name FROM users
 INNER JOIN users ON users.id = entries.user_id
 ;
 
-DELETE FROM entries WHERE id >= 13 AND id < 27;
+DELETE FROM entries WHERE id >= 39 AND id < 41;
+
+ALTER TABLE entries DROP COLUMN img_url;

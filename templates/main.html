@@ -11,11 +11,10 @@ Home
 {% block memories %}
 <h3 class="memories-heading"> Memories </h3>
 <div class="memories">
-  {% for post in random_posts %}
-  <a href="/view/{{ post['id'] }}">
-  <div class="memory-item" id="{{ post['id'] }}">
-  <img src="{{ post['img_url'] }}" alt="photo" class="memoryphoto">
-  <p class="memories-diary-heading"> {{ post['diary_heading'] }}  <p>
+  {% for random_post in random_posts %}
+  <a href="/view/{{ random_post['id'] }}">
+  <div class="memory-item" id="{{ random_post['id'] }}">
+  <img src="{{ random_post['image_data']['img_url'] }}" alt="photo" class="memoryphoto">
   </div>
   </a>
   {% endfor %}
@@ -34,9 +33,8 @@ Home
       <div class="heading">
       <h3> {{ post['metadata']['first_name'] }} </h3> <span class=time> {{ post['metadata']['time'] }} </span>
       </div>
-      <img src="{{ post['img_url'] }}" alt="photo">
-        {% for image in post['metadata']['images'] %}
-      <img src="{{ image['img_url'] }}" alt="photo">
+        {% for image in post['metadata']['images']%}
+          <img src="{{ image['img_url'] }}" alt="photo">
         {% endfor %}
       <h3> {{ post['diary_heading'] }}</h3>
       <p> {{ post['diary_text'] }} </p>

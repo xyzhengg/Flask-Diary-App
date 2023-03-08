@@ -38,7 +38,6 @@ View
     <div class="heading">
     <h3> {{ first_name }} </h3> <span class=time> {{ post_time }} </span>
     </div>
-    <img src="{{ img_url }}" alt="photo" class="viewphoto">
     {% for image in image_list %}
     <img src="{{ image['img_url'] }}" alt="photo" class="viewphoto">
     {% endfor %}

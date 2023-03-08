@@ -18,3 +18,9 @@ def delete_all_images(post_id):
         [post_id]
     )
 
+def get_one_image(random_id):
+    data = db.sql_select_one(
+        'SELECT * FROM images WHERE entry_id = %s LIMIT 1', 
+        [random_id]
+    )
+    return data

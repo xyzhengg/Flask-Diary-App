@@ -1,25 +1,3 @@
-// DELETE MODAL FUNCTION
-
-const viewDeleteButton = document.querySelector(".view-delete-button")
-const deleteBtn = document.querySelector(".delete")
-const theDelete = document.querySelector(".the-delete")
-const closeDelete = document.querySelector(".close-delete")
-
-viewDeleteButton.addEventListener('click', function() {
-    deleteBtn.style.display = "block";
-    theDelete.style.display = "block";
-})
-
-closeDelete.addEventListener('click', function() {
-    deleteBtn.style.display = "none";
-    theDelete.style.display = "none";
-})
-
-theDelete.addEventListener('click', function() {
-    deleteBtn.style.display = "none";
-    theDelete.style.display = "none";
-})
-
 // CONFIRM EDIT MODAL FUNCTION
 const submitEditButton = document.querySelector(".submit-edit")
 const theEdit = document.querySelector(".the-edit")
@@ -48,3 +26,24 @@ saveEditButton.addEventListener("click", function(){
     submitEditForm.submit()
 })
 
+// DELETE ALL IMAGES MODAL
+const deleteAllImagesBtn = document.querySelector(".delete-all-images")
+const deleteImagesBtn = document.querySelector(".delete-images")
+const theDeleteImages = document.querySelector(".the-delete-images")
+const closeDeleteImages = document.querySelector(".close-delete-images")
+
+deleteAllImagesBtn.addEventListener('click', function() {
+    console.log('click')
+    deleteImagesBtn.style.display = "block";
+    theDeleteImages.style.display = "block";
+})
+
+closeDeleteImages.addEventListener('click', function() {
+    deleteImagesBtn.style.display = "none";
+    theDeleteImages.style.display = "none";
+})
+
+theDeleteImages.addEventListener('click', function() {
+    deleteImagesBtn.style.display = "none";
+    theDeleteImages.style.display = "none";
+})

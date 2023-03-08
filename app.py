@@ -16,7 +16,7 @@ import mistletoe
 from models.users import add_user, get_user_by_email, check_user_exists, get_username_join_diary_users
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
 from models.posts import add_entry, get_all_posts, get_single_post, edit_entry, delete_entry
-from models.images import insert_many_images, get_all_images, delete_all_images
+from models.images import insert_many_images, get_all_images, delete_all_images, get_one_image
 
 app = Flask(__name__)
 if __name__ == "__main__":
@@ -35,13 +35,21 @@ def generate_diary_code():
 #     if path != '/login' and path != '/static/style.css' and session.get('user_id') is None:
 #         return redirect ('/login')
 
+@app.post('/delete-images')
+def delete_images():
+    if session.get('user_id') is None:
+        return redirect ('/landing')
+    post_id = int(request.form.get('post_id'))
+    delete_all_images(post_id)
+    return redirect(f'/view/{post_id}')
+
 @app.post('/delete')
 def delete():
     if session.get('user_id') is None:
         return redirect ('/landing')
     post_id = int(request.form.get('post_id'))
-    delete_entry(post_id)
     delete_all_images(post_id)
+    delete_entry(post_id)
     return redirect ('/')
 
 @app.route('/edit/<post_id>', methods=['GET', 'POST'])
@@ -57,18 +65,12 @@ def edit_post(post_id):
     
     entry_id = post['id']
     image_list = get_all_images(entry_id)
-    print(image_list)
 
     diary_heading = post['diary_heading']
     diary_text = post['diary_text']
-    img_url = post['img_url']
 
     if request.method == 'GET':
     # Image placeholder
-        if img_url == None:
-            img_url = '/static/images/imageplaceholder.webp'
-        # if image_list == None:
-        #     img_list = '/static/images/imageplaceholder.webp'
         post_date = str(post['post_time'])[:10]
         post_time = str(post['post_time'])[11:16]
         date = int(post_date[-2:])
@@ -82,7 +84,6 @@ def edit_post(post_id):
             poster_id = poster_id,
             diary_heading = diary_heading,
             diary_text = diary_text,
-            img_url = img_url,
             post_time = post_time,
             post_id = post_id,
             post_date = post_date,
@@ -98,8 +99,6 @@ def edit_post(post_id):
         new_timedate = datetime.strptime(new_timedate_str, '%Y-%m-%d %H:%M')
 
         images = request.files.getlist('images')
-        # uploaded_images = cloudinary.uploader.upload(images)
-        # new_img = uploaded_images['url']
         new_heading = request.form.get('heading')
         new_text = request.form.get('entry')
 
@@ -127,7 +126,6 @@ def view_post(post_id):
     diary_heading = post['diary_heading']
     diary_text = post['diary_text']
 
-    img_url = post['img_url']
     entry_id = post['id']
     image_list = get_all_images(entry_id)
 
@@ -147,7 +145,6 @@ def view_post(post_id):
                     poster_id = poster_id,
                     diary_heading = diary_heading,
                     diary_text = diary_text,
-                    img_url = img_url,
                     post_time = post_time,
                     reversed_date = reversed_date,
                     first_name = first_name,
@@ -176,6 +173,16 @@ def index(diary_id):
         random_posts = data
     else:
         random_posts = random.sample(data, 4)
+        for random_post in random_posts:
+            random_id = random_post['id']
+            random_photo = get_one_image(random_id)
+            if random_photo is not None:
+                random_url = random_photo['img_url']
+            else: 
+                random_photo = {'img_url': 'https://www.grouphealth.ca/wp-content/uploads/2018/05/placeholder-image.png'}
+                random_url = random_photo['img_url']            
+            random_post['image_data'] = {'img_url': random_url}
+
 
     if len(data) > 0:
         sorted_posts = {}
@@ -197,7 +204,6 @@ def index(diary_id):
             for post in sorted_posts[date]:
                 post_id=post['id']
                 image_list = get_all_images(post_id)
-
                 user_id = post['user_id']
                 time = str(post['post_time'])[11:16]
                 first_name = str(get_username_join_diary_users(user_id)['first_name']).capitalize()
@@ -227,16 +233,17 @@ def addentry():
         user_id = session.get('user_id')
         diary_heading = request.form.get('heading')
         diary_text = request.form.get('entry')
+
+        entry_id = add_entry(diary_code, user_id, diary_heading, diary_text) 
+
         images = request.files.getlist('images')
-        entry_id = add_entry(diary_code, user_id, diary_heading, diary_text)
-
-        image_rows = []
-        for image in images: 
-            uploaded_image = cloudinary.uploader.upload(image)
-            image_rows.append([uploaded_image['public_id'], uploaded_image['url'], entry_id['id']])
-        insert_many_images(image_rows)
-
-    return redirect(f'/diary/{diary_code}')
+        if len(images) > 0:
+            image_rows = []
+            for image in images:
+                uploaded_image = cloudinary.uploader.upload(image)
+                image_rows.append([uploaded_image['public_id'], uploaded_image['url'], entry_id['id']])
+            insert_many_images(image_rows)
+        return redirect(f'/diary/{diary_code}')
 
 @app.route('/landing')
 def landing():
