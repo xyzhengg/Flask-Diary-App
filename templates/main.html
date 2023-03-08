@@ -35,6 +35,9 @@ Home
       <h3> {{ post['metadata']['first_name'] }} </h3> <span class=time> {{ post['metadata']['time'] }} </span>
       </div>
       <img src="{{ post['img_url'] }}" alt="photo">
+        {% for image in post['metadata']['images'] %}
+      <img src="{{ image['img_url'] }}" alt="photo">
+        {% endfor %}
       <h3> {{ post['diary_heading'] }}</h3>
       <p> {{ post['diary_text'] }} </p>
     </div>

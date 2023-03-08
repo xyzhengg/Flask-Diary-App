@@ -113,10 +113,16 @@ def view_post(post_id):
         return redirect ('/landing')
     
     post = get_single_post(post_id)
+    # print(post)
     poster_id = post['user_id']
     diary_heading = post['diary_heading']
     diary_text = post['diary_text']
+
     img_url = post['img_url']
+    entry_id = post['id']
+    image_list = get_all_images(entry_id)
+    # print(image_list)
+
     post_date = str(post['post_time'])[:10]
     reversed_date = post_date[-2:] + '-' + post_date[5:7] + '-' + post_date[:4]
     post_time = str(post['post_time'])[11:16]
@@ -139,6 +145,7 @@ def view_post(post_id):
                     first_name = first_name,
                     post_id = post_id,
                     day_name = day_name,
+                    image_list=image_list
                     )
 
 @app.route('/')
@@ -177,6 +184,7 @@ def index(diary_id):
                 sorted_posts[full_date].append(post_list)
             else:
                 sorted_posts[full_date] = [post_list]
+
         for date in sorted_posts:
             for post in sorted_posts[date]:
                 post_id=post['id']

@@ -7,7 +7,7 @@ def insert_images(query, params):
     )
 
 def get_all_images(post_id):
-    data = db.sql_select_one(
+    data = db.sql_select(
         'SELECT * FROM images WHERE entry_id = %s', [post_id]
     )
     return data
