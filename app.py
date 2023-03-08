@@ -106,12 +106,13 @@ def edit_post(post_id):
         post_id = edit_entry(new_heading, new_text, fav, new_timedate, post_id)
         # delete_all_images(post_id)
         
-        image_rows = []
-        for image in images: 
-            uploaded_image = cloudinary.uploader.upload(image)
-            image_rows.append([uploaded_image['public_id'], uploaded_image['url'], post_id])
-        insert_many_images(image_rows)
-
+        if len(images) > 0:
+            image_rows = []
+            for image in images:
+                if image.filename != '': 
+                    uploaded_image = cloudinary.uploader.upload(image)
+                    image_rows.append([uploaded_image['public_id'], uploaded_image['url'], entry_id['id']])
+                insert_many_images(image_rows)
 
         return redirect(f'/view/{post_id}')
                            
@@ -166,6 +167,7 @@ def redirecttomain():
 def index(diary_id):
     if session.get('user_id') is None:
         return redirect ('/landing')
+    user_name = session.get('user_name')
     diary_id = session.get('diary_id')
     users = get_all_username(diary_id)
     user_one = users[0]['first_name'].capitalize()
@@ -220,11 +222,13 @@ def index(diary_id):
                            user_two = user_two,
                            sorted_posts = sorted_posts,
                            random_posts=random_posts,
-                           post_date=post_date,)
+                           post_date=post_date,
+                           user_name = user_name)
     no_post_error = "You have no posts! Get started by creating an entry"
     return render_template('main.html', 
                            diary_id = diary_id,
-                           no_post_error = no_post_error)
+                           no_post_error = no_post_error,
+                           user_name = user_name)
 
 @app.route('/addentry', methods=['GET', 'POST'])
 def addentry():

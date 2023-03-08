@@ -9,18 +9,14 @@
         {% block css %} <link rel="stylesheet" href="/static/style.css"> {% endblock css %}
     </head>
     <body>
-        <h1> {% block heading %} {% endblock heading %} </h1>
-
-        
-
-        {% block login_signup %}
+      {% block login_signup %}
           {% if user_name %}
-          <p> 
-            <span>Welcome! You are logged in as {{user_name}}.</span> 
+          <div class="logout-banner"> 
+            <span class="welcome-text">Welcome {{user_name.capitalize()}}! </span> 
             <form action="/logout" method="POST">
               <button type="submit"> Logout </button>
             </form>
-          </p>
+          </div>
 
           <a href="/addentry"> Add Entry</a>
           </br>
@@ -34,7 +30,14 @@
           {% endif %}
         {% endblock login_signup %}
 
-        {% block nav %} {% endblock nav %}
+      {% block nav %} 
+      
+      {% endblock nav %}
+        <h1> {% block heading %} {% endblock heading %} </h1>
+
+        
+
+
         
         {% block memories %} {% endblock memories %}
 
