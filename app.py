@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session
 import psycopg2
-from psycopg2.extras import RealDictCursor
+from psycopg2.extras import RealDictCursor, execute_values
 import random
 import string
 from werkzeug.security import generate_password_hash, check_password_hash 
@@ -67,8 +67,8 @@ def edit_post(post_id):
     # Image placeholder
         if img_url == None:
             img_url = '/static/images/imageplaceholder.webp'
-        if img_list == None:
-            img_list = '/static/images/imageplaceholder.webp'
+        # if image_list == None:
+        #     img_list = '/static/images/imageplaceholder.webp'
         post_date = str(post['post_time'])[:10]
         post_time = str(post['post_time'])[11:16]
         date = int(post_date[-2:])
@@ -106,23 +106,40 @@ def edit_post(post_id):
         post_id = edit_entry(new_heading, new_text, fav, new_timedate, post_id)
         delete_all_images(post_id)
         
-        placeholders = []
-        params =[]
-        for image in images: 
-            uploaded_image = cloudinary.uploader.upload(image)
-            placeholders.append('(%s, %s, %s)')
-            # print(placeholders)
-            params.extend([uploaded_image['public_id'], uploaded_image['url'], post_id])
 
         db_connection = psycopg2.connect("dbname=flaskdiary")
         db_cursor = db_connection.cursor(cursor_factory=RealDictCursor)
-        db_cursor.execute(
-            f'INSERT INTO images (public_id, img_url, entry_id) VALUES {", " .join(placeholders)}',
-            params
+        
+        image_rows = []
+        for image in images: 
+            image_rows.append([image['public_id'], image['url'], post_id])
+        
+        execute_values (
+            cur,
+            'INSERT INTO images (public_id, img_url, entry_id) VALUES %s',
+            image_rows
         )
         db_connection.commit()
         db_cursor.close()
         db_connection.close()
+
+        # placeholders = []
+        # params =[]
+        # for image in images: 
+        #     uploaded_image = cloudinary.uploader.upload(image)
+        #     placeholders.append('(%s, %s, %s)')
+        #     # print(placeholders)
+        #     params.extend([uploaded_image['public_id'], uploaded_image['url'], post_id])
+
+        # db_connection = psycopg2.connect("dbname=flaskdiary")
+        # db_cursor = db_connection.cursor(cursor_factory=RealDictCursor)
+        # db_cursor.execute(
+        #     f'INSERT INTO images (public_id, img_url, entry_id) VALUES {", " .join(placeholders)}',
+        #     params
+        # )
+        # db_connection.commit()
+        # db_cursor.close()
+        # db_connection.close()
 
         return redirect(f'/view/{post_id}')
                            
@@ -142,7 +159,6 @@ def view_post(post_id):
     img_url = post['img_url']
     entry_id = post['id']
     image_list = get_all_images(entry_id)
-    # print(image_list)
 
     post_date = str(post['post_time'])[:10]
     reversed_date = post_date[-2:] + '-' + post_date[5:7] + '-' + post_date[:4]

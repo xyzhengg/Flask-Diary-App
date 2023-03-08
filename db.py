@@ -48,3 +48,5 @@ def sql_write_return(query, params):
     db_cursor.close()
     db_connection.close()
     return result
+
+# def sql_write_many(query, params):

@@ -2,7 +2,7 @@ import db
 
 def insert_images(query, params): 
     db.sql_write(
-        f'INSERT INTO images (public_id, img_url, entry_id) VALUES {", " .join(placeholders)}',
+        'INSERT INTO images (public_id, img_url, entry_id) VALUES {", " .join(placeholders)}',
         [params]
     )
 
