@@ -16,7 +16,7 @@ import mistletoe
 from models.users import add_user, get_user_by_email, check_user_exists, get_username_join_diary_users
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
 from models.posts import add_entry, get_all_posts, get_single_post, edit_entry, delete_entry
-from models.images import insert_images, get_all_images
+from models.images import insert_images, get_all_images, delete_all_images
 
 app = Flask(__name__)
 if __name__ == "__main__":
@@ -41,25 +41,23 @@ def delete():
         return redirect ('/landing')
     post_id = int(request.form.get('post_id'))
     delete_entry(post_id)
+    delete_all_images(post_id)
     return redirect ('/')
-
-# @app.post('/confirm-edit')
-# def confirm_edit():
-#     if session.get('user_id') is None:
-#         return redirect ('/landing')
-#     post_id = int(request.form.get('post_id'))
-    
-#     return redirect (f'/edit/{post_id}')
 
 @app.route('/edit/<post_id>', methods=['GET', 'POST'])
 def edit_post(post_id):
     if session.get('user_id') is None:
         return redirect ('/landing')
     post = get_single_post(post_id)
+    print(post)
     poster_id = post['user_id']
     fav = post['fav']
     if session.get('user_id') != poster_id:
         return redirect ('/')
+    
+    entry_id = post['id']
+    image_list = get_all_images(entry_id)
+    print(image_list)
 
     diary_heading = post['diary_heading']
     diary_text = post['diary_text']
@@ -69,6 +67,8 @@ def edit_post(post_id):
     # Image placeholder
         if img_url == None:
             img_url = '/static/images/imageplaceholder.webp'
+        if img_list == None:
+            img_list = '/static/images/imageplaceholder.webp'
         post_date = str(post['post_time'])[:10]
         post_time = str(post['post_time'])[11:16]
         date = int(post_date[-2:])
@@ -86,7 +86,8 @@ def edit_post(post_id):
             post_time = post_time,
             post_id = post_id,
             post_date = post_date,
-            day_name = day_name)
+            day_name = day_name,
+            image_list = image_list)
 
 
     if request.method == 'POST':
@@ -96,13 +97,33 @@ def edit_post(post_id):
         new_timedate_str = f"{new_date} {new_time}"
         new_timedate = datetime.strptime(new_timedate_str, '%Y-%m-%d %H:%M')
 
-        images = request.files.get('images')
-        uploaded_images = cloudinary.uploader.upload(images)
-        new_img = uploaded_images['url']
+        images = request.files.getlist('images')
+        # uploaded_images = cloudinary.uploader.upload(images)
+        # new_img = uploaded_images['url']
         new_heading = request.form.get('heading')
         new_text = request.form.get('entry')
 
-        post_id = edit_entry(new_heading, new_text, new_img, fav, new_timedate, post_id)
+        post_id = edit_entry(new_heading, new_text, fav, new_timedate, post_id)
+        delete_all_images(post_id)
+        
+        placeholders = []
+        params =[]
+        for image in images: 
+            uploaded_image = cloudinary.uploader.upload(image)
+            placeholders.append('(%s, %s, %s)')
+            # print(placeholders)
+            params.extend([uploaded_image['public_id'], uploaded_image['url'], post_id])
+
+        db_connection = psycopg2.connect("dbname=flaskdiary")
+        db_cursor = db_connection.cursor(cursor_factory=RealDictCursor)
+        db_cursor.execute(
+            f'INSERT INTO images (public_id, img_url, entry_id) VALUES {", " .join(placeholders)}',
+            params
+        )
+        db_connection.commit()
+        db_cursor.close()
+        db_connection.close()
+
         return redirect(f'/view/{post_id}')
                            
 @app.route('/view/<post_id>')
@@ -113,7 +134,7 @@ def view_post(post_id):
         return redirect ('/landing')
     
     post = get_single_post(post_id)
-    # print(post)
+    print(post_id)
     poster_id = post['user_id']
     diary_heading = post['diary_heading']
     diary_text = post['diary_text']

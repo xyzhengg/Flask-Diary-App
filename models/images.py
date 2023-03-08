@@ -11,3 +11,9 @@ def get_all_images(post_id):
         'SELECT * FROM images WHERE entry_id = %s', [post_id]
     )
     return data
+
+def delete_all_images(post_id):
+    db.sql_write (
+        'DELETE FROM images WHERE entry_id=%s',
+        [post_id]
+    )
