@@ -15,6 +15,7 @@ import mistletoe
 from models.users import add_user, get_user_by_email, check_user_exists, get_username_join_diary_users
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
 from models.posts import add_entry, get_all_posts, get_single_post, edit_entry, delete_entry
+from models.images import insert_images
 
 app = Flask(__name__)
 if __name__ == "__main__":
@@ -94,7 +95,7 @@ def edit_post(post_id):
         new_timedate_str = f"{new_date} {new_time}"
         new_timedate = datetime.strptime(new_timedate_str, '%Y-%m-%d %H:%M')
 
-        images = request.files.get('photo')
+        images = request.files.get('images')
         uploaded_images = cloudinary.uploader.upload(images)
         new_img = uploaded_images['url']
         new_heading = request.form.get('heading')
@@ -207,11 +208,14 @@ def addentry():
         user_id = session.get('user_id')
         diary_heading = request.form.get('heading')
         diary_text = request.form.get('entry')
-        images = request.files.get('images')
+        images = request.files.getlist('images')
         uploaded_image = cloudinary.uploader.upload(images)
         img_url = uploaded_image['url']
-        add_entry(diary_code, user_id, diary_heading, diary_text, img_url)
+        add_entry(diary_code, user_id, diary_heading, diary_text)
         print(user_id)
+
+
+
     return redirect(f'/diary/{diary_code}')
 
 @app.route('/landing')

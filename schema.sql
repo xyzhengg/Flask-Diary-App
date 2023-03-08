@@ -1,6 +1,6 @@
-DROP TABLE if EXISTS users;
-DROP TABLE if EXISTS diary;
-DROP TABLE if EXISTS entries;
+-- DROP TABLE if EXISTS users;
+-- DROP TABLE if EXISTS diary;
+-- DROP TABLE if EXISTS entries;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -29,7 +29,12 @@ CREATE TABLE entries (
     post_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP(2)
     );
 
-CREATE TABLE images ()
+CREATE TABLE images (
     id SERIAL PRIMARY KEY,
-    diary_code VARCHAR(8) NOT NULL,
-    
+    public_id TEXT,
+    img_url TEXT,
+    entry_id INT,
+    CONSTRAINT fk_entry_images 
+        FOREIGN KEY (entry_id)
+        REFERENCES entries(id)
+);

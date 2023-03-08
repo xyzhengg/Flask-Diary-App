@@ -1,9 +1,9 @@
 import db
 
-def add_entry(diary_code, user_id, diary_heading, diary_text, img_url):
+def add_entry(diary_code, user_id, diary_heading, diary_text):
     db.sql_write(
-        'INSERT INTO entries (diary_code, user_id, diary_heading, diary_text, img_url) VALUES (%s, %s, %s, %s, %s)',
-        [diary_code, user_id, diary_heading, diary_text, img_url]
+        'INSERT INTO entries (diary_code, user_id, diary_heading, diary_text) VALUES (%s, %s, %s, %s)',
+        [diary_code, user_id, diary_heading, diary_text]
     )
 
 def get_all_posts(diary_id):
