@@ -15,7 +15,6 @@
     <nav>
       {% block login_signup %} {% if user_name %}
       <div class="logout-banner">
-        <span class="welcome-text">Welcome {{user_name.capitalize()}}! </span>
         <form action="/logout" method="POST">
           <button type="submit">Logout</button>
         </form>
@@ -31,12 +30,15 @@
     <main>
       <h1>{% block heading %} {% endblock heading %}</h1>
 
-      {% block memories %} {% endblock memories %} {% block article %} {% if
+      {% block memories %} {% endblock memories %} 
+      
+      {% block article %} {% if
       user_name %}
       <div class="add-entry-div">
         <a href="/addentry" class="add-entry-button"> + Add Entry</a>
       </div>
-      {% endif %} {% endblock article %}
+      {% endif %} 
+      {% endblock article %}
     </main>
 
     {% block tail_js %}
