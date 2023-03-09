@@ -8,8 +8,11 @@ Home
 
 
 {% block login_signup %}
+<div class="navigation-bar">
+<a href="/" ><img src='/static/images/Logo.png' alt="logo for home page" class="home-logo"></a>
     {{ super() }}
 {% endblock login_signup %}
+</div>
 
 {% block heading %} 
 {{ user_one }} & {{ user_two}}

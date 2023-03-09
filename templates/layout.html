@@ -14,11 +14,11 @@
   <body>
     <nav>
       {% block login_signup %} {% if user_name %}
-      <div class="logout-banner">
-        <form action="/logout" method="POST">
-          <button type="submit">Logout</button>
-        </form>
-      </div>
+      
+      <a href="/logout" class="logout-btn">
+        <div class="logout">Logout</div>
+      </a>
+      
       {% endif %} {% if not user_name %}
 
       <a href="/login"> Login</a>
