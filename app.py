@@ -111,7 +111,7 @@ def edit_post(post_id):
             for image in images:
                 if image.filename != '': 
                     uploaded_image = cloudinary.uploader.upload(image)
-                    image_rows.append([uploaded_image['public_id'], uploaded_image['url'], entry_id['id']])
+                    image_rows.append([uploaded_image['public_id'], uploaded_image['url'], entry_id])
                 insert_many_images(image_rows)
 
         return redirect(f'/view/{post_id}')
@@ -159,7 +159,7 @@ def view_post(post_id):
 def redirecttomain():
     diary_id = session.get('diary_id')
     if session.get('user_id') is None:
-        return redirect ('/landing')
+        return redirect ('/login')
     return redirect(f'/diary/{diary_id}')
 
 ## Main diary page
@@ -254,10 +254,6 @@ def addentry():
                 insert_many_images(image_rows)
 
         return redirect(f'/diary/{diary_code}')
-
-@app.route('/landing')
-def landing():
-    return render_template('landing.html')
 
 @app.post('/logout')
 def logout():

@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block css %} <link rel="stylesheet" href="/static/main.css"> {% endblock css %}
+{% block head_css %} <link rel="stylesheet" href="/static/main.css"> {% endblock head_css %}
 
 
 {% block title %}
@@ -15,7 +15,6 @@ Home
 {{ user_one }} & {{ user_two}}
 {% endblock heading %}
 
-{% block nav %} {% endblock nav %}
 
 {% block memories %}
 <h3 class="memories-heading"> Memories </h3>
@@ -31,28 +30,38 @@ Home
 {% endblock memories %}
 
 
-{% block main %}
+{% block article %}
+
 <p class="no-post-error">{{ no_post_error }}</p>
 {% for date in sorted_posts %}
-<div class="carousel" id="{{ date }}">
-    <h2>  {{ date }}  </h2>
+<div class="carousel posts{{ sorted_posts[date]|length }}" id="{{ date }}">
+  <h2>  {{ date }}  </h2>
     {% for post in sorted_posts[date] %}
     <a href="/view/{{ post['id'] }}">
-    <div class="carousel-item {{ sorted_posts[date]|length }}" id="{{ post['id'] }}">
+    <div class="carousel-item num{{ sorted_posts[date]|length }}" id="{{ post['id'] }}">
+      <div class="display-image">
       {% if post['metadata']['images'] %}
-        <img src="{{ post['metadata']['images'][0]['img_url'] }}" alt="photo">
+        <img src="{{ post['metadata']['images'][0]['img_url'] }}" class="img{{ sorted_posts[date]|length }}" alt="photo">
       {% else %}
-      <img src="https://res.cloudinary.com/ddg0iss6e/image/upload/v1678273766/Screen_Shot_2023-03-08_at_10.08.54_pm_yz0hez.png" alt="photo">
+      <img src="https://res.cloudinary.com/ddg0iss6e/image/upload/v1678273766/Screen_Shot_2023-03-08_at_10.08.54_pm_yz0hez.png" class="img{{ sorted_posts[date]|length }}" alt="photo">
       {% endif %}
-      <div class="metadata">
-      <p> {{ post['metadata']['first_name'] }} </p> 
-      <p> {{ post['metadata']['time'] }} </p>
       </div>
-      <h3 class="entry-heading"> {{ post['diary_heading'].capitalize() }}</h3>
-      <p class="diary-text"> {{ post['diary_text'] }} </p>
+      <div class="display-text">
+        <div class="metadata">
+        <p> {{ post['metadata']['first_name'] }} </p> 
+        <p> {{ post['metadata']['time'] }} </p>
+        </div>
+      <h3 class="entry-heading "> {{ post['diary_heading'].capitalize() }}</h3>
+      <p class="diary-text text{{ sorted_posts[date]|length }}"> {{ post['diary_text'] }} </p>
+      </div>
     </div>
     </a>
     {% endfor %}
+  </div>
 </div>
 {% endfor %}
-{% endblock main %}
+  {{ super() }}
+{% endblock article %}
+
+{% block tail_js %}  <script src="/static/main.js" async defer></script> {% endblock tail_js%}
+

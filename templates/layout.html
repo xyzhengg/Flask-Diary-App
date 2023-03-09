@@ -1,50 +1,46 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title> Diary {% block title %} {% endblock title %}</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        {% block css %} <link rel="stylesheet" href="/static/style.css"> {% endblock css %}
-    </head>
-    <body>
-      {% block login_signup %}
-          {% if user_name %}
-          <div class="logout-banner"> 
-            <span class="welcome-text">Welcome {{user_name.capitalize()}}! </span> 
-            <form action="/logout" method="POST">
-              <button type="submit"> Logout </button>
-            </form>
-          </div>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Diary {% block title %} {% endblock title %}</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% block head_css %}
+    <link rel="stylesheet" href="/static/style.css" />
+    {% endblock head_css %}
+  </head>
 
-          <a href="/addentry"> Add Entry</a>
-          </br>
-          {% endif %}
+  <body>
+    <nav>
+      {% block login_signup %} {% if user_name %}
+      <div class="logout-banner">
+        <span class="welcome-text">Welcome {{user_name.capitalize()}}! </span>
+        <form action="/logout" method="POST">
+          <button type="submit">Logout</button>
+        </form>
+      </div>
+      {% endif %} {% if not user_name %}
 
-          {% if not user_name %}
-          
-          <a href="/login"> Login</a>
-          <a href="/signup"> Sign Up </a>
-          
-          {% endif %}
-        {% endblock login_signup %}
+      <a href="/login"> Login</a>
+      <a href="/signup"> Sign Up </a>
 
-      {% block nav %} 
-      
-      {% endblock nav %}
-        <h1> {% block heading %} {% endblock heading %} </h1>
+      {% endif %} {% endblock login_signup %} {% block buttons %} {% endblock
+      buttons %}
+    </nav>
+    <main>
+      <h1>{% block heading %} {% endblock heading %}</h1>
 
-        
+      {% block memories %} {% endblock memories %} {% block article %} {% if
+      user_name %}
+      <div class="add-entry-div">
+        <a href="/addentry" class="add-entry-button"> + Add Entry</a>
+      </div>
+      {% endif %} {% endblock article %}
+    </main>
 
-
-        
-        {% block memories %} {% endblock memories %}
-
-        <main>
-            {% block main %} {% endblock main %}
-        </main>
-        
-      {% block js %}  <script src="/static/script.js" async defer></script> {% endblock js%}
-    </body>
+    {% block tail_js %}
+    <script src="/static/script.js" async defer></script>
+    {% endblock tail_js%}
+  </body>
 </html>

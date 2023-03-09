@@ -9,7 +9,7 @@ Sign Up
 {% endblock heading %}
 
 
-{% block main %}
+{% block article %}
 <form action="/signup" method="POST">
     <label for="firstname">Enter First Name</label>
     <input name="firstname" type="text"></input>
@@ -52,4 +52,4 @@ Sign Up
     <p class="error"> {{ diarycode_error }} </p>
     {% endif %}
 </form>
-{% endblock main %}
+{% endblock article %}

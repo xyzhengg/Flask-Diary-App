@@ -8,7 +8,7 @@ View
 
 {% block login_signup %} {% endblock login_signup %}
 
-{% block nav %}
+{% block buttons %}
 {% if user_id == poster_id %}
 <a href="/edit/{{ post_id }}"><img src="/static/images/editpencil.png" alt="edit" name="edit" width="30px"></a>
 <button type="submit" class="view-delete-button">
@@ -30,9 +30,9 @@ View
 
 <input class="fav-checkbox" type="checkbox" name="fav">
 
-{% endblock nav %}
+{% endblock buttons %}
 
-{% block main %}
+{% block article %}
 <div>
 <h1> {{ reversed_date }} {{ day_name }}</h1>
     <div class="heading">
@@ -48,4 +48,4 @@ View
     <h3> {{ diary_heading }} </h3>
     <p> {{ diary_text }} </p>
 </div>
-{% endblock main %}
+{% endblock article %}
