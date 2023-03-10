@@ -26,7 +26,9 @@ Home
 
 
 {% block memories %}
+{% if not no_post_error %}
 <h3 class="memories-heading"> Memories </h3>
+
 <div class="memories">
   {% for random_post in random_posts %}
   <a href="/view/{{ random_post['id'] }}">
@@ -36,6 +38,7 @@ Home
   </a>
   {% endfor %}
 </div>
+{% endif %}
 {% endblock memories %}
 
 {% block article %}

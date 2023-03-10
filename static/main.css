@@ -101,7 +101,10 @@ h1 {
     width: 180px;
     text-align: center;
 }
-
+/* No post error */
+.no-post-error {
+  font-size: 22px;
+}
 /* Carousel styling */
 .carousel-item {
   display: inline-block;

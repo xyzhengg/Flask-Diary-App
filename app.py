@@ -24,12 +24,12 @@ def generate_diary_code():
     new_diary_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
     return new_diary_code
 
-
 @app.get('/<user_name>-posts')
 def view_users_posts(user_name):
     if session.get('user_id') is None:
         return redirect ('/login')
     diary_id=session.get('diary_id')
+    logged_in_user = session.get('user_name').capitalize()
     users = get_all_username(diary_id)
     user_one = users[0]['first_name'].capitalize()
     user_two = users[1]['first_name'].capitalize()
@@ -42,6 +42,17 @@ def view_users_posts(user_name):
     if user_name.lower() == user_two.lower():
         data = get_all_user_posts(user_two_id)
         display_name = user_two
+
+    if len(data) == 0:
+        no_post_error = "You have no posts! Get started by creating an entry"
+        return render_template('userposts.html', 
+                            diary_id = diary_id,
+                            no_post_error = no_post_error,
+                            user_name = user_name,
+                            user_one = user_one,
+                            user_two=user_two,
+                            display_name = display_name,
+                            logged_in_user = logged_in_user)
 
     for posts in data:
         diary_heading = posts['diary_heading'].capitalize()
@@ -211,23 +222,29 @@ def index(diary_id):
     user_name = session.get('user_name')
     diary_id = session.get('diary_id')
     users = get_all_username(diary_id)
+    print(users)
     user_one = users[0]['first_name'].capitalize()
+    print(user_one)
     user_two = users[1]['first_name'].capitalize()
+    print(user_two)
 
     data = get_all_posts(diary_id)
+
+    num = 0
     if len(data) < 4:
-        random_posts = data
-    else:
-        random_posts = random.sample(data, 4)
-        for random_post in random_posts:
-            random_id = random_post['id']
-            random_photo = get_one_image(random_id)
-            if random_photo is not None:
-                random_url = random_photo['img_url']
-            else: 
-                random_photo = {'img_url': 'https://res.cloudinary.com/ddg0iss6e/image/upload/v1678273766/Screen_Shot_2023-03-08_at_10.08.54_pm_yz0hez.png'}
-                random_url = random_photo['img_url']            
-            random_post['image_data'] = {'img_url': random_url}
+        num = len(data)
+    else: num = 4
+
+    random_posts = random.sample(data, num)
+    for random_post in random_posts:
+        random_id = random_post['id']
+        random_photo = get_one_image(random_id)
+        if random_photo is not None:
+            random_url = random_photo['img_url']
+        else: 
+            random_photo = {'img_url': 'https://res.cloudinary.com/ddg0iss6e/image/upload/v1678273766/Screen_Shot_2023-03-08_at_10.08.54_pm_yz0hez.png'}
+            random_url = random_photo['img_url']            
+        random_post['image_data'] = {'img_url': random_url}
 
 
     if len(data) > 0:
@@ -269,7 +286,9 @@ def index(diary_id):
     return render_template('main.html', 
                            diary_id = diary_id,
                            no_post_error = no_post_error,
-                           user_name = user_name)
+                           user_name = user_name,
+                           user_one = user_one,
+                           user_two=user_two)
 
 @app.route('/addentry', methods=['GET', 'POST'])
 def addentry():

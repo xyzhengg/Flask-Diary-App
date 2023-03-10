@@ -32,18 +32,25 @@ Posts
 {% endblock heading %}
 
 {% block article %}
-<p class="no-post-error">{{ no_post_error }}</p>
+{% if no_post_error %}
+    <p class="no-post-error">{{ no_post_error }}</p>
+    {% if logged_in_user == display_name %}
+    <div class="add-entry-div">
+        <a href="/addentry" class="add-entry-button"> + Create Entry</a>
+    </div>
+    {% endif %}
+{% endif %}
 
 <div class="all-posts-container">
     {% for posts in data %}
     <a href="/view/{{ posts['id'] }}">
     <div class="post-container">
       <div class="post-image-div">
-      {% if posts['img']['images'] %}
+        {% if posts['img']['images'] %}
       <img src="{{ posts['img']['images'][0]['img_url'] }}" class="post-image" alt="photo">
-      {% else %}
+        {% else %}
       <img src="https://res.cloudinary.com/ddg0iss6e/image/upload/v1678273766/Screen_Shot_2023-03-08_at_10.08.54_pm_yz0hez.png" alt="photo" class="post-image">
-      {% endif %}
+        {% endif %}
       </div>
       <div class="display-text">
       <h3 class="entry-heading "> {{ posts['diary_heading'] }}</h3>
