@@ -21,3 +21,12 @@ def get_username_join_diary_users(user_id):
 def get_all_username(diary_id):
     users = db.sql_select('SELECT first_name FROM users WHERE diary_code=%s', [diary_id])
     return users
+
+def isValidEmail(email):
+    atindex = email.find("@")
+    postatlen = len(email[atindex:])
+    dotindex = email[atindex:].find(".")
+    seconddotindex = email[atindex:].rfind(".")
+    if email.count('@') == 1 and atindex >=1 and "." in email[atindex:] and dotindex > 1 and postatlen - seconddotindex > 1:
+        return True
+    return False

@@ -26,37 +26,44 @@ Sign Up
 {% block article %}
 
 
-
-
-
-
+<div class="signup-div">
+  <div class="signup-form">
+  <div class="signup-logo">
+      <img src='/static/images/logo-white.png' alt="logo for login" class="logo" width= "250px">
+  </div> 
 
 <form action="/signup" method="POST">
-    <label for="firstname">Enter First Name</label>
-    <input name="firstname" type="text"></input>
-    </br>
+    <div class="firstname-div">
+    <label for="firstname">First Name</label></br>
+    <input name="firstname" type="text" placeholder="required"></input>
+    </div>
 
-    <label for="lastname">Enter Last Name</label>
-    <input name="lastname" type="text"></input>
-    </br>
+    <div class="lastname-div">
+    <label for="lastname">Last Name</label></br>
+    <input name="lastname" type="text" placeholder="required"></input>
+    </div>
 
-    <label for="email">Enter Email</label>
-    <input name="email" type="text"></input>
-    </br>
+    <div class="email-div">
+    <label for="email">Email</label></br>
+    <input name="email" type="text" placeholder="required"></input>
+    </div>
 
-    <label for="password">Enter Password</label>
-    <input name="password" type="password"></input>
-    </br>
+    <div class="password-div">
+    <label for="password">Password</label></br>
+    <input name="password" type="password" placeholder="required"></input>
+    </div>
 
-    <label for="passwordcheck">Enter Password Again</label>
-    <input name="passwordcheck" type="password"></input>
-    </br>
-
-    <label for="diarycode"> If you have a diary code enter it here, otherwise we will generate one for you </label>
-    <input name="diarycode" type="text"></input>
+    <div class="passwordcheck-div">
+    <label for="passwordcheck">Re-enter Password</label></br>
+    <input name="passwordcheck" type="password" placeholder="required"></input>
+    </div>
     
-    <button type="submit">Sign Up</button>
+    <div class="diarycode-div">
+    <label for="diarycode"> If you have a diary code enter it here, otherwise we will generate one for you </label></br>
+    <input name="diarycode" type="text"></input>
+    </div>
 
+    <div class="error-messages">
     {% if email_2_error %}
     <p class="error"> {{ email_2_error }}</p>
     {% endif %}
@@ -72,5 +79,24 @@ Sign Up
     {% if diarycode_error %}
     <p class="error"> {{ diarycode_error }} </p>
     {% endif %}
+
+    {% if invalid_email_error %}
+    <p class="error"> {{ invalid_email_error }} </p>
+    {% endif %}
+
+    {% if incomplete_field %}
+    <p class="error"> {{ incomplete_field }} </p>
+    {% endif %}
+
+    {% if name_error %}
+    <p class="error"> {{ name_error }} </p>
+    {% endif %}
+    
+    </div>
+
+    <button type="submit" class="signup-button">Sign Up</button>
 </form>
+
+</div>
+</div>
 {% endblock article %}

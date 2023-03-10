@@ -1,33 +1,25 @@
-nav {
-    max-width: 100%;
-    background-color: purple;
-    height: 60px;
-  }
-  
-  body {
+/* MAIN BODY STYLING */
+body {
     margin: auto;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     background-color: rgb(255, 245, 255);
   }
   
   main {
-    max-width: 1100px;
+    max-width: 700px;
     margin: auto;
     margin-top: 50px;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     background-color: rgb(255, 245, 255);
-    position:relative;
-  }
-  
-  h1 {
-    text-align: center;
-    font-size: 110px;
-    font-family: 'Londrina Outline', cursive;
-    color: rgb(97, 0, 97);
-    margin: 10 auto;
+    position: relative;
   }
   
   /* NAVIGATION BAR STYLING */
+  nav {
+    max-width: 100%;
+    background-color: purple;
+    height: 60px;
+  }
   .navigation-bar {
     display: flex;
     justify-content: space-between;
@@ -44,7 +36,7 @@ nav {
     border-radius: 2rem;
   }
   .login:hover {
-    transform:scale(1.1);
+    transform: scale(1.1);
   }
   .home-logo {
     width: 16%;
@@ -53,4 +45,69 @@ nav {
   }
   a {
     text-decoration: none;
+  }
+  
+/* SIGNUP FORM */
+  .signup-div {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+  }
+  .signup-form {
+      width: 550px;
+      height: 800px;
+      background-color: white;
+      border-radius: 2rem;
+      border: 2px solid purple;
+  }
+  form {
+      margin: auto;
+      padding: 20px 60px;
+  }
+  ::placeholder {
+    color: red;
+  }
+  .signup-logo {
+      text-align: center;
+      margin-top: 20px;
+  }
+  .signup-button-div {
+      display: flex;
+      justify-content: center;
+  }
+  .signup-button {
+      background-color: purple;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      border: 2px solid;
+      border-radius: 0.4rem;
+      cursor: pointer;
+      font-size: 18px;
+    }
+  div .email-div,
+  div .password-div {
+      margin-top: 15px;
+  }
+  div .signup-button-div {
+      margin-top: 40px;
+  }
+  label {
+      font-size: 18px;
+  }
+  input {
+      width: 98%;
+      height: 2rem;
+      font-size: 15px;
+      padding: 2px 15px;
+      border-radius: 0.3rem;
+      margin: 10px auto 15px auto;
+  }
+  input[name="password"] {
+      margin-bottom: 10px;
+  }
+  .passworderror {
+      font-size: 17px;
+      line-height: 1.5rem;
+  
   }
