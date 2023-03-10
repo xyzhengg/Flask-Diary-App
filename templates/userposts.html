@@ -32,6 +32,7 @@ Posts
 {% endblock heading %}
 
 {% block article %}
+<p class="no-post-error"> {{ no_user_error }} </p>
 {% if no_post_error %}
     <p class="no-post-error">{{ no_post_error }}</p>
     {% if logged_in_user == display_name %}

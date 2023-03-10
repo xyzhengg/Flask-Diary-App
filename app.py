@@ -34,7 +34,9 @@ def chat(diary_id):
     user_name = session.get("user_name")
     users = get_all_username(diary_id)
     user_one = users[0]['first_name'].capitalize()
-    user_two = users[1]['first_name'].capitalize()
+    user_two = ""
+    if len(users) == 2:
+        user_two = users[1]['first_name'].capitalize()
 
     if request.method == 'GET':
         data = get_all_chats(diary_id)
@@ -76,16 +78,28 @@ def view_users_posts(user_name):
     logged_in_user = session.get('user_name').capitalize()
     users = get_all_username(diary_id)
     user_one = users[0]['first_name'].capitalize()
-    user_two = users[1]['first_name'].capitalize()
     user_one_id = users[0]['id']
-    user_two_id = users[1]['id']
+    user_two = ""
+    display_name= ""
+    data=[]
 
+    if len(users) == 2:
+        user_two = users[1]['first_name'].capitalize()
+        user_two_id = users[1]['id']
     if user_name.lower() == user_one.lower():
         data = get_all_user_posts(user_one_id)
         display_name = user_one
-    if user_name.lower() == user_two.lower():
+    elif user_name.lower() == user_two.lower():
         data = get_all_user_posts(user_two_id)
         display_name = user_two
+    else:
+        no_user_error = "User not found!"
+        return render_template('userposts.html', 
+                            diary_id = diary_id,
+                            no_post_error = no_post_error,
+                            no_user_error = no_user_error,
+                            logged_in_user = logged_in_user)
+
 
     if len(data) == 0:
         no_post_error = "You have no posts! Get started by creating an entry"
@@ -140,7 +154,9 @@ def edit_post(post_id):
     diary_id=session.get('diary_id')
     users = get_all_username(diary_id)
     user_one = users[0]['first_name'].capitalize()
-    user_two = users[1]['first_name'].capitalize()
+    user_two = ""
+    if len(users) == 2:
+        user_two = users[1]['first_name'].capitalize()
     user_name = session.get('user_name')
     post = get_single_post(post_id)
     poster_id = post['user_id']
@@ -212,7 +228,9 @@ def view_post(post_id):
     diary_id=session.get('diary_id')
     users = get_all_username(diary_id)
     user_one = users[0]['first_name'].capitalize()
-    user_two = users[1]['first_name'].capitalize()
+    user_two = ""
+    if len(users) == 2:
+        user_two = users[1]['first_name'].capitalize()
     
     post = get_single_post(post_id)
     poster_id = post['user_id']
@@ -267,12 +285,10 @@ def index(diary_id):
     user_name = session.get('user_name')
     diary_id = session.get('diary_id')
     users = get_all_username(diary_id)
-    print(users)
     user_one = users[0]['first_name'].capitalize()
-    print(user_one)
-    user_two = users[1]['first_name'].capitalize()
-    print(user_two)
-
+    user_two = ""
+    if len(users) == 2:
+        user_two = users[1]['first_name'].capitalize()
     data = get_all_posts(diary_id)
 
     num = 0

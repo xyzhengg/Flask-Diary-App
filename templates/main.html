@@ -18,7 +18,11 @@ Home
 
 
 {% block heading %} 
-{{ user_one }} & {{ user_two}}
+{% if user_two %}
+  {{ user_one }} & {{ user_two}}
+{% else %}
+  {{ user_one }}
+{% endif %}
 {% if user_name %}
   <p class="welcome-text">Welcome {{user_name.capitalize()}}! </p> 
 {% endif %}
