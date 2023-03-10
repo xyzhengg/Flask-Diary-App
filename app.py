@@ -27,7 +27,7 @@ def generate_diary_code():
 @app.post('/delete-images')
 def delete_images():
     if session.get('user_id') is None:
-        return redirect ('/landing')
+        return redirect ('/login')
     post_id = int(request.form.get('post_id'))
     delete_all_images(post_id)
     return redirect(f'/view/{post_id}')
@@ -35,7 +35,7 @@ def delete_images():
 @app.post('/delete')
 def delete():
     if session.get('user_id') is None:
-        return redirect ('/landing')
+        return redirect ('/login')
     post_id = int(request.form.get('post_id'))
     delete_all_images(post_id)
     delete_entry(post_id)
@@ -44,7 +44,7 @@ def delete():
 @app.route('/edit/<post_id>', methods=['GET', 'POST'])
 def edit_post(post_id):
     if session.get('user_id') is None:
-        return redirect ('/landing')
+        return redirect ('/login')
     user_name = session.get('user_name')
     post = get_single_post(post_id)
     print(post)
@@ -112,7 +112,7 @@ def view_post(post_id):
     user_id = session.get('user_id')
     user_name = session.get('user_name').capitalize()
     if session.get('user_id') is None:
-        return redirect ('/landing')
+        return redirect ('/login')
     
     post = get_single_post(post_id)
     poster_id = post['user_id']
@@ -161,7 +161,7 @@ def redirecttomain():
 @app.route('/diary/<diary_id>')
 def index(diary_id):
     if session.get('user_id') is None:
-        return redirect ('/landing')
+        return redirect ('/login')
     user_name = session.get('user_name')
     diary_id = session.get('diary_id')
     users = get_all_username(diary_id)
@@ -274,7 +274,7 @@ def login():
         if user is not None:
             password_matches = check_password_hash(user['password_hash'], password)
         if not check_exists or not password_matches:
-            login_error = "Your email or password is incorrect. Please try again"
+            login_error = "Your email or password is incorrect. Please try again."
             return render_template('login.html', login_error = login_error)
         if check_exists and password_matches:
             session['user_id'] = user['id']

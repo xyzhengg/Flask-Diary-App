@@ -1,0 +1,118 @@
+/* MAIN BODY STYLING */
+body {
+  margin: auto;
+  font-family: "Roboto", sans-serif;
+  background-color: rgb(255, 245, 255);
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  margin-top: 50px;
+  font-family: "Roboto", sans-serif;
+  background-color: rgb(255, 245, 255);
+  position: relative;
+}
+
+/* h1 {
+    text-align: center;
+    font-size: 110px;
+    font-family: 'Londrina Outline', cursive;
+    color: rgb(97, 0, 97);
+    margin: 10 auto;
+  } */
+
+/* NAVIGATION BAR STYLING */
+nav {
+  max-width: 100%;
+  background-color: purple;
+  height: 60px;
+}
+.navigation-bar {
+  display: flex;
+  justify-content: space-between;
+}
+.signup {
+  padding: 1.2em 1.8em;
+  margin-right: 25px;
+}
+.signup-btn {
+  border-color: white;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid;
+  border-radius: 2rem;
+}
+.signup:hover {
+  transform: scale(1.1);
+}
+.home-logo {
+  width: 16%;
+  z-index: 5;
+  padding-left: 25px;
+}
+a {
+  text-decoration: none;
+}
+
+/* LOGIN FORM STYLING */
+.login-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.login-form {
+    width: 400px;
+    height: 500px;
+    background-color: white;
+    border-radius: 2rem;
+    border: 2px solid purple;
+}
+form {
+    margin: auto;
+    padding: 20px 60px;
+}
+.login-logo {
+    text-align: center;
+    margin-top: 20px;
+}
+.login-button-div {
+    display: flex;
+    justify-content: center;
+}
+.login-button {
+    background-color: purple;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    border: 2px solid;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    font-size: 18px;
+  }
+div .email-div,
+div .password-div {
+    margin-top: 15px;
+}
+div .login-button-div {
+    margin-top: 40px;
+}
+label {
+    font-size: 18px;
+}
+input {
+    width: 98%;
+    height: 2rem;
+    font-size: 15px;
+    padding: 0.8rem auto;
+    border-radius: 0.3rem;
+    margin: 10px auto 15px auto;
+}
+input[name="password"] {
+    margin-bottom: 10px;
+}
+.passworderror {
+    font-size: 17px;
+    line-height: 1.5rem;
+
+}

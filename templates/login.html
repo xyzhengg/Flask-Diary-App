@@ -11,26 +11,50 @@
 Login
 {% endblock title %}
 
+{% block login_signup %}
+<div class="navigation-bar">
+  <a href="/signup" ><img src='/static/images/Logo.png' alt="logo for landing" class="home-logo"></a>
+  <div class="signup">
+  {% if not user_name %}
+    <a href="/signup" class="signup-btn"> Sign Up </a>
+  {% endif %} 
+  </div>
+</div>
+
+{% endblock login_signup %}
+
 {% block heading %} 
-- Login
 {% endblock heading %}
 
 
 {% block article %}
-<form action="/login" method="POST">
-    <label for="email">Enter Email</label>
-    <input name="email" type="text"></input>
-    </br>
-
-    <label for="password">Enter Password</label>
-    <input name="password" type="password"></input>
-    </br>
+<div class="login-div">
     
-    <button type="submit">Login</button>
+    <div class="login-form">
+    <div class="login-logo">
+        <img src='/static/images/logo-white.png' alt="logo for login" class="logo" width= "230px">
+    </div>    
+    <form action="/login" method="POST">
+        <div class="email-div">
+        <label for="email">Email</label></br>
+        <input name="email" type="text"></input>
+        </div>
 
-    {% if login_error %}
-    <p class="passworderror"> {{ login_error }}</p>
-    {% endif %}
-    
-</form>
+        <div class="password-div">
+        <label for="password">Password</label></br>
+        <input name="password" type="password"></input>
+        </div>
+        
+        {% if login_error %}
+        <p class="passworderror"> {{ login_error }}</p>
+        {% endif %}
+
+        <div class="login-button-div">
+        <button type="submit" class="login-button">Login</button>
+        </div>
+        
+    </form>
+    </div>
+</div>
+
 {% endblock article %}

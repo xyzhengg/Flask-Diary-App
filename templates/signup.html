@@ -11,12 +11,26 @@
 Sign Up
 {% endblock title %}
 
-{% block heading %} 
-- Sign Up
-{% endblock heading %}
+{% block login_signup %}
+<div class="navigation-bar">
+  <a href="/signup" ><img src='/static/images/Logo.png' alt="logo for landing" class="home-logo"></a>
+  <div class="login">
+  {% if not user_name %}
+    <a href="/login" class="login-btn"> Login </a>
+  {% endif %} 
+  </div>
+</div>
+{% endblock login_signup %}
 
 
 {% block article %}
+
+
+
+
+
+
+
 <form action="/signup" method="POST">
     <label for="firstname">Enter First Name</label>
     <input name="firstname" type="text"></input>

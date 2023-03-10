@@ -1,0 +1,56 @@
+nav {
+    max-width: 100%;
+    background-color: purple;
+    height: 60px;
+  }
+  
+  body {
+    margin: auto;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(255, 245, 255);
+  }
+  
+  main {
+    max-width: 1100px;
+    margin: auto;
+    margin-top: 50px;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(255, 245, 255);
+    position:relative;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 110px;
+    font-family: 'Londrina Outline', cursive;
+    color: rgb(97, 0, 97);
+    margin: 10 auto;
+  }
+  
+  /* NAVIGATION BAR STYLING */
+  .navigation-bar {
+    display: flex;
+    justify-content: space-between;
+  }
+  .login {
+    padding: 1.2em 1.8em;
+    margin-right: 25px;
+  }
+  .login-btn {
+    border-color: white;
+    color: white;
+    padding: 10px 30px;
+    border: 2px solid;
+    border-radius: 2rem;
+  }
+  .login:hover {
+    transform:scale(1.1);
+  }
+  .home-logo {
+    width: 16%;
+    z-index: 5;
+    padding-left: 25px;
+  }
+  a {
+    text-decoration: none;
+  }
