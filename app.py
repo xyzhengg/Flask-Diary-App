@@ -81,9 +81,12 @@ def delete():
 def edit_post(post_id):
     if session.get('user_id') is None:
         return redirect ('/login')
+    diary_id=session.get('diary_id')
+    users = get_all_username(diary_id)
+    user_one = users[0]['first_name'].capitalize()
+    user_two = users[1]['first_name'].capitalize()
     user_name = session.get('user_name')
     post = get_single_post(post_id)
-    print(post)
     poster_id = post['user_id']
     fav = post['fav']
     if session.get('user_id') != poster_id:
@@ -115,7 +118,9 @@ def edit_post(post_id):
             post_date = post_date,
             day_name = day_name,
             image_list = image_list,
-            user_name=user_name)
+            user_name=user_name,
+            user_one=user_one,
+            user_two=user_two)
 
 
     if request.method == 'POST':
@@ -149,6 +154,10 @@ def view_post(post_id):
     user_name = session.get('user_name').capitalize()
     if session.get('user_id') is None:
         return redirect ('/login')
+    diary_id=session.get('diary_id')
+    users = get_all_username(diary_id)
+    user_one = users[0]['first_name'].capitalize()
+    user_two = users[1]['first_name'].capitalize()
     
     post = get_single_post(post_id)
     poster_id = post['user_id']
@@ -183,7 +192,9 @@ def view_post(post_id):
                     post_id = post_id,
                     day_name = day_name,
                     image_list=image_list,
-                    full_date = full_date
+                    full_date = full_date,
+                    user_one = user_one,
+                    user_two=user_two
                     )
 
 @app.route('/')
@@ -267,8 +278,14 @@ def addentry():
         return redirect ('/login')
     user_name = session.get('user_name')
     if request.method == 'GET':
+        diary_id=session.get('diary_id')
+        users = get_all_username(diary_id)
+        user_one = users[0]['first_name'].capitalize()
+        user_two = users[1]['first_name'].capitalize()
         return render_template('new_entry.html',
-                               user_name=user_name)
+                               user_name=user_name,
+                               user_one = user_one,
+                               user_two = user_two)
     if request.method == 'POST':
         diary_code = session.get('diary_id')
         user_id = session.get('user_id')

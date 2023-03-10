@@ -46,6 +46,16 @@ h1 {
   padding: 1.2em 1.8em;
   margin-right: 25px;
 }
+.user-one,
+.user-two {
+  padding: 1.2rem 0;
+  margin-right: 15px;
+}
+
+.user-two a,
+.user-one a {
+  color: white;
+}
 .logout-btn {
   border-color: white;
   color: white;

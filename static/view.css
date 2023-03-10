@@ -28,6 +28,16 @@ a {
   text-decoration: none;
   color: black;
 }
+.user-one,
+.user-two {
+  padding: 1.2rem 0;
+  margin-right: 15px;
+}
+
+.user-two a,
+.user-one a {
+  color: white;
+}
 .logout {
   padding: 1.2em 1.8em;
   order: 4;

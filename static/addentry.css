@@ -15,7 +15,16 @@ main {
 }
 
 /* NAVIGATION BAR */
+.user-one,
+.user-two {
+  padding: 1.2rem 0;
+  margin-right: 15px;
+}
 
+.user-two a,
+.user-one a {
+  color: white;
+}
 .logout:hover {
   transform: scale(1.1);
 }
