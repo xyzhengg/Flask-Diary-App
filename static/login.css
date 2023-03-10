@@ -127,7 +127,7 @@ li {
 .div-one-signup {
   display: flex;
   justify-content: left;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 .div-signup {
   background-color: purple;
@@ -147,6 +147,9 @@ li {
   display: flex;
   justify-content: space-between;
   margin-top: 80px;
+}
+.div-three {
+  margin-bottom: 120px;
 }
 .div-two-image img,
 .div-three-image img {
