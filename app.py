@@ -64,8 +64,6 @@ def chat(diary_id):
         chat = request.form.get('chat')
         add_chat(chat, user_id, diary_id)
 
-        
-
         return redirect(f'/{diary_id}/chat')
 
 
@@ -114,7 +112,8 @@ def view_users_posts(user_name):
                         data=data,
                         user_one=user_one,
                         user_two=user_two,
-                        display_name = display_name)
+                        display_name = display_name,
+                        diary_id = diary_id)
 
 
 @app.post('/delete-images')

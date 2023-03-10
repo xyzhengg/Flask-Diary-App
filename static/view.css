@@ -29,13 +29,15 @@ a {
   color: black;
 }
 .user-one,
-.user-two {
+.user-two,
+.chat-button {
   padding: 1.2rem 0;
   margin-right: 15px;
 }
 
 .user-two a,
-.user-one a {
+.user-one a,
+.chat-button a {
   color: white;
 }
 .logout {

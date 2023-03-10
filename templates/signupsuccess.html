@@ -1,21 +1,45 @@
 {% extends "layout.html" %}
+{% block head_css %} 
+<link rel="stylesheet" href="/static/signupsuccess.css"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Londrina+Outline&family=Roboto:wght@100;300;400;700&display=swap" rel="stylesheet">
+{% endblock head_css %}
 
 {% block title %}
 Sign Up
 {% endblock title %}
 
 {% block heading %} 
-- Sign Up Success
+ {{ super() }}
 {% endblock heading %}
 
+{% block login_signup %}
+<div class="navigation-bar">
+    <a href="/signup" ><img src='/static/images/Logo.png' alt="logo for landing" class="home-logo"></a>
+    <div class="login">
+    {% if not user_name %}
+      <a href="/login" class="login-btn"> Login </a>
+    {% endif %} 
+    </div>
+  </div>
+{% endblock login_signup %}
 
-{% block main %}
-<div>
-    <p> Sign up successful!</p>
+
+{% block article %}
+<div class="success-container">
+  <div class="success">
+    <h2> Sign up successful!</h2>
+  <div>
+  <div class="text">
     <p> Welcome {{ firstname.capitalize() }}</p>
-    <p> Youre unique code is {{ diarycode }} </p>
+    <p> Your unique code is {{ diarycode }} </p>
+  </div>
+  <div class="login-button-div">
+    <a href="/login" class="login-button"> Login </a>
+  </div>
 </div>
 
-<a href="/login"> Login </a>
 
-{% endblock main %}
+
+{% endblock article %}
