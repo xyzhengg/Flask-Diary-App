@@ -35,7 +35,7 @@ This app was created using Flask, with Python, CSS, HTML, Javascript, and Progre
 5. Depending on how many posts there are for the day, the display changes/layout changes 
 
 # View Post
-1. Depending on how many images there are, the layour changes
+1. Depending on how many images there are, the layout changes
 2. If you are the writer of the post and you're the one signed in, you have rights to edit or delete the post. You cannot do this to the other person's post
 
 # Edit Post
