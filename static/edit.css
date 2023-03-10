@@ -1,0 +1,107 @@
+.edit-photo-display {
+  width: 700px;
+  height: 700px;
+  object-fit: cover;
+}
+.photo-text {
+  width: 700px;
+  height: 40px;
+}
+
+.heading-text {
+  width: 700px;
+  height: 40px;
+}
+
+.entry-text {
+  width: 700px;
+  height: 200px;
+  overflow-y: scroll;
+}
+/* MAIN BODY LAYOUT */
+body {
+  margin: auto;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: rgb(255, 245, 255);
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  margin-top: 80px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: rgb(255, 245, 255);
+  position: relative;
+}
+
+/* NAVIGATION BAR */
+.navigation-bar {
+  display: flex;
+  justify-content: space-between;
+}
+.logout {
+  padding: 1.2em 1.8em;
+}
+.logout-btn {
+  border-color: white;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid;
+  border-radius: 2rem;
+}
+.home-logo {
+  width: 16%;
+  z-index: 5;
+  padding-left: 25px;
+}
+nav {
+  max-width: 100%;
+  background-color: purple;
+  height: 60px;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+
+/* DISPLAY IMAGES */
+/* More than 2 images */
+.display-post {
+  display: flex;
+  flex-direction: column;
+}
+.display-images {
+  flex-direction: row;
+  width: 1100px;
+  align-items: start;
+  margin-bottom: 40px;
+  padding: 0;
+}
+.edit-photo-display {
+  width: 32.99%;
+  height: 300px;
+  object-fit: cover;
+}
+
+/* Two images */
+.images-2 {
+  flex-direction: row;
+  width: 1100px;
+  align-items: start;
+  margin-bottom: 40px;
+  padding: 0;
+}
+.photo-2 {
+  width: 49.7%;
+  height: 450px;
+  object-fit: cover;
+}
+
+/* One image */
+.photo-1 {
+  display: block;
+  width: 1100px;
+  height: 650px;
+  object-fit: cover;
+  margin: auto;
+}

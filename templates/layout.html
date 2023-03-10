@@ -13,27 +13,30 @@
 
   <body>
     <nav>
-      {% block login_signup %} {% if user_name %}
-      
-      <a href="/logout" class="logout-btn">
-        <div class="logout">Logout</div>
-      </a>
-      
-      {% endif %} {% if not user_name %}
-
-      <a href="/login"> Login</a>
-      <a href="/signup"> Sign Up </a>
-
-      {% endif %} {% endblock login_signup %} {% block buttons %} {% endblock
-      buttons %}
+      {% block login_signup %}
+        {% if user_name %}
+        <div class="navigation-bar">
+          <a href="/" ><img src='/static/images/Logo.png' alt="logo for home page" class="home-logo"></a>
+          <div class="logout">
+          <a href="/logout" class="logout-btn"> Logout </a>
+          </div>
+        {% endif %} 
+        {% if not user_name %}
+          <a href="/login"> Login</a>
+          <a href="/signup"> Sign Up </a>
+        </div>
+        {% endif %} 
+      {% endblock login_signup %} 
+      {% block buttons %} {% endblock buttons %}
     </nav>
+
     <main>
       <h1>{% block heading %} {% endblock heading %}</h1>
 
       {% block memories %} {% endblock memories %} 
       
-      {% block article %} {% if
-      user_name %}
+      {% block article %} 
+      {% if user_name %}
       <div class="add-entry-div">
         <a href="/addentry" class="add-entry-button"> + Add Entry</a>
       </div>

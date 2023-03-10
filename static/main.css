@@ -1,13 +1,13 @@
 nav {
   max-width: 100%;
-  background-color: white;
+  background-color: purple;
   height: 60px;
 }
 
 body {
   margin: auto;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background-color: aliceblue;
+  background-color: rgb(255, 245, 255);
 }
 
 main {
@@ -15,7 +15,7 @@ main {
   margin: auto;
   margin-top: 80px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background-color: aliceblue;
+  background-color: rgb(255, 245, 255);
   position:relative;
 }
 
@@ -32,12 +32,32 @@ h1 {
   text-align: center;
   font-size: 50px;
 }
+
+/* NAVIGATION BAR STYLING */
+.navigation-bar {
+  display: flex;
+  justify-content: space-between;
+}
+.logout { 
+  padding: 1.2em 1.8em;
+}
+.logout-btn {
+  border-color: white;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid;
+  border-radius: 2rem;
+}
+.home-logo {
+  width: 16%;
+  z-index: 5;
+  padding-left: 25px;
+}
+/* Memories styling */
 .memories-heading {
   font-size: 25px;
   color: rgb(104, 99, 99);
 }
-
-/* Memories styling */
 .memories {
   display: flex;
   flex-direction: row;
@@ -169,22 +189,6 @@ h1 {
 }
 
 /* Standard styling across the page */
-.navigation-bar {
-  display: flex;
-  justify-content: space-between;
-}
-.logout { 
-  padding: 1.2em 2em;
-
-}
-/* a .logout-btn {
-  padding: 0;
-} */
-
-.home-logo {
-  width: 16%;
-  z-index: 5;
-}
 a {
   text-decoration: none;
   color: black;

@@ -28,13 +28,6 @@ def generate_diary_code():
     new_diary_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
     return new_diary_code
 
-#Don't allow 
-# @app.before_request
-# def is_user_logged_in():
-#     path = request.path
-#     if path != '/login' and path != '/static/style.css' and session.get('user_id') is None:
-#         return redirect ('/login')
-
 @app.post('/delete-images')
 def delete_images():
     if session.get('user_id') is None:
@@ -56,6 +49,7 @@ def delete():
 def edit_post(post_id):
     if session.get('user_id') is None:
         return redirect ('/landing')
+    user_name = session.get('user_name')
     post = get_single_post(post_id)
     print(post)
     poster_id = post['user_id']
@@ -88,7 +82,8 @@ def edit_post(post_id):
             post_id = post_id,
             post_date = post_date,
             day_name = day_name,
-            image_list = image_list)
+            image_list = image_list,
+            user_name=user_name)
 
 
     if request.method == 'POST':
@@ -112,7 +107,7 @@ def edit_post(post_id):
                 if image.filename != '': 
                     uploaded_image = cloudinary.uploader.upload(image)
                     image_rows.append([uploaded_image['public_id'], uploaded_image['url'], entry_id])
-                insert_many_images(image_rows)
+            insert_many_images(image_rows)
 
         return redirect(f'/view/{post_id}')
                            
@@ -140,6 +135,9 @@ def view_post(post_id):
     year = int(post_date[:4])
     day = calendar.weekday(year, month, date)
     day_name = calendar.day_name[day]
+    month_name = calendar.month_name[month]
+    full_date = str(date) + ' ' + month_name + ' ' + str(year) +  ', ' + day_name 
+           
 
     return render_template('view.html',
                     user_id = user_id,
@@ -152,7 +150,8 @@ def view_post(post_id):
                     first_name = first_name,
                     post_id = post_id,
                     day_name = day_name,
-                    image_list=image_list
+                    image_list=image_list,
+                    full_date = full_date
                     )
 
 @app.route('/')

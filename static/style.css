@@ -46,26 +46,7 @@
   }
   
   /* Edit page styling */
-.edit-photo-display {
-    width: 700px;
-    height: 700px;
-    object-fit: cover;
-}
-.photo-text {
-    width: 700px;
-    height: 40px;
-}
 
-.heading-text {
-    width: 700px;
-    height: 40px;
-}
-
-.entry-text {
-    width: 700px;
-    height: 200px;
-    overflow-y:scroll;
-}
 
 /* Fav Star Icon Styling */
 /* http://jsfiddle.net/binaryben/aLx3m4k5/ */

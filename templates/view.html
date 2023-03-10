@@ -1,21 +1,16 @@
 {% extends "layout.html" %}
-{% block css %} <link rel="stylesheet" href="/static/view.css"> {% endblock css %}
+{% block head_css %} <link rel="stylesheet" href="/static/view.css"> {% endblock head_css %}
 
 
 {% block title %}
 View
 {% endblock title %}
 
-{% block login_signup %} {% endblock login_signup %}
+{% block login_signup %} 
+ {{ super() }}
+{% endblock login_signup %}
 
 {% block buttons %}
-{% if user_id == poster_id %}
-<a href="/edit/{{ post_id }}"><img src="/static/images/editpencil.png" alt="edit" name="edit" width="30px"></a>
-<button type="submit" class="view-delete-button">
-    <img src="/static/images/delete.png" alt="delete" width="30px">
-</button>
-{% endif %}
-
 <div class="the-delete">
     <div class="delete">
         <span class="close-delete">&times;</span>
@@ -27,25 +22,48 @@ View
         </form>
     </div>
 </div>
-
 <input class="fav-checkbox" type="checkbox" name="fav">
-
 {% endblock buttons %}
 
 {% block article %}
 <div>
-<h1> {{ reversed_date }} {{ day_name }}</h1>
-    <div class="heading">
-    <h3> {{ first_name }} </h3> <span class=time> {{ post_time }} </span>
+  <div class="date-edit-delete">
+    <div class="date">
+      <h1> {{ full_date }} </h1>
     </div>
-    {% if image_list %}
-        {% for image in image_list %}
-    <img src="{{ image['img_url'] }}" alt="photo" class="viewphoto">
-        {% endfor %}
-    {% else %}
-    <img src="https://res.cloudinary.com/ddg0iss6e/image/upload/v1678273766/Screen_Shot_2023-03-08_at_10.08.54_pm_yz0hez.png" alt="photo">
-    {% endif %}
-    <h3> {{ diary_heading }} </h3>
-    <p> {{ diary_text }} </p>
+    <div class="edit-delete">
+      {% if user_id == poster_id %}
+      <div class="edit-pencil-div">
+          <a href="/edit/{{ post_id }}"><img src="/static/images/editpencil.png" class="edit-pencil" alt="edit" width="22px"></a>
+        </div>
+        <div class="view-delete-button">
+          <img src="/static/images/delete.png" alt="delete" width="20px">
+        </div>
+        {% endif %}
+      </div>
+  </div>
+  <div class="heading">
+    <h3 class="firstname"> {{ first_name }} </h3> 
+    <p class=time> {{ post_time }} </p>
+  </div>
+  <div class="display-post">
+    <div class="display-images images-{{ image_list | length }}">
+        {% if image_list %}
+            {% for image in image_list %}
+        <img src="{{ image['img_url'] }}" alt="photo" class="viewphoto photo-{{ image_list | length }}">
+            {% endfor %}
+        {% else %}
+        <img src="https://res.cloudinary.com/ddg0iss6e/image/upload/v1678273766/Screen_Shot_2023-03-08_at_10.08.54_pm_yz0hez.png" alt="photo">
+        {% endif %}
+    </div>
+    <div class="diary-text">
+        <h3> {{ diary_heading }} </h3>
+        <p> {{ diary_text }} </p>
+    </div>
+  </div>
 </div>
 {% endblock article %}
+
+{% block tail_js %}
+<script src="/static/view.js" async defer></script>
+{% endblock tail_js%}
