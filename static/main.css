@@ -48,6 +48,9 @@ h1 {
   border: 2px solid;
   border-radius: 2rem;
 }
+.logout:hover {
+  transform:scale(1.1);
+}
 .home-logo {
   width: 16%;
   z-index: 5;

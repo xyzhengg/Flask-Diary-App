@@ -42,10 +42,6 @@ View
         {% endif %}
       </div>
   </div>
-  <div class="heading">
-    <h3 class="firstname"> {{ first_name }} </h3> 
-    <p class=time> {{ post_time }} </p>
-  </div>
   <div class="display-post">
     <div class="display-images images-{{ image_list | length }}">
         {% if image_list %}
@@ -55,6 +51,10 @@ View
         {% else %}
         <img src="https://res.cloudinary.com/ddg0iss6e/image/upload/v1678273766/Screen_Shot_2023-03-08_at_10.08.54_pm_yz0hez.png" alt="photo">
         {% endif %}
+    </div>
+    <div class="heading">
+      <h3 class="firstname"> {{ first_name }} </h3> 
+      <p class=time> {{ post_time }} </p>
     </div>
     <div class="diary-text">
         <h3> {{ diary_heading }} </h3>

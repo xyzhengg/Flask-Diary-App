@@ -6,7 +6,7 @@ body {
 }
 
 main {
-  max-width: 1100px;
+  max-width: 900px;
   margin: auto;
   margin-top: 80px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -72,18 +72,16 @@ h1 {
 div .heading {
   display: flex;
   justify-content: space-between;
+  
 }
 .firstname {
   font-style: italic;
+  margin-bottom: 0;
+}
+.time {
+    margin-bottom: 0;
 }
 /* DISPLAY IMAGES */
-/* 4 images */
-.photo-4 {
-  width: 49.7%;
-  height: 450px;
-  object-fit: cover;
-}
-
 /* More than 2 images */
 .display-post {
   display: flex;
@@ -91,13 +89,12 @@ div .heading {
 }
 .display-images {
   flex-direction: row;
-  width: 1100px;
+  width: 900px;
   align-items: start;
-  margin-bottom: 40px;
   padding: 0;
 }
 .viewphoto {
-  width: 32.99%;
+  width: 32.5%;
   height: 300px;
   object-fit: cover;
 }
@@ -106,21 +103,27 @@ div .heading {
 .images-2,
 .images-4 {
   flex-direction: row;
-  width: 1100px;
+  width: 900px;
   align-items: start;
-  margin-bottom: 40px;
   padding: 0;
 }
 .photo-2 {
-  width: 49.7%;
+  width: 49.5%;
   height: 450px;
   object-fit: cover;
 }
 
+/* 4 images */
+.photo-4 {
+    width: 49.5%;
+    height: 350px;
+    object-fit: cover;
+  }
+
 /* One image */
 .photo-1 {
   display: block;
-  width: 1100px;
+  width: 900px;
   height: 650px;
   object-fit: cover;
   margin: auto;
@@ -129,7 +132,6 @@ div .heading {
 /* DISPLAYING TEXT */
 .diary-text {
   width: 900px;
-  margin: auto;
   line-height: 1.7rem;
   font-size: 18px;
 }
