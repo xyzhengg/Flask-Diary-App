@@ -77,11 +77,10 @@ nav {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
     margin-bottom: 40px;
 }
 .post-container {
-    width: 340px;
+    width: 345px;
     text-align: center;
     align-items: start;
     margin: 15px 10px;
@@ -93,14 +92,14 @@ nav {
   }
   
   .post-image {
-    width: 340px;
+    width: 345px;
     height: 280px;
     object-fit: cover;
   }
   
   .display-text{
     margin-bottom: 10px;
-    width: 340px;
+    width: 345px;
     height: 85px;
   }  
   .entry-heading {

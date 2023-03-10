@@ -360,7 +360,9 @@ def addentry():
         diary_id=session.get('diary_id')
         users = get_all_username(diary_id)
         user_one = users[0]['first_name'].capitalize()
-        user_two = users[1]['first_name'].capitalize()
+        user_two = ""
+        if len(users) == 2:
+            user_two = users[1]['first_name'].capitalize()
         return render_template('new_entry.html',
                                user_name=user_name,
                                user_one = user_one,
