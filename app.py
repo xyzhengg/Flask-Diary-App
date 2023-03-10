@@ -38,25 +38,27 @@ def chat(diary_id):
 
     if request.method == 'GET':
         data = get_all_chats(diary_id)
+        chats_list=[]
         for chats in data:
-            user_id = chats['user_id']
-            poster = get_user_name(user_id)['first_name'].capitalize()
+            chatter_id = chats['user_id']
+            poster = get_user_name(chatter_id)['first_name'].capitalize()
             post_time = str(chats['post_time'])
-            print(post_time)
             datetime_obj = datetime.strptime(post_time, '%Y-%m-%d %H:%M:%S.%f')
             reversed_date = datetime_obj.strftime('%d-%m-%Y')
             time = datetime_obj.strftime('%H:%M:%S')
-
+            if chatter_id == user_id:
+                loggedin = 'yes'
+            else:
+                loggedin = 'no'
+            chat_dict = {'chat': chats['chat'], 'poster': poster, 'loggedin': loggedin, 'reversed_date': reversed_date, 'time': time}
+            chats_list.append(chat_dict)
         return render_template ('chat.html',
                                 diary_id = diary_id,
                                 user_name = user_name,
                                 user_one = user_one,
                                 user_two = user_two,
                                 user_id = user_id,
-                                data=data,
-                                reversed_date=reversed_date,
-                                time=time,
-                                poster=poster)
+                                chats_list=chats_list)
     
     if request.method == 'POST':
         chat = request.form.get('chat')

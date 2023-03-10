@@ -18,14 +18,22 @@ Chat
 
 {% block article %}
 
-{% for chats in data %}
-<div class="chats['user_id']">
-    <h3 class="header"> {{ reversed_date }} </h3>
-    <h3 class="time"> {{time}}</h3>
-    <h4 class="name"> {{ poster }} </h4>
-    <p class="message"> {{ chats['chat'] }} </p>
+<div class="chat-container">
+{% for chat in chats_list %}
+<div class="chat-div {{ chat.loggedin }}">
+  <div class="chat-content">
+    <div class="heading">
+      <p class="name"> {{ chat.poster }} </p>  
+      <p class="header"> {{ chat.reversed_date }} </p>
+      <p class="time"> {{ chat.time }}</p>
+    </div>
+    <div class="message-div">
+    <p class="message"> {{ chat.chat }} </p>
+    </div>
+  </div>
 </div>
 {% endfor %}
+</div>
 
 
 
@@ -37,4 +45,4 @@ Chat
 
 
 
-{% block tail_js %}  <script src="/static/main.js" async defer></script> {% endblock tail_js%}
+{% block tail_js %}  <script src="/static/script.js" async defer></script> {% endblock tail_js%}
