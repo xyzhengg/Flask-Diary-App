@@ -38,3 +38,14 @@ CREATE TABLE images (
         FOREIGN KEY (entry_id)
         REFERENCES entries(id)
 );
+
+CREATE TABLE messages (
+    id SERIAL PRIMARY KEY,
+    chat TEXT,
+    user_id INTEGER,
+    diary_code VARCHAR(8) NOT NULL,
+    post_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP(2),
+    CONSTRAINT fk_user_id 
+        FOREIGN KEY (user_id) 
+        REFERENCES users(id)
+);

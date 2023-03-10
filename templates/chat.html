@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block head_css %} 
+<link rel="stylesheet" href="/static/chat.css"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Londrina+Outline&family=Roboto:wght@100;300;400;700&display=swap" rel="stylesheet">
+{% endblock head_css %}
+
+
+{% block title %}
+Chat
+{% endblock title %}
+
+
+{% block login_signup %}
+    {{ super() }}
+{% endblock login_signup %}
+
+{% block article %}
+
+{% for chats in data %}
+<div class="chats['user_id']">
+    <h3 class="header"> {{ reversed_date }} </h3>
+    <h3 class="time"> {{time}}</h3>
+    <h4 class="name"> {{ poster }} </h4>
+    <p class="message"> {{ chats['chat'] }} </p>
+</div>
+{% endfor %}
+
+
+
+<form action="/{{ diary_id }}/chat" method="POST">
+    <textarea name="chat" type="text"></textarea>
+    <button type="submit" class="send-btn"> Send </button>
+</form>
+{% endblock article %}
+
+
+
+{% block tail_js %}  <script src="/static/main.js" async defer></script> {% endblock tail_js%}

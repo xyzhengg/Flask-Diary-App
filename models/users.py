@@ -30,3 +30,10 @@ def isValidEmail(email):
     if email.count('@') == 1 and atindex >=1 and "." in email[atindex:] and dotindex > 1 and postatlen - seconddotindex > 1:
         return True
     return False
+
+def get_user_name(user_id):
+    result = db.sql_select_one(
+    'SELECT first_name FROM users WHERE id = %s', 
+    [user_id]
+    )
+    return result

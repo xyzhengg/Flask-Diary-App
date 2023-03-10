@@ -9,10 +9,11 @@ import calendar
 from cloudinary import CloudinaryImage
 import cloudinary.uploader
 
-from models.users import add_user, get_user_by_email, check_user_exists, get_username_join_diary_users, get_all_username, isValidEmail
+from models.users import add_user, get_user_by_email, check_user_exists, get_username_join_diary_users, get_all_username, isValidEmail, get_user_name
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
 from models.posts import add_entry, get_all_posts, get_single_post, edit_entry, delete_entry, get_all_user_posts
 from models.images import insert_many_images, get_all_images, delete_all_images, get_one_image
+from models.chat import add_chat, get_all_chats
 
 app = Flask(__name__)
 if __name__ == "__main__":
@@ -23,6 +24,49 @@ app.config['SECRET_KEY'] = 'ultra mega secret key for diary'
 def generate_diary_code():
     new_diary_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
     return new_diary_code
+
+@app.route('/<diary_id>/chat', methods=['GET', 'POST'])
+def chat(diary_id):
+    if session.get('user_id') is None:
+        return redirect ('/login')
+    user_id = session.get('user_id')
+    diary_id=session.get('diary_id')
+    user_name = session.get("user_name")
+    users = get_all_username(diary_id)
+    user_one = users[0]['first_name'].capitalize()
+    user_two = users[1]['first_name'].capitalize()
+
+    if request.method == 'GET':
+        data = get_all_chats(diary_id)
+        for chats in data:
+            user_id = chats['user_id']
+            poster = get_user_name(user_id)['first_name'].capitalize()
+            post_time = str(chats['post_time'])
+            print(post_time)
+            datetime_obj = datetime.strptime(post_time, '%Y-%m-%d %H:%M:%S.%f')
+            reversed_date = datetime_obj.strftime('%d-%m-%Y')
+            time = datetime_obj.strftime('%H:%M:%S')
+
+        return render_template ('chat.html',
+                                diary_id = diary_id,
+                                user_name = user_name,
+                                user_one = user_one,
+                                user_two = user_two,
+                                user_id = user_id,
+                                data=data,
+                                reversed_date=reversed_date,
+                                time=time,
+                                poster=poster)
+    
+    if request.method == 'POST':
+        chat = request.form.get('chat')
+        add_chat(chat, user_id, diary_id)
+
+        
+
+        return redirect(f'/{diary_id}/chat')
+
+
 
 @app.get('/<user_name>-posts')
 def view_users_posts(user_name):
