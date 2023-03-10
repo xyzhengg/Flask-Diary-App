@@ -19,7 +19,7 @@ This app was created using Flask, with Python, CSS, HTML, Javascript, and Progre
 7. Added extra function of having a chat 
 
 ## Special features I made
-# Sign Up/Login
+### Sign Up/Login
 1. Email validation - requires certain checks to count as an email
 2. Password check
 3. Check if user is already in the database or not, as each user can only have 1 account
