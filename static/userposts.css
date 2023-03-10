@@ -1,142 +1,139 @@
 nav {
-    max-width: 100%;
-    background-color: purple;
-    height: 60px;
-  }
-  
-  body {
-    margin: auto;
-    font-family: 'Roboto', sans-serif;
-    background-color: rgb(255, 245, 255);
-  }
-  
-  main {
-    max-width: 1100px;
-    margin: auto;
-    margin-top: 50px;
-    font-family: 'Roboto', sans-serif;
-    background-color: rgb(255, 245, 255);
-    position:relative;
-  }
-/* HEADING DISPLAY */
-  h1 {
-    text-align: center;
-    font-size: 80px;
-    font-family: 'Londrina Outline', cursive;
-    color: rgb(97, 0, 97);
-    margin: 10 auto;
-  }
-  .poster-back {
-    display: flex;
-  }
-  .name-of-poster {
-    flex-grow: 2;
-  }
-  /* NAVIGATION BAR STYLING */
-  .navigation-bar {
-    display: flex;
-    justify-content: space-between;
-  }
-  .logout {
-    padding: 1.2rem 1.8rem;
-    margin-right: 25px;
-  }
-  .user-one,
-  .user-two,
-  .chat-button {
-    padding: 1.2rem 0;
-    margin-right: 15px;
-  }
-  
-  .user-two a,
-  .user-one a,
-  .chat-button a {
-    color: white;
-  }
+  max-width: 100%;
+  background-color: purple;
+  height: 60px;
+}
 
-  .logout-btn {
-    border-color: white;
-    color: white;
-    padding: 10px 20px;
-    border: 2px solid;
-    border-radius: 2rem;
-  }
-  .logout:hover {
-    transform:scale(1.1);
-  }
-  .home-logo {
-    width: 16%;
-    z-index: 5;
-    padding-left: 25px;
-  }
+body {
+  margin: auto;
+  font-family: "Roboto", sans-serif;
+  background-color: rgb(255, 245, 255);
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  margin-top: 50px;
+  font-family: "Roboto", sans-serif;
+  background-color: rgb(255, 245, 255);
+  position: relative;
+}
+/* HEADING DISPLAY */
+h1 {
+  text-align: center;
+  font-size: 80px;
+  font-family: "Londrina Outline", cursive;
+  color: rgb(97, 0, 97);
+  margin: 10 auto;
+}
+.poster-back {
+  display: flex;
+}
+.name-of-poster {
+  flex-grow: 2;
+}
+/* NAVIGATION BAR STYLING */
+.navigation-bar {
+  display: flex;
+  justify-content: space-between;
+}
+.logout {
+  padding: 1.2rem 1.8rem;
+  margin-right: 25px;
+}
+.user-one,
+.user-two,
+.chat-button {
+  padding: 1.2rem 0;
+  margin-right: 15px;
+}
+
+.user-two a,
+.user-one a,
+.chat-button a {
+  color: white;
+}
+
+.logout-btn {
+  border-color: white;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid;
+  border-radius: 2rem;
+}
+.logout:hover {
+  transform: scale(1.1);
+}
+.home-logo {
+  width: 16%;
+  z-index: 5;
+  padding-left: 25px;
+}
 /* POSTS DISPLAY */
 .no-post-error {
-    font-size: 22px;
-  }
-  .all-posts-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-bottom: 40px;
+  font-size: 22px;
+}
+.all-posts-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
 }
 .post-container {
-    width: 345px;
-    text-align: center;
-    align-items: start;
-    margin: 15px 10px;
-    background-color: white;
-  }
-  .post-container:hover {
-    transform:scale(1.05);
-    transition-duration: 300ms;
-  }
-  
-  .post-image {
-    width: 345px;
-    height: 280px;
-    object-fit: cover;
-  }
-  
-  .display-text{
-    margin-bottom: 10px;
-    width: 345px;
-    height: 85px;
-  }  
-  .entry-heading {
-    text-align: left;
-    margin: 10px 25px 10px 25px;
-  }
+  width: 345px;
+  text-align: center;
+  align-items: start;
+  margin: 15px 10px;
+  background-color: white;
+}
+.post-container:hover {
+  transform: scale(1.05);
+  transition-duration: 300ms;
+}
+
+.post-image {
+  width: 345px;
+  height: 280px;
+  object-fit: cover;
+}
+
+.display-text {
+  margin-bottom: 10px;
+  width: 345px;
+  height: 85px;
+}
+.entry-heading {
+  text-align: left;
+  margin: 10px 25px 10px 25px;
+}
 .diary-text {
-    text-align: left;
-    word-wrap: break-word;
-    white-space: normal;
-    overflow-y: hidden;
-    height: 40px;
-    margin: 10px 25px 10px 25px;
-  }
+  text-align: left;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow-y: hidden;
+  height: 40px;
+  margin: 10px 25px 10px 25px;
+}
 
-  a {
-    text-decoration: none;
-    color: black;
-  }
+a {
+  text-decoration: none;
+  color: black;
+}
 
-  .add-entry-div {
-    position: absolute;
-    top: 850px;
-    left: 900px;
-    box-shadow: 10px grey;
-  }
-  .add-entry-button {
-    padding: 1em 1.5em;
-    background-color: purple;
-    color: rgb(251, 253, 254);
-    font-weight: 600;
-    text-transform: uppercase;
-    border-radius: 1rem;
-    position: fixed;
-    z-index: 10;
-    box-shadow: 1px 3px 15px 5px rgba(0, 0, 0, 0.4);
-  }
-  
-
-  
+.add-entry-div {
+  position: absolute;
+  top: 850px;
+  left: 900px;
+  box-shadow: 10px grey;
+}
+.add-entry-button {
+  padding: 1em 1.5em;
+  background-color: purple;
+  color: rgb(251, 253, 254);
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 1rem;
+  position: fixed;
+  z-index: 10;
+  box-shadow: 1px 3px 15px 5px rgba(0, 0, 0, 0.4);
+}

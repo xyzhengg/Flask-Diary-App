@@ -113,10 +113,10 @@ a {
 
 /* 4 images */
 .photo-4 {
-    width: 49.5%;
-    height: 350px;
-    object-fit: cover;
-  }
+  width: 49.5%;
+  height: 350px;
+  object-fit: cover;
+}
 
 /* One image */
 .photo-1 {

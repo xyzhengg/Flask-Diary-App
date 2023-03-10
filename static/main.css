@@ -6,7 +6,7 @@ nav {
 
 body {
   margin: auto;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: rgb(255, 245, 255);
 }
 
@@ -14,9 +14,9 @@ main {
   max-width: 1100px;
   margin: auto;
   margin-top: 50px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: rgb(255, 245, 255);
-  position:relative;
+  position: relative;
 }
 
 .logout-banner {
@@ -26,13 +26,13 @@ main {
 }
 .welcome-text {
   font-size: 22px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 h1 {
   text-align: center;
   font-size: 110px;
-  font-family: 'Londrina Outline', cursive;
+  font-family: "Londrina Outline", cursive;
   color: rgb(97, 0, 97);
   margin: 10 auto;
 }
@@ -66,7 +66,7 @@ h1 {
   border-radius: 2rem;
 }
 .logout:hover {
-  transform:scale(1.1);
+  transform: scale(1.1);
 }
 .home-logo {
   width: 16%;
@@ -98,10 +98,10 @@ h1 {
 }
 
 .memories-diary-heading {
-    word-wrap: break-word;
-    white-space: normal;
-    width: 180px;
-    text-align: center;
+  word-wrap: break-word;
+  white-space: normal;
+  width: 180px;
+  text-align: center;
 }
 /* No post error */
 .no-post-error {
@@ -219,7 +219,7 @@ a {
   transform: scale(1.05);
   transition-duration: 500ms;
 }
-  
+
 div .metadata {
   display: flex;
   justify-content: space-between;

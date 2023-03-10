@@ -1,7 +1,7 @@
 /* MAIN BODY LAYOUT */
 body {
   margin: auto;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: rgb(255, 245, 255);
 }
 
@@ -9,7 +9,7 @@ main {
   max-width: 900px;
   margin: auto;
   margin-top: 80px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: rgb(255, 245, 255);
   position: relative;
 }
@@ -67,12 +67,12 @@ a {
 
 /* HEADINGS */
 .back-date {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .back-arrow {
-    margin-right: 20px;
-  }
+  margin-right: 20px;
+}
 .date-edit-delete {
   display: flex;
   justify-content: space-between;
@@ -90,17 +90,15 @@ h1 {
   font-size: 25px;
 }
 div .heading {
-
   display: flex;
   justify-content: space-between;
-  
 }
 .firstname {
   font-style: italic;
   margin-bottom: 0;
 }
 .time {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 /* DISPLAY IMAGES */
 /* More than 2 images */
@@ -136,10 +134,10 @@ div .heading {
 
 /* 4 images */
 .photo-4 {
-    width: 49.5%;
-    height: 350px;
-    object-fit: cover;
-  }
+  width: 49.5%;
+  height: 350px;
+  object-fit: cover;
+}
 
 /* One image */
 .photo-1 {

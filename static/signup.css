@@ -1,123 +1,119 @@
 /* MAIN BODY STYLING */
 body {
-    margin: auto;
-    font-family: "Roboto", sans-serif;
-    background-color: rgb(255, 245, 255);
-  }
-  
-  main {
-    max-width: 700px;
-    margin: auto;
-    margin-top: 50px;
-    font-family: "Roboto", sans-serif;
-    background-color: rgb(255, 245, 255);
-    position: relative;
-  }
-  
-  /* NAVIGATION BAR STYLING */
-  nav {
-    max-width: 100%;
-    background-color: purple;
-    height: 60px;
-  }
-  .navigation-bar {
-    display: flex;
-    justify-content: space-between;
-  }
-  .login {
-    padding: 1.2em 1.8em;
-    margin-right: 25px;
-  }
-  .login-btn {
-    border-color: white;
-    color: white;
-    padding: 10px 30px;
-    border: 2px solid;
-    border-radius: 2rem;
-  }
-  .login:hover {
-    transform: scale(1.1);
-  }
-  .home-logo {
-    width: 16%;
-    z-index: 5;
-    padding-left: 25px;
-  }
-  a {
-    text-decoration: none;
-  }
-  
-/* SIGNUP FORM */
-div {
-    margin-bottom: 5px;
-}
-  .signup-div {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-  }
-  .signup-form {
-      width: 550px;
-      height: 800px;
-      background-color: white;
-      border-radius: 2rem;
-      border: 2px solid purple;
-  }
-  form {
-      margin: auto;
-      padding: 20px 60px;
-  }
-  ::placeholder {
-    color: red;
-  }
-  .signup-logo {
-      text-align: center;
-      margin-top: 20px;
-  }
-  .signup-button-div {
-      display: flex;
-      justify-content: center;
-  }
-  .signup-button {
-      background-color: purple;
-      color: white;
-      padding: 10px;
-      width: 100%;
-      border: 2px solid;
-      border-radius: 0.4rem;
-      cursor: pointer;
-      font-size: 18px;
-    }
-  /* div .email-div,
-  div .password-div {
-      margin-top: 15px;
-  } */
-  div .signup-button-div {
-      margin-top: 40px;
-  }
-  label {
-      font-size: 17px;
-  }
-  input {
-      width: 92%;
-      height: 2rem;
-      font-size: 15px;
-      padding: 2px 15px;
-      border-radius: 0.3rem;
-      margin-bottom: 10px;
-      margin-top: 5px;
-  }
-.diary-code-text {
-    margin-top: 0;
-    margin-bottom: 30px;
-    font-size: 14px;
-    color: rgb(89, 88, 88);
+  margin: auto;
+  font-family: "Roboto", sans-serif;
+  background-color: rgb(255, 245, 255);
 }
 
-  .error {
-      font-size: 17px;
-      line-height: 1.5rem;
-      margin-bottom: 30px;
-      color: red;
-  
-  }
+main {
+  max-width: 700px;
+  margin: auto;
+  margin-top: 50px;
+  font-family: "Roboto", sans-serif;
+  background-color: rgb(255, 245, 255);
+  position: relative;
+}
+
+/* NAVIGATION BAR STYLING */
+nav {
+  max-width: 100%;
+  background-color: purple;
+  height: 60px;
+}
+.navigation-bar {
+  display: flex;
+  justify-content: space-between;
+}
+.login {
+  padding: 1.2em 1.8em;
+  margin-right: 25px;
+}
+.login-btn {
+  border-color: white;
+  color: white;
+  padding: 10px 30px;
+  border: 2px solid;
+  border-radius: 2rem;
+}
+.login:hover {
+  transform: scale(1.1);
+}
+.home-logo {
+  width: 16%;
+  z-index: 5;
+  padding-left: 25px;
+}
+a {
+  text-decoration: none;
+}
+
+/* SIGNUP FORM */
+div {
+  margin-bottom: 5px;
+}
+.signup-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.signup-form {
+  width: 550px;
+  height: 800px;
+  background-color: white;
+  border-radius: 2rem;
+  border: 2px solid purple;
+}
+form {
+  margin: auto;
+  padding: 20px 60px;
+}
+::placeholder {
+  color: red;
+}
+.signup-logo {
+  text-align: center;
+  margin-top: 20px;
+}
+.signup-button-div {
+  display: flex;
+  justify-content: center;
+}
+.signup-button {
+  background-color: purple;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: 2px solid;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+div .signup-button-div {
+  margin-top: 40px;
+}
+label {
+  font-size: 17px;
+}
+input {
+  width: 92%;
+  height: 2rem;
+  font-size: 15px;
+  padding: 2px 15px;
+  border-radius: 0.3rem;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+.diary-code-text {
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 14px;
+  color: rgb(89, 88, 88);
+}
+
+.error {
+  font-size: 17px;
+  line-height: 1.5rem;
+  margin-bottom: 30px;
+  color: red;
+}

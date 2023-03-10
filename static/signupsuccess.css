@@ -46,7 +46,6 @@ a {
   text-decoration: none;
 }
 
-
 /* SIGN UP SUCCESS STYLING */
 .success-container {
   display: block;
@@ -67,7 +66,7 @@ h2 {
   text-align: center;
 }
 div .text {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 p {
   font-size: 20px;
@@ -75,19 +74,18 @@ p {
 }
 
 .login-button-div {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-  }
-  .login-button {
-    background-color: purple;
-    color: white;
-    padding: 10px;
-    width: 200px;
-    border: 2px solid;
-    border-radius: 0.4rem;
-    cursor: pointer;
-    font-size: 18px;
-    text-align: center;
-
-  }
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+.login-button {
+  background-color: purple;
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border: 2px solid;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font-size: 18px;
+  text-align: center;
+}
