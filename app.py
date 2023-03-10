@@ -239,7 +239,8 @@ def addentry():
         diary_heading = request.form.get('heading').capitalize()
         diary_text = request.form.get('entry').capitalize()
 
-        entry_id = add_entry(diary_code, user_id, diary_heading, diary_text) 
+        entry_id = add_entry(diary_code, user_id, diary_heading, diary_text)
+        post_id = entry_id['id']
 
         images = request.files.getlist('images')
         if len(images) > 0:
@@ -249,8 +250,7 @@ def addentry():
                     uploaded_image = cloudinary.uploader.upload(image)
                     image_rows.append([uploaded_image['public_id'], uploaded_image['url'], entry_id['id']])
                 insert_many_images(image_rows)
-
-        return redirect(f'/diary/{diary_code}')
+        return redirect(f'/view/{post_id}')
 
 @app.get('/logout')
 def logout():
