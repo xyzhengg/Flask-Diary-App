@@ -19,6 +19,9 @@ Home
 
 {% block heading %} 
 {{ user_one }} & {{ user_two}}
+{% if user_name %}
+  <p class="welcome-text">Welcome {{user_name.capitalize()}}! </p> 
+{% endif %}
 {% endblock heading %}
 
 
@@ -37,10 +40,6 @@ Home
 
 {% block article %}
 <p class="no-post-error">{{ no_post_error }}</p>
-
-{% if user_name %}
-  <p class="welcome-text">Welcome {{user_name.capitalize()}}! </p> 
-{% endif %}
 
 {% for date in sorted_posts %}
 <div class="carousel posts{{ sorted_posts[date]|length }}" id="{{ date }}">

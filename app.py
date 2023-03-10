@@ -8,10 +8,6 @@ from datetime import datetime
 import calendar
 from cloudinary import CloudinaryImage
 import cloudinary.uploader
-import mistletoe
-
-# with open('foo.md', 'r') as fin:
-#     rendered = mistletoe.markdown(fin)
 
 from models.users import add_user, get_user_by_email, check_user_exists, get_username_join_diary_users, get_all_username
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary

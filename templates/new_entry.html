@@ -11,32 +11,35 @@
 Add Entry
 {% endblock title %}
 
-{% block heading %} 
-{% endblock heading %}
-
 {% block login_signup %} 
  {{ super() }}
 {% endblock login_signup %}
 
 {% block article %}
+<div class="heading">
+  <div class="back-arrow">
+    <a href="/"><img src="/static/images/back.png" alt="back" width="30px"></a>
+  </div>
+  <div class="add-entry-heading">
+   <h2> Create Entry </h2>
+  </div>
+</div>
+
+<div class="form">
 <form action="/addentry" method="POST" enctype="multipart/form-data">
-
-    
-
-    <!-- <label for="photo">Upload photo</label>
-    <input name="photo" type="text"></input>
-    </br> -->
-
-    <label for="heading">Enter Heading</label>
+    <div class="heading-input-div">
+    <label for="heading">Heading</label> </br>
     <input name="heading" type="text" maxlength="25">
-    </br>
+    </div>
 
-    <label for="entry">Enter text</label>
-    <input name="entry" type="text">
-    </br>
+    <div class="entry-div">
+    <label for="entry">Text</label> </br>
+    <textarea name="entry" type="text"></textarea>
+    </div>
 
-    <input type="file" name="images" multiple/> </br>
+    <input type="file" name="images" multiple/>
 
-    <input type="image" name="submit" src="/static/images/checkmark.png" width="30px">
+    <button type="submit" class="submit-btn"> Submit</button>
 </form>
+</div>
 {% endblock article %}

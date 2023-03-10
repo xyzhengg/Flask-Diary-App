@@ -15,15 +15,31 @@ Edit
 {% endblock login_signup %}
 
 
-
 {% block article %}
-<div class="display-images images-{{ image_list | length }}">
-    {% for image in image_list %}
-    <img src="{{ image['img_url'] }}" alt="photo" class="edit-photo-display">
-    {% endfor %}
+<div class="heading">
+  <div class="back-edit">
+    <div class="back-arrow">
+      <a href="/view/{{ post_id }}"><img src="/static/images/back.png" alt="back" width="30px"></a>
+    </div>
+    <div class="edit-entry-heading">
+     <h2> Edit Entry </h2>
+    </div>
+  </div>
+  <div class="div-delete-images">
+    <button type="submit" class="delete-all-images"> Delete All Images </button>
+  </div>
 </div>
 
-<button type="submit" class="delete-all-images"> Delete All Images </button>
+<div class="display-images images-{{ image_list | length }}">
+  {% if image_list %}
+      {% for image in image_list %}
+  <img src="{{ image['img_url'] }}" alt="photo" class="edit-photo photo-{{ image_list | length }}">
+      {% endfor %}
+  {% else %}
+  <img src="https://res.cloudinary.com/ddg0iss6e/image/upload/v1678273766/Screen_Shot_2023-03-08_at_10.08.54_pm_yz0hez.png" alt="photo">
+  {% endif %}
+</div>
+
 
 <div class="the-delete-images">
   <div class="delete-images">
@@ -39,38 +55,31 @@ Edit
 
 <form class="edit-form" action="/edit/{{ post_id }}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="post_id" value="{{ post_id }}">
-    <!-- <img class="edit-photo-display" src="{{ img_url }}" alt="photo"> </br> -->
-    <input class="fav-checkbox" type="checkbox" name="fav">
-    
-    <label for="date"> Date </label> </br>
-    <input type="date" name="date" value="{{ post_date }}">
-    </br>
 
-    <label for="time"> Time </label> </br>
-    <input type="time" name="time" value="{{ post_time }}">
-    </br>
+    <!-- <input class="fav-checkbox" type="checkbox" name="fav"> -->
+    <div class="date-time">
+      <div class="date">
+        <label for="date"> Date </label> </br>
+        <input type="date" name="date" value="{{ post_date }}">
+      </div>
+      <div class="time">
+        <label for="time"> Time </label> </br>
+        <input type="time" name="time" value="{{ post_time }}">
+      </div>
+    </div>
 
-    <label for="heading">Edit heading</label> </br>
+    <label for="heading">Heading</label> </br>
     <input class="heading-text" name="heading" type="text" value="{{ diary_heading }}" maxlength="25"></input>
     </br>
 
-    <label for="entry">Edit text</label> </br>
+    <label for="entry">Text</label> </br>
     <textarea class="entry-text" name="entry" type="text"> {{ diary_text }} </textarea>
     </br>
 
     <input name="images" class="edit-multi-images" type="file" multiple>
     </br>
 
-    <input class="submit-edit" type="image" name="submit" src="/static/images/checkmark.png" width="30px">
-
-    <div class="the-edit">
-        <div class="edit">
-            <span class="close-edit">&times;</span>
-            <p> Save changes? </p>    
-            <button type="submit" class="confirm-edit-btn"> Save </button>
-        </div>
-    </div>
-
+    <button type="submit-edit" class="submit-btn"> Submit</button>
 </form>
 
 {% endblock article %}

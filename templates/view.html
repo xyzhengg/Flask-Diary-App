@@ -33,8 +33,13 @@ View
 {% block article %}
 <div>
   <div class="date-edit-delete">
-    <div class="date">
-      <h1> {{ full_date }} </h1>
+    <div class="back-date">
+      <div class="back-arrow">
+        <a href="/"><img src="/static/images/back.png" alt="back" width="30px"></a>
+      </div>
+      <div class="date">
+        <h1> {{ full_date }} </h1>
+      </div>
     </div>
     <div class="edit-delete">
       {% if user_id == poster_id %}
