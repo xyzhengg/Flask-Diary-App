@@ -1,4 +1,4 @@
-### Flask-Diary-App
+# Flask-Diary-App
 
 ## About the app
 This app was created with the purpose of connecting couples in long distance relationships, or who are 
@@ -27,25 +27,25 @@ This app was created using Flask, with Python, CSS, HTML, Javascript, and Progre
 5. Checks if diary code is valid
 6. Checks for incomplete fields
 
-# Main Page
+### Main Page
 1. Memories section shows 4 posts, but if you have elss than 4, it will just show the number of posts you have
 2. Check for if you have any posts - if not, will ask you to create one
 3. Same check applies in section where you view only your posts
 4. Posts display based on date
 5. Depending on how many posts there are for the day, the display changes/layout changes 
 
-# View Post
+### View Post
 1. Depending on how many images there are, the layout changes
 2. If you are the writer of the post and you're the one signed in, you have rights to edit or delete the post. You cannot do this to the other person's post
 
-# Edit Post
+### Edit Post
 1. Adding files allows you to append more images
 2. Can delete all images by pressing the "Delete all images" button
 
-# View Single User Posts
+### View Single User Posts
 1. If you're the signed in user and you have no posts, your page will allow you to create an entry. If you are viewing the other persons page, that button will not show
 
-# Chat Function
+### Chat Function
 1. If you're the one signed in, your chat bubble will appear on the right
 2. Page auto-scrolls down as message list can get very long. Nav bar stays pinned at the top to easily navigate away
 
