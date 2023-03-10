@@ -60,7 +60,7 @@ def edit_post(post_id):
     entry_id = post['id']
     image_list = get_all_images(entry_id)
 
-    diary_heading = post['diary_heading']
+    diary_heading = post['diary_heading'].capitalize()
     diary_text = post['diary_text']
 
     if request.method == 'GET':
@@ -95,8 +95,8 @@ def edit_post(post_id):
         new_timedate = datetime.strptime(new_timedate_str, '%Y-%m-%d %H:%M')
 
         images = request.files.getlist('images')
-        new_heading = request.form.get('heading')
-        new_text = request.form.get('entry')
+        new_heading = request.form.get('heading').capitalize()
+        new_text = request.form.get('entry').capitalize()
 
         post_id = edit_entry(new_heading, new_text, fav, new_timedate, post_id)
         # delete_all_images(post_id)
@@ -121,7 +121,7 @@ def view_post(post_id):
     post = get_single_post(post_id)
     poster_id = post['user_id']
     diary_heading = post['diary_heading'].capitalize()
-    diary_text = post['diary_text']
+    diary_text = post['diary_text'].capitalize()
 
     entry_id = post['id']
     image_list = get_all_images(entry_id)
@@ -233,13 +233,15 @@ def index(diary_id):
 def addentry():
     if session.get('user_id') is None:
         return redirect ('/login')
+    user_name = session.get('user_name')
     if request.method == 'GET':
-        return render_template('new_entry.html')
+        return render_template('new_entry.html',
+                               user_name=user_name)
     if request.method == 'POST':
         diary_code = session.get('diary_id')
         user_id = session.get('user_id')
-        diary_heading = request.form.get('heading')
-        diary_text = request.form.get('entry')
+        diary_heading = request.form.get('heading').capitalize()
+        diary_text = request.form.get('entry').capitalize()
 
         entry_id = add_entry(diary_code, user_id, diary_heading, diary_text) 
 
@@ -254,7 +256,7 @@ def addentry():
 
         return redirect(f'/diary/{diary_code}')
 
-@app.post('/logout')
+@app.get('/logout')
 def logout():
     session.pop('user_id')
     session.pop('user_name')

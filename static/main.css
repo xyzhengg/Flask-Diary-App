@@ -6,7 +6,7 @@ nav {
 
 body {
   margin: auto;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: rgb(255, 245, 255);
 }
 
@@ -14,7 +14,7 @@ main {
   max-width: 1100px;
   margin: auto;
   margin-top: 80px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: rgb(255, 245, 255);
   position:relative;
 }
@@ -30,7 +30,9 @@ main {
 
 h1 {
   text-align: center;
-  font-size: 50px;
+  font-size: 110px;
+  font-family: 'Londrina Outline', cursive;
+  color: rgb(97, 0, 97);
 }
 
 /* NAVIGATION BAR STYLING */
