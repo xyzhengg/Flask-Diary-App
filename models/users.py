@@ -19,7 +19,7 @@ def get_username_join_diary_users(user_id):
     return user
 
 def get_all_username(diary_id):
-    users = db.sql_select('SELECT first_name FROM users WHERE diary_code=%s', [diary_id])
+    users = db.sql_select('SELECT first_name, id FROM users WHERE diary_code=%s', [diary_id])
     return users
 
 def isValidEmail(email):

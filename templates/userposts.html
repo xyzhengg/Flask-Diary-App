@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block head_css %} 
+<link rel="stylesheet" href="/static/userposts.css"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Londrina+Outline&family=Roboto:wght@100;300;400;700&display=swap" rel="stylesheet">
+{% endblock head_css %}
+
+
+{% block title %}
+Posts
+{% endblock title %}
+
+
+{% block login_signup %}
+    {{ super() }}
+{% endblock login_signup %}
+
+{% block heading %} 
+<div class="poster-back">
+    <div class="back-arrow">
+        <a href="/"><img src="/static/images/back.png" alt="back" width="30px"></a>
+    </div>
+
+    <div class="name-of-poster">
+    {{ display_name}}'s Posts    
+    </div>
+</div>
+
+{% endblock heading %}
+
+{% block article %}
+<p class="no-post-error">{{ no_post_error }}</p>
+
+<div class="all-posts-container">
+    {% for posts in data %}
+    <a href="/view/{{ posts['id'] }}">
+    <div class="post-container">
+      <div class="post-image-div">
+      {% if posts['img']['images'] %}
+      <img src="{{ posts['img']['images'][0]['img_url'] }}" class="post-image" alt="photo">
+      {% else %}
+      <img src="https://res.cloudinary.com/ddg0iss6e/image/upload/v1678273766/Screen_Shot_2023-03-08_at_10.08.54_pm_yz0hez.png" alt="photo" class="post-image">
+      {% endif %}
+      </div>
+      <div class="display-text">
+      <h3 class="entry-heading "> {{ posts['diary_heading'] }}</h3>
+      <p class="diary-text"> {{ posts['diary_text'] }} </p>
+      </div>
+    </div>
+    </a>
+    {% endfor %}
+</div>
+
+{% endblock article %}
+
+{% block tail_js %}  <script src="/static/main.js" async defer></script> {% endblock tail_js%}
+

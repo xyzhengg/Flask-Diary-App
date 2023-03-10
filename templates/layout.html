@@ -17,6 +17,13 @@
         {% if user_name %}
         <div class="navigation-bar">
           <a href="/" ><img src='/static/images/Logo.png' alt="logo for home page" class="home-logo"></a>
+          <div class="user-one">
+            <a href="/{{ user_one}}-posts"> {{ user_one}}'s Posts</a>
+          </div>
+          <div class="user-two">
+            <a href="/{{ user_two}}-posts"> {{ user_two}}'s Posts</a>
+          </div>
+          
           <div class="logout">
           <a href="/logout" class="logout-btn"> Logout </a>
           </div>

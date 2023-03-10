@@ -13,15 +13,11 @@ main {
   background-color: rgb(255, 245, 255);
   position: relative;
 }
-
-/* h1 {
-    text-align: center;
-    font-size: 110px;
-    font-family: 'Londrina Outline', cursive;
-    color: rgb(97, 0, 97);
-    margin: 10 auto;
-  } */
-
+.doggo {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
 /* NAVIGATION BAR STYLING */
 nav {
   max-width: 100%;

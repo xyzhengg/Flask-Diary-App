@@ -48,6 +48,9 @@ body {
   }
   
 /* SIGNUP FORM */
+div {
+    margin-bottom: 5px;
+}
   .signup-div {
       display: flex;
       flex-direction: row;
@@ -85,29 +88,36 @@ body {
       cursor: pointer;
       font-size: 18px;
     }
-  div .email-div,
+  /* div .email-div,
   div .password-div {
       margin-top: 15px;
-  }
+  } */
   div .signup-button-div {
       margin-top: 40px;
   }
   label {
-      font-size: 18px;
+      font-size: 17px;
   }
   input {
-      width: 98%;
+      width: 92%;
       height: 2rem;
       font-size: 15px;
       padding: 2px 15px;
       border-radius: 0.3rem;
-      margin: 10px auto 15px auto;
-  }
-  input[name="password"] {
       margin-bottom: 10px;
+      margin-top: 5px;
   }
-  .passworderror {
+.diary-code-text {
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 14px;
+    color: rgb(89, 88, 88);
+}
+
+  .error {
       font-size: 17px;
       line-height: 1.5rem;
+      margin-bottom: 30px;
+      color: red;
   
   }

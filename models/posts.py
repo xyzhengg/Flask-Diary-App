@@ -32,3 +32,9 @@ def delete_entry(post_id):
         'DELETE FROM entries WHERE id=%s',
         [post_id]
     )
+def get_all_user_posts(user_id):
+    data = db.sql_select(
+        'SELECT * FROM entries WHERE user_id = %s ORDER BY post_time DESC',
+        [user_id]
+    )
+    return data

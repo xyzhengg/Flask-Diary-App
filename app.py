@@ -11,7 +11,7 @@ import cloudinary.uploader
 
 from models.users import add_user, get_user_by_email, check_user_exists, get_username_join_diary_users, get_all_username, isValidEmail
 from models.diary import check_diary_code_exist, add_email_2_to_diary, check_new_diary_code_exist, check_email_2_exists, add_email_1_to_diary
-from models.posts import add_entry, get_all_posts, get_single_post, edit_entry, delete_entry
+from models.posts import add_entry, get_all_posts, get_single_post, edit_entry, delete_entry, get_all_user_posts
 from models.images import insert_many_images, get_all_images, delete_all_images, get_one_image
 
 app = Flask(__name__)
@@ -23,6 +23,42 @@ app.config['SECRET_KEY'] = 'ultra mega secret key for diary'
 def generate_diary_code():
     new_diary_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
     return new_diary_code
+
+
+@app.get('/<user_name>-posts')
+def view_users_posts(user_name):
+    if session.get('user_id') is None:
+        return redirect ('/login')
+    diary_id=session.get('diary_id')
+    users = get_all_username(diary_id)
+    user_one = users[0]['first_name'].capitalize()
+    user_two = users[1]['first_name'].capitalize()
+    user_one_id = users[0]['id']
+    user_two_id = users[1]['id']
+
+    if user_name.lower() == user_one.lower():
+        data = get_all_user_posts(user_one_id)
+        display_name = user_one
+    if user_name.lower() == user_two.lower():
+        data = get_all_user_posts(user_two_id)
+        display_name = user_two
+
+    for posts in data:
+        diary_heading = posts['diary_heading'].capitalize()
+        post_id = posts['id']
+        image_list = get_all_images(post_id)
+        posts['img'] = {'images': image_list}
+
+    return render_template('userposts.html',
+                        user_name=user_name,
+                        diary_heading=diary_heading,
+                        image_list=image_list,
+                        posts=posts,
+                        data=data,
+                        user_one=user_one,
+                        user_two=user_two,
+                        display_name = display_name)
+
 
 @app.post('/delete-images')
 def delete_images():
@@ -299,27 +335,26 @@ def signup():
         passwordcheck = request.form.get('passwordcheck')
         password_hash = generate_password_hash(password)
         diarycode = ''.join(request.form.get('diarycode')).upper()
-        
 
-        if firstname == False or lastname == False or password == False:
+        if not firstname or not lastname or not password or not email:
             incomplete_field = "Required fields not complete."
-            return render_template('signup.html', incomplete_field=incomplete_field)
-        if firstname == True and lastname == True:
+            return render_template('signup.html', 
+                                incomplete_field=incomplete_field)
+        if firstname and lastname:
             if len(firstname) > 25 or len(lastname) > 25:
                 name_error = "Name too long, please try again"
-            return render_template('signup.html', name_error = name_error)
-            
+                return render_template('signup.html', 
+                                    name_error = name_error)
         if check_user_exists(email):
-            account_exists_error = "You already have an account. Please sign in"
+            account_exists_error = "You have an existing account. Please login."
             return render_template('signup.html', account_exists_error = account_exists_error)
-        if isValidEmail(email) == False:
+        if not isValidEmail(email):
             invalid_email_error = "Invalid email. Try again."
             return render_template('signup.html', invalid_email_error = invalid_email_error)
-        
         if password != passwordcheck:
             error = "Passwords do not match. Please try again."
             return render_template('signup.html', error = error)
-        
+            
         if len(diarycode) == 0:
             new_diary_code = generate_diary_code()
             while check_new_diary_code_exist(new_diary_code):
@@ -327,11 +362,9 @@ def signup():
             diarycode = new_diary_code
             add_user(firstname, lastname, email, password_hash, diarycode)
             add_email_1_to_diary(diarycode, email)
-
             return render_template('signupsuccess.html', 
                                 firstname = firstname,
                                 diarycode = diarycode)
-
         if len(diarycode) == 8:
             if check_diary_code_exist(diarycode) and check_email_2_exists(email) == False:
                 add_user(firstname, lastname, email, password_hash, diarycode)
@@ -342,9 +375,9 @@ def signup():
             else:
                 email_2_error = "Cannot add you to the diary. Please contact owner"
                 return render_template('signup.html', email_2_error = email_2_error)
-                
+                    
         elif len(diarycode) != 8 and len(diarycode) != 0:
             diarycode_error = "Your diary code does not exist. Please try again"
             return render_template('signup.html', diarycode_error = diarycode_error)
-
+            
     return render_template('signup.html')
