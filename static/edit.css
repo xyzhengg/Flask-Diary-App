@@ -24,6 +24,7 @@ main {
 }
 .logout {
   padding: 1.2em 1.8em;
+  margin-right: 25px;
 }
 .logout-btn {
   border-color: white;
