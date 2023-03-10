@@ -128,7 +128,7 @@ def edit_post(post_id):
         new_date = request.form.get('date')
         new_time = request.form.get('time')
         new_timedate_str = f"{new_date} {new_time}"
-        print(new_timedate_str)
+        # print(new_timedate_str)
         new_timedate = datetime.strptime(new_timedate_str, '%Y-%m-%d %H:%M')
 
         images = request.files.getlist('images')
@@ -136,7 +136,6 @@ def edit_post(post_id):
         new_text = request.form.get('entry').capitalize()
 
         post_id = edit_entry(new_heading, new_text, fav, new_timedate, post_id)
-        # delete_all_images(post_id)
         
         if len(images) > 0:
             image_rows = []
@@ -302,7 +301,7 @@ def addentry():
                 if image.filename != '': 
                     uploaded_image = cloudinary.uploader.upload(image)
                     image_rows.append([uploaded_image['public_id'], uploaded_image['url'], entry_id['id']])
-                insert_many_images(image_rows)
+            insert_many_images(image_rows)
         return redirect(f'/view/{post_id}')
 
 @app.get('/logout')

@@ -28,36 +28,77 @@ Login
 
 
 {% block article %}
-<div class="login-div">
-  <div class="main-image">
-    <img src='/static/images/doggo.avif' alt="doggo imagen" class="doggo">
-  </div>
-    
-    <div class="login-form">
-    <div class="login-logo">
-        <img src='/static/images/logo-white.png' alt="logo for login" class="logo" width= "230px">
-    </div>    
-    <form action="/login" method="POST">
-        <div class="email-div">
-        <label for="email">Email</label></br>
-        <input name="email" type="text"></input>
+<div class="whole-page-container">
+  <div class="div-one">
+    <div class="div-one-image">
+    <div class="login-div">
+      <div class="app-description">
+        <h1> Join us in the Joinary App </h1>
+        <ul>
+          <li> Allows a maximum of two users to share this diary </li>
+          <li> Share this diary with your partner or best friend</li>
+          <li> View just your own, or just your partner's posts </li>
+          <li> Chat function included so you can stay in touch </li>
+          <li> Keep each other in the loop with all your daily adventures </li>
+          <li> Never miss out on each others milestones and events </li>
+        </ul>
+        <div class="div-one-signup">
+          <a href="/signup" class="div-signup"> Sign Up </a>
         </div>
+      </div>
+      <div class="login-form">
+        <div class="login-logo">
+          <img src='/static/images/logo-white.png' alt="logo for login" class="logo" width= "230px">
+        </div>    
+        <form action="/login" method="POST">
+          <div class="email-div">
+            <label for="email">Email</label></br>
+            <input name="email" type="text"></input>
+          </div>
 
-        <div class="password-div">
-        <label for="password">Password</label></br>
-        <input name="password" type="password"></input>
-        </div>
+          <div class="password-div">
+            <label for="password">Password</label></br>
+            <input name="password" type="password"></input>
+          </div>
         
-        {% if login_error %}
-        <p class="passworderror"> {{ login_error }}</p>
-        {% endif %}
+          {% if login_error %}
+            <p class="passworderror"> {{ login_error }}</p>
+          {% endif %}
 
-        <div class="login-button-div">
-        <button type="submit" class="login-button">Login</button>
-        </div>
-        
-    </form>
+          <div class="login-button-div">
+            <button type="submit" class="login-button">Login</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
+  <div class="div-two">
+    <div class="div-two-image">
+      <img src="/static/images/posts-display-preview.png" alt="image of app">
+    </div>
+    <div class="div-two-text">
+      <h2> View each others entries sorted by day </h2>
+      <ul>
+        <li> Combined view of diary entries </li>
+        <li> Beautifully laid out with photos on display </li>
+        <li> Enjoy a preview of the entry </li>
+        <li> Never miss a moment </li>
+      </ul>
+    </div>
+  </div>
+  <div class="div-three">
+    <div class="div-three-text">
+      <h2> Reminisce precious memories </h2>
+      <ul>
+        <li> Check out randomly selected memories </li>
+        <li> Refreshed on each reload </li>
+        <li> Never forget a moment </li>
+      </ul>
+    </div>
+    <div class="div-three-image">
+      <img src="/static/images/memories-preview.png" alt="image of app">
+    </div>
+  </div>
 </div>
 
 {% endblock article %}

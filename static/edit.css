@@ -82,17 +82,14 @@ a {
 
 /* DISPLAY IMAGES */
 /* More than 2 images */
-.display-post {
-  display: flex;
-  flex-direction: column;
-}
+
 .display-images {
   flex-direction: row;
   width: 900px;
   align-items: start;
   padding: 0;
 }
-.viewphoto {
+.edit-photo {
   width: 32.5%;
   height: 300px;
   object-fit: cover;
