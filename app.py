@@ -192,7 +192,8 @@ def edit_post(post_id):
             image_list = image_list,
             user_name=user_name,
             user_one=user_one,
-            user_two=user_two)
+            user_two=user_two,
+            diary_id = diary_id)
 
 
     if request.method == 'POST':
@@ -252,7 +253,6 @@ def view_post(post_id):
     month_name = calendar.month_name[month]
     full_date = str(date) + ' ' + month_name + ' ' + str(year) +  ', ' + day_name 
            
-
     return render_template('view.html',
                     user_id = user_id,
                     user_name = user_name,
@@ -267,7 +267,8 @@ def view_post(post_id):
                     image_list=image_list,
                     full_date = full_date,
                     user_one = user_one,
-                    user_two=user_two
+                    user_two=user_two,
+                    diary_id = diary_id
                     )
 
 @app.route('/')
