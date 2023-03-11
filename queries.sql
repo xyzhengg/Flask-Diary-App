@@ -24,6 +24,9 @@ DELETE FROM messages WHERE user_id = 4;
 DELETE FROM images WHERE entry_id IN (SELECT id FROM entries WHERE user_id = 29);
 DELETE FROM images WHERE entry_id IN (SELECT id FROM entries WHERE user_id = 4);
 
-DELETE FROM users WHERE id =32;
+DELETE FROM users WHERE id =35;
+
+
+DELETE FROM diary WHERE id =30;
 
 DELETE email_2 from diary WHERE email_2 = fluffy@heyhey.com;
