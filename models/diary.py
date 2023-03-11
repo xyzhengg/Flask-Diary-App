@@ -2,24 +2,24 @@ import db
 
 def check_diary_code_exist(diarycode):
     result = db.sql_select_one(
-        'SELECT * FROM diary WHERE diary_code =%s',
+        'SELECT diary_code FROM diary WHERE diary_code =%s',
         [diarycode]
     )
-    return bool(result)
+    return result['diary_code']
 
 def check_new_diary_code_exist(new_diary_code):
     result = db.sql_select_one(
         'SELECT * FROM diary WHERE diary_code =%s',
         [new_diary_code]
     )
-    return bool(result)
+    return result
 
-def check_email_2_exists(email):
+def check_email_2_exists(diarycode):
     result = db.sql_select_one(
-        'SELECT * FROM diary WHERE email_2 =%s',
-        [email]
+        'SELECT email_2 FROM diary WHERE diary_code = %s',
+        [diarycode]
     )
-    return bool(result)
+    return result['email_2']
 
 def add_email_2_to_diary(email, diarycode):
     db.sql_write(

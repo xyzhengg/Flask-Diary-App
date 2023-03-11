@@ -35,7 +35,7 @@ def chat(diary_id):
     users = get_all_username(diary_id)
     user_one = users[0]['first_name'].capitalize()
     user_two = ""
-    if len(users) == 2:
+    if len(users) > 1:
         user_two = users[1]['first_name'].capitalize()
 
     if request.method == 'GET':
@@ -83,7 +83,7 @@ def view_users_posts(user_name):
     display_name= ""
     data=[]
 
-    if len(users) == 2:
+    if len(users) > 1:
         user_two = users[1]['first_name'].capitalize()
         user_two_id = users[1]['id']
     if user_name.lower() == user_one.lower():
@@ -155,7 +155,7 @@ def edit_post(post_id):
     users = get_all_username(diary_id)
     user_one = users[0]['first_name'].capitalize()
     user_two = ""
-    if len(users) == 2:
+    if len(users) > 1:
         user_two = users[1]['first_name'].capitalize()
     user_name = session.get('user_name')
     post = get_single_post(post_id)
@@ -229,7 +229,7 @@ def view_post(post_id):
     users = get_all_username(diary_id)
     user_one = users[0]['first_name'].capitalize()
     user_two = ""
-    if len(users) == 2:
+    if len(users) > 1:
         user_two = users[1]['first_name'].capitalize()
     
     post = get_single_post(post_id)
@@ -287,7 +287,7 @@ def index(diary_id):
     users = get_all_username(diary_id)
     user_one = users[0]['first_name'].capitalize()
     user_two = ""
-    if len(users) == 2:
+    if len(users) > 1:
         user_two = users[1]['first_name'].capitalize()
     data = get_all_posts(diary_id)
 
@@ -361,7 +361,7 @@ def addentry():
         users = get_all_username(diary_id)
         user_one = users[0]['first_name'].capitalize()
         user_two = ""
-        if len(users) == 2:
+        if len(users) > 1:
             user_two = users[1]['first_name'].capitalize()
         return render_template('new_entry.html',
                                user_name=user_name,
@@ -455,7 +455,7 @@ def signup():
             
         if len(diarycode) == 0:
             new_diary_code = generate_diary_code()
-            while check_new_diary_code_exist(new_diary_code):
+            while check_new_diary_code_exist(new_diary_code) is not None:
                 new_diary_code = generate_diary_code()
             diarycode = new_diary_code
             add_user(firstname, lastname, email, password_hash, diarycode)
@@ -464,7 +464,9 @@ def signup():
                                 firstname = firstname,
                                 diarycode = diarycode)
         if len(diarycode) == 8:
-            if check_diary_code_exist(diarycode) and check_email_2_exists(email) == False:
+            if check_diary_code_exist(diarycode) is not None and check_email_2_exists(diarycode) is None:
+                print(check_diary_code_exist(diarycode))
+                print(check_email_2_exists(diarycode))
                 add_user(firstname, lastname, email, password_hash, diarycode)
                 add_email_2_to_diary(email, diarycode)
                 return render_template('signupsuccess.html', 
