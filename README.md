@@ -9,7 +9,7 @@ It allows two users to contribute to a shared diary so they can stay connected w
 If you would prefer though, you can also use the app as a single contributer. 
 
 ## Explanations of the technologies used
-This app was created using Flask, with Python, CSS, HTML, Javascript, and Progresql
+This app was created using Flask, with Python, CSS, HTML, Javascript, and PostgreSQL
 
 ## The approach taken
 1. Began with simply setting up sign up and login pages
