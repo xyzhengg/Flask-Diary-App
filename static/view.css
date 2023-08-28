@@ -172,13 +172,13 @@ div .heading {
   display: none;
   background-color: white;
   margin: auto;
-  margin-top: 30%;
+  margin-top: 20%;
   padding: 30px;
   border: none;
   width: 30%;
-  height: 12%;
+  height:18%;
   border-radius: 2rem;
-  margin-bottom: 40px;
+  /* margin-bottom: 500px; */
 }
 
 .delete p {
