@@ -9,6 +9,7 @@ main {
   max-width: 700px;
   margin: auto;
   margin-top: 80px;
+  margin-bottom: 80px;
   font-family: "Roboto", sans-serif;
   background-color: rgb(255, 245, 255);
   position: relative;
